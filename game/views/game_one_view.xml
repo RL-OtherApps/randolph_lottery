@@ -1,0 +1,35 @@
+<odoo>
+    <template id="game_one" name="Game One">
+        <t t-name="website.game_one">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure">
+                    <script type="text/javascript" src="/game/static/src/js/script.js"/>-->
+                    <sections>
+                        <h1>Great lottery</h1>
+                        <p>Win a million!</p>
+                        <article class="lotto">
+                            <h3>Cross out 6 numbers:</h3>
+                        </article>
+                        <div>
+                            <div class="cyfral" id="l1"></div>
+                            <div class="cyfral" id="l2"></div>
+                            <div class="cyfral" id="l3"></div>
+                            <div class="cyfral" id="l4"></div>
+                            <div class="cyfral" id="l5"></div>
+                            <div class="cyfral" id="l6"></div>
+                        </div>
+                    </sections>
+                    <script type="text/javascript" src="/game/static/src/js/script.js"/>
+                    <link href="https://fonts.googleapis.com/css?family=Allerta|Bungee" rel="stylesheet"/>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="assets_frontends" name="game assets" inherit_id="web.assets_frontend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/game/static/src/scss/style.scss"/>
+        </xpath>
+    </template>
+
+</odoo>

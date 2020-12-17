@@ -19,153 +19,39 @@
         <field name="sequence">57</field>
     </record>
 
-    <template id="game_one" name="Game One">
-        <t t-name="website.game_one">
-            <t t-call="website.layout">
-                <div id="wrap" class="oe_structure"
-                     style="background-image:url(/game/static/src/background_luckzone.png)">
-                    <img class="logo" src="/game/static/src/powerball-logo-shade-color.png" alt="powerball"
-                         width="300"/>
-                    <br/>
-                    <div id="container2">
-                        <input id="guess1" type="text" name="firstDigit"></input>
-                        <input id="guess2" type="text" name="secondDigit"></input>
-                        <input id="guess3" type="text" name="thirdDigit"></input>
-                        <input id="guess4" type="text" name="fourthDigit"></input>
-                        <input id="guess5" type="text" name="fifthDigit"></input>
-                        <input id="guess6" type="text" name="sixthDigit"></input>
-                        <input id="guess7" type="text" name="seventhDigit"></input>
-                    </div>
-                    <br/>
-                    <br/>
-                    <div id="container">
-                        <div id="test1"></div>
-                        <div id="test2"></div>
-                        <div id="test3"></div>
-                        <div id="test4"></div>
-                        <div id="test5"></div>
-                        <div id="test6"></div>
-                        <div id="test7"></div>
-                    </div>
-                    <br/>
-                    <br/>
-                    <div id="container3">
-                        <input class="playBtn" type="button" value="Play Game" onclick="playGame()"/>
-                    </div>
-                    <div id="winner"></div>
-                    <script type="text/javascript" src="/game/static/src/js/script.js"/>
-                </div>
-            </t>
-        </t>
-    </template>
-
-    <template id="game_two" name="Game Two">
-        <t t-name="website.game_two">
-            <t t-call="website.layout">
-                <div id="wrap" class="oe_structure"
-                     style="background-image:url(/game/static/src/background_luckzone.png)">
-                    <link
-                            rel="stylesheet"
-                            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-                            integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-                            crossorigin="anonymous"
-                    />
-                    <link
-                            rel="stylesheet"
-                            href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-                            integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
-                            crossorigin="anonymous"
-                    />
-                    <br/>
-                    <div class="container center rounded shadow-lg">
-                        <img class="img-fluid" src="/game/static/src/lotto.svg" style="width:50%;"/>
-                        <div class=" my-4" id="cyfry"></div>
-                        <div class="h4" id="napis"></div>
-
-                        <div>
-                            <div class="cyfral" id="l1"></div>
-                            <div class="cyfral" id="l2"></div>
-                            <div class="cyfral" id="l3"></div>
-                            <div class="cyfral" id="l4"></div>
-                            <div class="cyfral" id="l5"></div>
-                            <div class="cyfral" id="l6"></div>
-                        </div>
-                        <button id="przyc" class="m-2 btn btn-dark" onclick="spr()" type="button">
-                            Check if you win!
-                        </button>
-                        <button class="m-2 btn btn-dark" onClick="window.location.reload()">
-                            Again
-                        </button>
-                        <div class="container" id="alfabet"></div>
-                    </div>
-                    <script type="text/javascript" src="/game/static/src/js/script2.js"/>
-                </div>
-            </t>
-        </t>
-    </template>
-
-
-    <!--        <template id="game_one" name="Game One">-->
-    <!--            <t t-name="website.game_one">-->
-    <!--                <t t-call="website.layout">-->
-    <!--                    <div id="wrap" class="oe_structure">-->
-    <!--                            <script type="text/javascript" src="/game/static/src/js/three.js"/>-->
-    <!--                            <script type="text/javascript" src="/game/static/src/js/tweenmax.js"/>-->
-    <!--                            <script type="text/javascript" src="/game/static/src/js/game.js"/>-->
-    <!--                        <div id="world"/>-->
-    <!--                        <div id="gameoverInstructions">-->
-    <!--                            Game Over-->
-    <!--                        </div>-->
-    <!--                        <div id="dist">-->
-    <!--                            <div class="label">distance</div>-->
-    <!--                            <div id="distValue">000</div>-->
-    <!--                        </div>-->
-
-    <!--                        <div id="crit">-->
-    <!--                            <div class="label">criteria <span name="distance_criteria" id="dist_crit" class="label">100</span> </div>-->
-    <!--                            <h1 id="totaldistance" class="label"></h1>-->
-    <!--                            <h1 id="result_message" class="label"></h1>-->
-    <!--                        </div>-->
-
-    <!--                        <div id="instructions">Click to jump-->
-    <!--                            <span class="lightInstructions">— Grab the carrots / avoid the hedgehogs</span>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </t>-->
-    <!--            </t>-->
-    <!--        </template>-->
-
-    <template id="assets_frontend" name="game assets" inherit_id="web.assets_frontend">
-        <xpath expr="." position="inside">
-            <link rel="stylesheet" href="/game/static/src/scss/style.scss"/>
-            <link rel="stylesheet" href="/game/static/src/scss/style2.scss"/>
-
-        </xpath>
-    </template>
-
-        <template id="web.login" name="Login">
+    <template id="web.login" name="Login">
         <t t-call="web.login_layout">
-            <form class="oe_login_form" role="form" t-attf-action="/web/login" method="post" onsubmit="this.action = '/web/login' + location.hash">
+            <form class="oe_login_form" role="form" t-attf-action="/web/login" method="post"
+                  onsubmit="this.action = '/web/login' + location.hash">
                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
 
                 <div class="form-group field-db" t-if="databases and len(databases) &gt; 1">
                     <label for="db" class="col-form-label">Database</label>
                     <div t-attf-class="input-group {{'input-group-sm' if form_small else ''}}">
-                        <input type="text" name="db" t-att-value="request.db" id="db" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" readonly="readonly"/>
+                        <input type="text" name="db" t-att-value="request.db" id="db"
+                               t-attf-class="form-control #{'form-control-sm' if form_small else ''}"
+                               required="required" readonly="readonly"/>
                         <span class="input-group-append">
-                            <a role="button" href="/web/database/selector" class="btn btn-secondary">Select <i class="fa fa-database" role="img" aria-label="Database" title="Database"></i></a>
+                            <a role="button" href="/web/database/selector" class="btn btn-secondary">Select
+                                <i class="fa fa-database" role="img" aria-label="Database" title="Database"></i>
+                            </a>
                         </span>
                     </div>
                 </div>
 
                 <div class="form-group field-login">
                     <label for="login">Email</label>
-                    <input type="text" placeholder="Email" name="login" t-att-value="login" id="login" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autofocus="autofocus" autocapitalize="off"/>
+                    <input type="text" placeholder="Email" name="login" t-att-value="login" id="login"
+                           t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required"
+                           autofocus="autofocus" autocapitalize="off"/>
                 </div>
 
                 <div class="form-group field-password">
                     <label for="password">Password</label>
-                    <input type="password" placeholder="Password" name="password" id="password" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autocomplete="current-password" t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
+                    <input type="password" placeholder="Password" name="password" id="password"
+                           t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required"
+                           autocomplete="current-password" t-att-autofocus="'autofocus' if login else None"
+                           maxlength="4096"/>
                 </div>
 
                 <p class="alert alert-danger" t-if="error" role="alert">
@@ -178,7 +64,9 @@
                 <div t-attf-class="clearfix oe_login_buttons text-center mb-1 {{'pt-2' if form_small else 'pt-3'}}">
                     <button type="submit" class="btn btn-primary btn-block">Log in</button>
                     <t t-if="debug">
-                        <button type="submit" name="redirect" value="/web/become" class="btn btn-link btn-sm btn-block">Log in as superuser</button>
+                        <button type="submit" name="redirect" value="/web/become" class="btn btn-link btn-sm btn-block">
+                            Log in as superuser
+                        </button>
                     </t>
                     <div class="o_login_auth"/>
                 </div>
@@ -187,8 +75,6 @@
             </form>
         </t>
     </template>
-
-
     <template id="website.footer_custom" inherit_id="website.layout" name="Default" active="True">
         <xpath expr="//div[@id='footer']" position="replace">
             <div id="footer" class="oe_structure oe_structure_solo" t-ignore="true" t-if="not no_footer"

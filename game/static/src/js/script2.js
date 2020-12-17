@@ -14,7 +14,7 @@ function sprawdz(x) {
  document.getElementById("wygra1").innerHTML = arr[0];
  document.getElementById("wygra2").innerHTML = arr[1];
  document.getElementById("wygra3").innerHTML = arr[2];
- document.getElementById("wygra4").innerHTML = arr[3];
+ document.getElementById("wygra4"spr()).innerHTML = arr[3];
  document.getElementById("wygra5").innerHTML = arr[4];
  document.getElementById("wygra6").innerHTML = arr[5];
 */

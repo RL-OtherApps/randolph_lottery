@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="res_partner_inherited" model="ir.ui.view">
+        <field name="name">res.partner.inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="game" string="Game Data">
+                    <group>
+                        <field name="game_data">
+                            <tree>
+                                <field name="first"/>
+                                <field name="second"/>
+                                <field name="third"/>
+                                <field name="fourth"/>
+                                <field name="fifth"/>
+                                <field name="sixth"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_game_data_tree" model="ir.ui.view">
+        <field name="name">Game Data</field>
+        <field name="model">game.data</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="first"/>
+                <field name="second"/>
+                <field name="third"/>
+                <field name="fourth"/>
+                <field name="fifth"/>
+                <field name="sixth"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_game_data_form" model="ir.ui.view">
+        <field name="name">Game Data</field>
+        <field name="model">game.data</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="first"/>
+                    <field name="second"/>
+                    <field name="third"/>
+                    <field name="fourth"/>
+                    <field name="fifth"/>
+                    <field name="sixth"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_game_data" model="ir.actions.act_window">
+        <field name="name">Game Data</field>
+        <field name="res_model">game.data</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+            name="Game Data"
+            id="menu_game_data"
+            action="action_game_data"
+            parent="contacts.menu_contacts"
+    />
+
+</odoo>

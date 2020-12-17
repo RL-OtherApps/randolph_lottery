@@ -1,0 +1,53 @@
+<odoo>
+      <template id="game_two" name="Game Two">
+        <t t-name="website.game_two">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure"
+                     style="background-image:url(/game/static/src/background_luckzone.png)">
+                    <link
+                            rel="stylesheet"
+                            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+                            integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+                            crossorigin="anonymous"
+                    />
+                    <link
+                            rel="stylesheet"
+                            href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+                            integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+                            crossorigin="anonymous"
+                    />
+                    <br/>
+                    <div class="container center rounded shadow-lg">
+                        <img class="img-fluid" src="/game/static/src/lotto.svg" style="width:50%;"/>
+                        <div class=" my-4" id="cyfry"></div>
+                        <div class="h4" id="napis"></div>
+
+                        <div>
+                            <div class="cyfral" id="l1"></div>
+                            <div class="cyfral" id="l2"></div>
+                            <div class="cyfral" id="l3"></div>
+                            <div class="cyfral" id="l4"></div>
+                            <div class="cyfral" id="l5"></div>
+                            <div class="cyfral" id="l6"></div>
+                        </div>
+                        <button id="przyc" class="m-2 btn btn-dark" onclick="spr()" type="button">
+                            Submit!
+                        </button>
+                        <button class="m-2 btn btn-dark" onClick="window.location.reload()">
+                            Again
+                        </button>
+                        <div class="container" id="alfabet"></div>
+                    </div>
+                    <script type="text/javascript" src="/game/static/src/js/script2.js"/>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+    <template id="assets_frontend" name="game assets" inherit_id="web.assets_frontend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/game/static/src/scss/style2.scss"/>
+        </xpath>
+    </template>
+</odoo>
