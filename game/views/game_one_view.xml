@@ -3,10 +3,10 @@
         <t t-name="website.game_one">
             <t t-call="website.layout">
                 <div id="wrap" class="oe_structure">
-                    <script type="text/javascript" src="/game/static/src/js/script.js"/>-->
                     <sections>
+                        <h2>Welcome Mr. <span t-esc="partner.name"/></h2>
                         <h1>Great lottery</h1>
-                        <p>Win a million!</p>
+                        <h1>Win a million!</h1>
                         <article class="lotto">
                             <h3>Cross out 6 numbers:</h3>
                         </article>
@@ -18,9 +18,120 @@
                             <div class="cyfral" id="l5"></div>
                             <div class="cyfral" id="l6"></div>
                         </div>
+                        <form action="save_numbers" method="post">
+                            <input type="hidden" name="csrf_token"
+                                   t-att-value="request.csrf_token()"/>
+                            <input class="cyfral" type="hidden" name="l1" id="l11"/>
+                            <input class="cyfral" type="hidden" name="l2" id="l12"/>
+                            <input class="cyfral" type="hidden" name="l3" id="l13"/>
+                            <input class="cyfral" type="hidden" name="l4" id="l14"/>
+                            <input class="cyfral" type="hidden" name="l5" id="l15"/>
+                            <input class="cyfral" type="hidden" name="l6" id="l16"/>
+                            <div class="col-lg-4">
+                                <button class="buttonSub"
+                                        type="submit">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
                     </sections>
                     <script type="text/javascript" src="/game/static/src/js/script.js"/>
                     <link href="https://fonts.googleapis.com/css?family=Allerta|Bungee" rel="stylesheet"/>
+                </div>
+            </t>
+        </t>
+    </template>
+    <template id="ticket_receipt" name="Ticket Receipt">
+        <t t-name="website.ticket_receipt">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure">
+                    <div class="receiptDiv">
+                        <t t-if="receipt.logo">
+                            <img class="pos-receipt-logo" t-att-src="receipt.logo" t-options="{'widget': 'image'}"
+                                 role="img"/>
+                            <br/>
+                        </t>
+
+                        <div class="pos-receipt-contact">
+                            <t t-if="receipt.phone">
+                                <div>Tel:
+                                    <t t-esc="receipt.phone"/>
+                                </div>
+                            </t>
+                            <t t-if="receipt.email">
+                                <div>
+                                    <t t-esc="receipt.email"/>
+                                </div>
+                            </t>
+                            <t t-if="receipt.website">
+                                <div>
+                                    <t t-esc="receipt.website"/>
+                                </div>
+                            </t>
+                        </div>
+                        <br/>
+                        <br/>
+
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>
+                                    <strong>Ticket Number</strong>
+                                </td>
+                                <td>
+                                    <span t-esc="tick.ticket_number"
+                                          class="pos-receipt-right-align"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <strong>You have selected following numbers</strong>
+                        <br/>
+                        <br/>
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>
+                                    <span t-esc="tick.first"
+                                          class="pos-receipt-right-align"/>
+                                </td>
+                                <td>
+                                    <span t-esc="tick.second"
+                                          class="pos-receipt-right-align"/>
+                                </td>
+                                <td>
+                                    <span t-esc="tick.third"
+                                          class="pos-receipt-right-align"/>
+                                </td>
+                                <td>
+                                    <span t-esc="tick.fourth"
+                                          class="pos-receipt-right-align"/>
+                                </td>
+                                <td>
+                                    <span t-esc="tick.fifth"
+                                          class="pos-receipt-right-align"/>
+                                </td>
+                                <td>
+                                    <span t-esc="tick.sixth"
+                                          class="pos-receipt-right-align"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <strong>Draw Will be held at</strong> : 22/12/2020 3:00 PM
+                        <br/>
+                        <strong>Thank You!!</strong>
+                        <br/>
+                        <strong>Terms and Conditions:</strong>
+                        <p style="text-align:left">i. We also set out the documents that we will ask you for when we are paying out winnings
+                            in advance which helps us to pay you more quickly.
+                            ii. We have made it clear that if you are a UK customer you can withdraw all of your funds
+                            at any time when you have provided any KYC documents that are required.
+                        </p>
+                        <div>
+
+                        </div>
+                        <br/>
+                        <br/>
+                    </div>
+
                 </div>
             </t>
         </t>

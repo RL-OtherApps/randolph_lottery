@@ -1,4 +1,5 @@
 from odoo import fields, models
+from datetime import datetime
 
 
 class GameData(models.Model):
@@ -11,6 +12,8 @@ class GameData(models.Model):
     fourth = fields.Integer('Forth')
     fifth = fields.Integer('Fifth')
     sixth = fields.Integer('Sixth')
+    create_date = fields.Datetime('Date')
+    ticket_number = fields.Char('Ticket Number')
 
 
 class Customers(models.Model):

@@ -31,8 +31,7 @@ sections {
   }
 }
 
-h1,
-p {
+h1 {
   width: 100%;
   text-align: center;
   margin-top: 10px;
@@ -41,12 +40,17 @@ p {
   font-family: 'Bungee', cursive;
 }
 
-h1 {
+h1,h2 {
   font-size: 35px;
 }
 
-p {
-  font-size: 30px;
+h2 {
+ width: 100%;
+  text-align: left;
+  margin-top: 10px;
+  color: #ffd229;
+  text-shadow: 1px 1px #998100;
+//   font-family: 'Bungee', cursive;
 }
 
 h3 {
@@ -234,93 +238,89 @@ article {
   background-color: yellow;
 }
 
-// // body {
-// // //     font-family: 'Montserrat', sans-serif;
-// // //     background-color: #00ccff;
-// // //     color: #fff;
-// // //     font-size: 125%;
-// // }
-// //
-// // h1 {
-// //     text-align: center;
-// // }
+.buttonSub {
+  width: 100px !important;
+  height: 50px;
+  background-color:yellow;
+  border: 3px solid black;
+   text-align: center;
+  padding: 5px;
+  margin: 5px;
+}
+.receiptDiv{
+    box-sizing: border-box;
+    text-align: center;
+    background-color: white;
+    width: 21%;
+    position: fixed;
+    top: 20%;
+    left: 38%;
+    background-color: floralwhite;
+    border: solid;
+}
+
+// .pos-receipt-print {
+//     width: 512px;
+//     height: 0;
+//     overflow: hidden;
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+//     text-align: left;
+//     direction: ltr;
+//     font-size: 28px;
+//     color: #000000;
+// }
 //
-// #guess1, #guess2, #guess3, #guess4, #guess5, #guess6, #guess7 {
-//     width: 52px;
-//     margin-right: 8px;
-//     margin-top: 10px;
+// .pos-receipt .pos-receipt-right-align {
+//     float: right;
+// }
+//
+// .pos-receipt .pos-receipt-center-align {
 //     text-align: center;
 // }
 //
-// #guess7 {
-//     border: 3px solid red;
+// .pos-receipt .pos-receipt-left-padding {
+//     padding-left: 2em;
 // }
 //
-//
-// #container {
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: center;
-//     margin-top: -20px;
+// .pos-receipt .pos-receipt-logo {
+//     width: 50%;
+//     display: block;
+//     margin: 0 auto;
 // }
 //
-// #container2 {
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: center;
-// }
-//
-// #container3 {
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: center;
-// }
-//
-// #winner {
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: center;
-//     margin-top: 5%;
-//     font-size: 300%;
-// }
-//
-// #test1, #test2, #test3, #test4, #test5, #test6, #test7 {
-//     float: left;
-//     margin-right: 1%;
-//     margin-top: 10px;
-//     padding: 10px;
-//     border: 1px solid #000;
-//     text-decoration: none;
-// }
-//
-// #test7 {
-//     background-color: red;
-//     color: #fff;
-// }
-//
-// .logo {
-// //     margin-left: 38%;
-//     margin-top:2%;
-//     align:center;
-// }
-//
-// .playBtn {
-//     border-radius: 12px;
-//     background-color: #fff;
-//     border: none;
-//     color: #000;
-//     padding: 20px;
+// .pos-receipt .pos-receipt-contact {
 //     text-align: center;
-//     text-decoration: none;
-//     display: inline-block;
-//     font-size: 16px;
-//     margin: 4px 2px;
-//     cursor: pointer;
-//     width: 150px;
+//     font-size: 75%;
 // }
 //
-// .playBtn:hover {
-//     background-color: red;
-//     color: white;
-//     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+// .pos-receipt .pos-receipt-order-data {
+//     text-align: center;
+//     font-size: 75%;
+// }
+//
+// .pos-receipt .pos-receipt-amount {
+//     font-size: 125%;
+//     padding-left: 6em;
+// }
+//
+// .pos-receipt .pos-receipt-title {
+//     font-weight: bold;
+//     font-size: 125%;
+//     text-align: center;
+// }
+//
+// .pos-receipt .pos-receipt-header {
+//     font-size: 125%;
+//     text-align: center;
+// }
+//
+// .pos-receipt .pos-order-receipt-cancel {
+//     color: red;
+// }
+//
+// .pos-payment-terminal-receipt {
+//     text-align: center;
+//     font-size: 75%;
 // }

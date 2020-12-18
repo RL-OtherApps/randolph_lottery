@@ -10,6 +10,8 @@
                     <group>
                         <field name="game_data">
                             <tree>
+                                <field name="ticket_number"/>
+                                <field name="create_date"/>
                                 <field name="first"/>
                                 <field name="second"/>
                                 <field name="third"/>
@@ -30,6 +32,8 @@
         <field name="priority" eval="1"/>
         <field name="arch" type="xml">
             <tree>
+                <field name="ticket_number"/>
+                <field name="create_date"/>
                 <field name="first"/>
                 <field name="second"/>
                 <field name="third"/>
@@ -46,12 +50,19 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <field name="first"/>
-                    <field name="second"/>
-                    <field name="third"/>
-                    <field name="fourth"/>
-                    <field name="fifth"/>
-                    <field name="sixth"/>
+                    <group>
+                        <group>
+                            <field name="ticket_number"/>
+                            <field name="create_date"/>
+                            <field name="first"/>
+                            <field name="second"/>
+                            <field name="third"/>
+                            <field name="fourth"/>
+                            <field name="fifth"/>
+                            <field name="sixth"/>
+                        </group>
+                    </group>
+
                 </sheet>
             </form>
         </field>
@@ -67,5 +78,13 @@
             action="action_game_data"
             parent="contacts.menu_contacts"
     />
+
+    <record id="seq_game_data" model="ir.sequence">
+        <field name="name">Game Data Sequence</field>
+        <field name="code">game.data</field>
+        <field name="prefix">Tick-</field>
+        <field name="padding">3</field>
+        <field name="number_increment">1</field>
+    </record>
 
 </odoo>

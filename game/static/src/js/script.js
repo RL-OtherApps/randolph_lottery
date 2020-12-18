@@ -62,7 +62,18 @@ document.addEventListener("DOMContentLoaded", function(e){
             if(counter==6){
              document.getElementById("l6").innerHTML = number;
             }
-
+            var first = document.getElementById("l1").innerHTML
+            var second = document.getElementById("l2").innerHTML
+            var third = document.getElementById("l3").innerHTML
+            var fourth = document.getElementById("l4").innerHTML
+            var fifth = document.getElementById("l5").innerHTML
+            var sixth = document.getElementById("l6").innerHTML
+            $('#l11').val(first);
+            $('#l12').val(second);
+            $('#l13').val(third);
+            $('#l14').val(fourth);
+            $('#l15').val(fifth);
+            $('#l16').val(sixth);
             if(drawnNums.length=== 6){
                 //boardEls.forEach( boardEl => boardEl.removeAttribute("data-number"));
 
@@ -73,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function(e){
                 }
                 var startDraw = document.querySelector(".startDraw");
                 if(startDraw === null){ // you have to prevent creating the button if it is already there!
-                    createButtonForMachineDraw();
+//                    createButtonForMachineDraw();
                 } else {
                     return;
                 }
@@ -87,16 +98,6 @@ document.addEventListener("DOMContentLoaded", function(e){
 
     }
     drawNumbers();
-
-//    function submitNumbers(random_numbers){
-//        var first = document.getElementById("l1").innerHTML
-//        $.ajax({
-//        type: 'POST',
-//        url: '/save_numbers',
-//        dataType: 'json',
-//        data : {'l1': random_numbers},
-//        });
-//    }
 
     function makeAlert() {
     	var alertBox = document.createElement("div");
@@ -162,24 +163,22 @@ document.addEventListener("DOMContentLoaded", function(e){
             }
             console.log(arr1, arr2, common); /* you can monitor your arrays in console*/
             function generateResult(){
-                var first = document.getElementById("l1").innerHTML
-                var second = document.getElementById("l2").innerHTML
-                var third = document.getElementById("l3").innerHTML
-                var fourth = document.getElementById("l4").innerHTML
-                var fifth = document.getElementById("l5").innerHTML
-                var sixth = document.getElementById("l6").innerHTML
-                     $.ajax({
-                        type: 'POST',
-                        url: '/save_numbers',
-                        dataType: 'json',
-                        data : {'l1': first,'l2': second,'l3': third,'l4': fourth,'l5': fifth,'l6': sixth,},
-                        });
+//                var first = document.getElementById("l1").innerHTML
+//                var second = document.getElementById("l2").innerHTML
+//                var third = document.getElementById("l3").innerHTML
+//                var fourth = document.getElementById("l4").innerHTML
+//                var fifth = document.getElementById("l5").innerHTML
+//                var sixth = document.getElementById("l6").innerHTML
+//                $('#l11').val(first);
+//                     $.ajax({
+//                        type: 'POST',
+//                        url: '/save_numbers',
+//                        dataType: 'json',
+//                        data : {'l1': first,'l2': second,'l3': third,'l4': fourth,'l5': fifth,'l6': sixth,},
+//                        });
                 var resultsBoard = document.createElement("article");
                 section.appendChild(resultsBoard);
                 var paragraph = document.createElement("p");
-                resultsBoard.appendChild(paragraph);
-                resultsBoard.classList.add("resultsBoard");
-                resultsBoard.classList.add("invisible");
                 if( common.length===0){
                     paragraph.textContent ="Oh, dear!  " + common.length + " balls and zero cash ";
                 } else if( common.length >0 && common.length< 3){
@@ -196,12 +195,11 @@ document.addEventListener("DOMContentLoaded", function(e){
                 }
             }
         setTimeout(function() {
-        	makeComebackBtn();
-        	document.querySelector(".resultsBoard").classList.remove("invisible"); //well, you cannot acces this outside the code
+//        	makeComebackBtn();
+//        	document.querySelector(".resultsBoard").classList.remove("invisible"); //well, you cannot acces this outside the code
         }, 8000);
         generateResult();
     }
-
     function makeComebackBtn(){
         var comebackBtn = document.createElement("a");
         comebackBtn.classList.add("comebackBtn");
@@ -209,106 +207,4 @@ document.addEventListener("DOMContentLoaded", function(e){
         comebackBtn.textContent ="again"
         comebackBtn.setAttribute("href", "https://ewagrela.github.io/lottoIE/");
     }
-
-
 })
-
-///*jslint devel: true*/
-///*eslint-env browser*/
-//
-//function playGame() {
-//    "use strict";
-//
-//    // Create the random numbers for the powerball
-//    var num1 = Math.floor(Math.random() * 101);
-//    var num2 = Math.floor(Math.random() * 101);
-//    var num3 = Math.floor(Math.random() * 101);
-//    var num4 = Math.floor(Math.random() * 101);
-//    var num5 = Math.floor(Math.random() * 101);
-//    var num6 = Math.floor(Math.random() * 101);
-//    var num7 = Math.floor(Math.random() * 101);
-//
-//    // Users guess
-//    var userNum1 = parseInt(document.getElementById("guess1").value);
-//    var userNum2 = parseInt(document.getElementById("guess2").value);
-//    var userNum3 = parseInt(document.getElementById("guess3").value);
-//    var userNum4 = parseInt(document.getElementById("guess4").value);
-//    var userNum5 = parseInt(document.getElementById("guess5").value);
-//    var userNum6 = parseInt(document.getElementById("guess6").value);
-//    var userNum7 = parseInt(document.getElementById("guess7").value);
-//
-//    // Output each random number
-//    document.getElementById("test1").innerHTML = num1;
-//    document.getElementById("test2").innerHTML = num2;
-//    document.getElementById("test3").innerHTML = num3;
-//    document.getElementById("test4").innerHTML = num4;
-//    document.getElementById("test5").innerHTML = num5;
-//    document.getElementById("test6").innerHTML = num6;
-//    document.getElementById("test7").innerHTML = num7;
-//
-//    // Set up several conditions to see if any numbers match
-//    if (num1 === userNum1 || num2 === userNum1) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num3 === userNum1 || num4 === userNum1) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num5 === userNum1 || num6 === userNum1) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num7 === userNum1) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num1 === userNum2 || num2 === userNum2) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num3 === userNum2 || num4 === userNum2) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num5 === userNum2 || num6 === userNum2) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num7 === userNum2) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num1 === userNum3 || num2 === userNum3) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num3 === userNum3 || num4 === userNum3) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num5 === userNum3 || num6 === userNum3) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num7 === userNum3) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num1 === userNum4 || num2 === userNum4) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num3 === userNum4 || num4 === userNum4) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num5 === userNum4 || num6 === userNum4) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num7 === userNum4) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num1 === userNum5 || num2 === userNum5) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num3 === userNum5 || num4 === userNum5) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num5 === userNum5 || num6 === userNum5) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num7 === userNum5) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num1 === userNum6 || num2 === userNum6) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num3 === userNum6 || num4 === userNum6) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num5 === userNum6 || num6 === userNum6) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num7 === userNum6) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num1 === userNum7 || num2 === userNum7) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num3 === userNum7 || num4 === userNum7) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num5 === userNum7 || num6 === userNum7) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (num7 === userNum7) {
-//        document.getElementById("winner").innerHTML = "You got one!!";
-//    } else if (userNum1 === num1 && userNum2 === num2 && userNum3 === num3 && userNum4 === num4 && userNum5 === num5 && userNum6 === num6 && userNum7 === num7) {
-//        document.getElementById("winner").innerHTML = "YOU WIN!!";
-//    } else {
-//        document.getElementById("winner").innerHTML = "You Lose!!";
-//    }
-//
-//}
-//
-//playGame();
