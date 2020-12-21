@@ -34,6 +34,8 @@
             <tree>
                 <field name="ticket_number"/>
                 <field name="create_date"/>
+                <field name="company"/>
+                <field name="draw"/>
                 <field name="first"/>
                 <field name="second"/>
                 <field name="third"/>
@@ -54,6 +56,8 @@
                         <group>
                             <field name="ticket_number"/>
                             <field name="create_date"/>
+                            <field name="company"/>
+                            <field name="draw"/>
                             <field name="first"/>
                             <field name="second"/>
                             <field name="third"/>

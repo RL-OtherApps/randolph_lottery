@@ -30,7 +30,8 @@ class GameLoader(http.Controller):
     @http.route('/save_numbers', auth='public', type='http', website=True, methods=['POST'])
     def save_numbers(self, l1, l2, l3, l4, l5, l6):
         partner = request.env.user.partner_id
-        company = request.env['res.company'].sudo().search([('name', '=', 'YourCompany')])
+        company = request.env['res.company'].sudo().search([('name', '=', 'Ydnar Lottery')])
+        lottery = request.env['lottery.draw'].sudo().search([('active_draw', '=', True)], limit=1)
         game = request.env['game.data'].sudo().create({
             'partner': partner.id,
             'create_date': datetime.now(),
@@ -41,6 +42,16 @@ class GameLoader(http.Controller):
             'fourth': l4,
             'fifth': l5,
             'sixth': l6,
+            'draw': lottery.id,
+            'company': company.id,
+
         })
-        return request.render('game.ticket_receipt', {'tick': game, 'receipt': company})
-        # return http.request.redirect('/login')
+        return request.render('game.ticket_receipt', {'tick': game, 'receipt': company, 'draw': lottery})
+
+    @http.route(['/report/pdf/receipt_download'], type='http', auth='public', methods=['POST'])
+    def download_receipt(self, game_id):
+        game_data = request.env['game.data'].sudo().search([('id', '=', int(game_id))], limit=1)
+        pdf, _ = request.env.ref('game.action_ticket_receipt').sudo()._render_qweb_pdf([int(game_data.id)])
+        pdfhttpheaders = [('Content-Type', 'application/pdf'), ('Content-Length', len(pdf)),
+                          ('Content-Disposition', 'COA; filename="Receipt.pdf"')]
+        return request.make_response(pdf, headers=pdfhttpheaders)

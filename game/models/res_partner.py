@@ -6,6 +6,8 @@ class GameData(models.Model):
     _name = "game.data"
 
     partner = fields.Many2one('res.partner', 'Customer')
+    company = fields.Many2one('res.company', 'Company')
+    draw = fields.Many2one('lottery.draw', 'Draw')
     first = fields.Integer('First')
     second = fields.Integer('Second')
     third = fields.Integer('Third')

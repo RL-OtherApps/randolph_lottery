@@ -4,13 +4,6 @@
   box-sizing: border-box;
 }
 
-body {
-  height: auto;
-  width: 100vw;
-  background-color: #333366;
-  font-family: 'Allerta', sans-serif;
-}
-
 sections {
   margin: 0 auto;
   margin-top: 20px;
@@ -22,6 +15,8 @@ sections {
   height: auto;
   border: 4px solid gold;
   padding-bottom: 15px;
+  background-color: #333366;
+  font-family: 'Allerta', sans-serif;
 }
 
 @media (min-width: 1024px) {

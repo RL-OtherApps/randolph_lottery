@@ -4,7 +4,9 @@
             <t t-call="website.layout">
                 <div id="wrap" class="oe_structure">
                     <sections>
-                        <h2>Welcome Mr. <span t-esc="partner.name"/></h2>
+                        <h2>Welcome Mr.
+                            <span t-esc="partner.name"/>
+                        </h2>
                         <h1>Great lottery</h1>
                         <h1>Win a million!</h1>
                         <article class="lotto">
@@ -46,13 +48,15 @@
             <t t-call="website.layout">
                 <div id="wrap" class="oe_structure">
                     <div class="receiptDiv">
-                        <t t-if="receipt.logo">
-                            <img class="pos-receipt-logo" t-att-src="receipt.logo" t-options="{'widget': 'image'}"
-                                 role="img"/>
-                            <br/>
-                        </t>
-
                         <div class="pos-receipt-contact">
+                            <br/>
+                            <t t-if="receipt.name">
+                                <div>
+                                    <strong>
+                                        <t t-esc="receipt.name"/>
+                                    </strong>
+                                </div>
+                            </t>
                             <t t-if="receipt.phone">
                                 <div>Tel:
                                     <t t-esc="receipt.phone"/>
@@ -69,10 +73,19 @@
                                 </div>
                             </t>
                         </div>
-                        <br/>
-                        <br/>
-
+                        <p style="position:center;">-----------------------------------------------------------</p>
                         <table class="table table-bordered">
+
+                            <tr>
+                                <td>
+                                    <strong>Player</strong>
+                                </td>
+                                <td>
+                                    <span t-esc="tick.partner.name"
+                                          class="pos-receipt-right-align"/>
+                                </td>
+                            </tr>
+
                             <tr>
                                 <td>
                                     <strong>Ticket Number</strong>
@@ -115,12 +128,15 @@
                                 </td>
                             </tr>
                         </table>
-                        <strong>Draw Will be held at</strong> : 22/12/2020 3:00 PM
+                        <strong>Draw Will be held at</strong>
+                        :
+                        <span t-esc="draw.draw_time"/>
                         <br/>
                         <strong>Thank You!!</strong>
-                        <br/>
+                        <p style="position:center;">-----------------------------------------------------------</p>
                         <strong>Terms and Conditions:</strong>
-                        <p style="text-align:left">i. We also set out the documents that we will ask you for when we are paying out winnings
+                        <p style="text-align:left">i. We also set out the documents that we will ask you for when we are
+                            paying out winnings
                             in advance which helps us to pay you more quickly.
                             ii. We have made it clear that if you are a UK customer you can withdraw all of your funds
                             at any time when you have provided any KYC documents that are required.
@@ -128,10 +144,19 @@
                         <div>
 
                         </div>
-                        <br/>
-                        <br/>
-                    </div>
 
+                        <form action="report/pdf/receipt_download" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="text" class="game_id" name="game_id"
+                                   t-att-value="tick.id" style="visibility:hidden;"/>
+                            <center>
+                                <button type="submit" class="btn btn-primary float-center mb32 ">
+                                    Download Ticket
+                                </button>
+                            </center>
+                        </form>
+                    </div>
+                    <br/>
                 </div>
             </t>
         </t>
