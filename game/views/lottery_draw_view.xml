@@ -19,25 +19,44 @@
         <field name="priority" eval="1"/>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="generate_numbers" string="Generate Numbers" type="object" class="btn-primary"
+                            attrs="{'invisible':[('draw_generated','=',True)]}"/>
+                    <button name="draw_results" string="Draw Results" type="object" class="btn-primary"/>
+                </header>
                 <sheet>
                     <group>
                         <group>
                             <field name="name"/>
                             <field name="draw_time"/>
                             <field name="active_draw" widget="boolean_toggle"/>
+                            <field name="draw_generated" invisible="0"/>
+                        </group>
+                        <group>
+                            <field name="first"/>
+                            <field name="second"/>
+                            <field name="third"/>
+                            <field name="fourth"/>
+                            <field name="fifth"/>
+                            <field name="sixth"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
                             <field name="player_inputs">
-                            <tree>
-                                <field name="partner"/>
-                                <field name="ticket_number"/>
-                                <field name="create_date"/>
-                                <field name="first"/>
-                                <field name="second"/>
-                                <field name="third"/>
-                                <field name="fourth"/>
-                                <field name="fifth"/>
-                                <field name="sixth"/>
-                            </tree>
-                        </field>
+                                <tree>
+                                    <field name="partner"/>
+                                    <field name="ticket_number"/>
+                                    <field name="create_date"/>
+                                    <field name="first"/>
+                                    <field name="second"/>
+                                    <field name="third"/>
+                                    <field name="fourth"/>
+                                    <field name="fifth"/>
+                                    <field name="sixth"/>
+                                    <field name="draw_result"/>
+                                </tree>
+                            </field>
                         </group>
                     </group>
                 </sheet>
