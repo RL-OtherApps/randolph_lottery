@@ -21,44 +21,61 @@
             <form>
                 <header>
                     <button name="generate_numbers" string="Generate Numbers" type="object" class="btn-primary"
-                            attrs="{'invisible':[('draw_generated','=',True)]}"/>
-                    <button name="draw_results" string="Draw Results" type="object" class="btn-primary"/>
+                            attrs="{'invisible':[('draw_generated','=',True)]}"
+                            style="background-color:#101820FF;color:#F2AA4CFF;border-color:#101820FF;"/>
+                    <button name="draw_results" string="Draw Results" type="object" class="btn-primary"
+                            style="background-color:#101820FF;color:#F2AA4CFF;border-color:#101820FF;"/>
                 </header>
                 <sheet>
                     <group>
                         <group>
                             <field name="name"/>
                             <field name="draw_time"/>
-                            <field name="active_draw" widget="boolean_toggle"/>
-                            <field name="draw_generated" invisible="0"/>
+                            <field name="currency_id" invisible="1"/>
                         </group>
                         <group>
-                            <field name="first"/>
-                            <field name="second"/>
-                            <field name="third"/>
-                            <field name="fourth"/>
-                            <field name="fifth"/>
-                            <field name="sixth"/>
+                            <field name="active_draw" widget="boolean_toggle"/>
+                            <field name="draw_generated" invisible="1"/>
+                            <field name="rate"/>
                         </group>
                     </group>
                     <group>
-                        <group>
-                            <field name="player_inputs">
-                                <tree>
-                                    <field name="partner"/>
-                                    <field name="ticket_number"/>
-                                    <field name="create_date"/>
-                                    <field name="first"/>
-                                    <field name="second"/>
-                                    <field name="third"/>
-                                    <field name="fourth"/>
-                                    <field name="fifth"/>
-                                    <field name="sixth"/>
-                                    <field name="draw_result"/>
-                                </tree>
-                            </field>
+                        <group name="winning_amounts" string="Wining Amounts">
+                            <field name="first_prize" widget="monetary"/>
+                            <field name="second_prize" widget="monetary"/>
+                            <field name="third_prize" widget="monetary"/>
+                            <field name="fourth_prize" widget="monetary"/>
+                            <field name="fifth_prize" widget="monetary"/>
+                            <field name="sixth_prize" widget="monetary"/>
+                        </group>
+                        <group name="results" string="Draw Results">
+                            <field name="first" readonly="1"/>
+                            <field name="second" readonly="1"/>
+                            <field name="third" readonly="1"/>
+                            <field name="fourth" readonly="1"/>
+                            <field name="fifth" readonly="1"/>
+                            <field name="sixth" readonly="1"/>
                         </group>
                     </group>
+                            <field name="player_inputs">
+                                <tree>
+                                    <field name="partner" style="background-color:#0F2557;color:white;"/>
+                                    <field name="ticket_number" style="background-color:#0F2557;color:white;"/>
+                                    <field name="create_date" style="background-color:#0F2557;color:white;"/>
+                                    <field name="first" style="background-color:#32064A;color:white;text-align: center;"/>
+                                    <field name="second" style="background-color:#32064A;color:white;text-align: center;"/>
+                                    <field name="third" style="background-color:#32064A;color:white;text-align: center;"/>
+                                    <field name="fourth" style="background-color:#32064A;color:white;text-align: center;"/>
+                                    <field name="fifth" style="background-color:#32064A;color:white;text-align: center;"/>
+                                    <field name="sixth" style="background-color:#32064A;color:white;text-align: center;"/>
+                                    <field name="draw_result"
+                                           style="background-color:#292930;color:white;text-align: center;"/>
+                                    <field name="winning"
+                                           style="background-color:#292930;color:white;text-align: center;"/>
+                                    <field name="winning_amount"
+                                           style="background-color:#292930;color:white;text-align: center;"/>
+                                </tree>
+                            </field>
                 </sheet>
             </form>
         </field>

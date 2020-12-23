@@ -14,8 +14,9 @@ class GameLoader(http.Controller):
     @http.route('/first-game', type="http", auth="user", website=True)
     def play_first_game(self, **kwargs):
         uid = request.env.user.partner_id
+        lottery = request.env['lottery.draw'].sudo().search([('active_draw', '=', True)], limit=1)
         if uid:
-            return http.request.render('game.game_one', {'partner': uid})
+            return http.request.render('game.game_one', {'partner': uid, 'draw': lottery})
         else:
             return http.request.render('web.login', )
 

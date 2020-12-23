@@ -17,6 +17,9 @@ class GameData(models.Model):
     create_date = fields.Datetime('Date')
     ticket_number = fields.Char('Ticket Number')
     draw_result = fields.Char('Draw Results')
+    winning = fields.Char('Winning')
+    winning_amount = fields.Char('Winning Amount')
+
 
 
 class Customers(models.Model):

@@ -19,7 +19,7 @@
                                 <field name="fifth"/>
                                 <field name="sixth"/>
                                 <field name="draw_result"/>
-
+                                <field name="winning"/>
                             </tree>
                         </field>
                     </group>
@@ -45,6 +45,7 @@
                 <field name="fifth"/>
                 <field name="sixth"/>
                 <field name="draw_result"/>
+                <field name="winning"/>
             </tree>
         </field>
     </record>
@@ -68,6 +69,7 @@
                             <field name="fifth"/>
                             <field name="sixth"/>
                             <field name="draw_result"/>
+                            <field name="winning"/>
                         </group>
                     </group>
 
