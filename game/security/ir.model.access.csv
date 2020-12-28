@@ -1,4 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_game_data,access.game.data,game.model_game_data,,1,1,1,1
 access_lottery_draw,access.lottery.draw,game.model_lottery_draw,,1,1,1,1
+access_lottery_wheel,access.lottery.wheel,game.model_lottery_wheel,,1,1,1,1
+access_game_wheel_data,access.game.wheel.data,game.model_game_wheel_data,,1,1,1,1
 

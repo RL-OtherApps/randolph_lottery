@@ -21,8 +21,20 @@ class GameData(models.Model):
     winning_amount = fields.Char('Winning Amount')
 
 
-
 class Customers(models.Model):
     _inherit = "res.partner"
 
     game_data = fields.One2many('game.data', 'partner', string="Game data")
+    wheel_game_data = fields.One2many('game.wheel.data', 'partner', string="Wheel Game Data")
+
+
+class GameWheelData(models.Model):
+    _name = "game.wheel.data"
+
+    partner = fields.Many2one('res.partner', 'Customer')
+    company = fields.Many2one('res.company', 'Company')
+    lottery_wheel = fields.Many2one('lottery.wheel', 'Lottery Wheel')
+    input = fields.Integer('Input')
+    result = fields.Integer('Result')
+    amount_won = fields.Integer('Amount Won')
+    rate = fields.Char('Rate')

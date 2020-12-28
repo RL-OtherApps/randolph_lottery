@@ -24,7 +24,7 @@ class GameLoader(http.Controller):
     def play_second_game(self, **kwargs):
         uid = request.env.user.partner_id
         if uid:
-            return http.request.render('game.game_two', {})
+            return http.request.render('game.game_two_form', {})
         else:
             return http.request.render('web.login', {})
 
@@ -56,3 +56,27 @@ class GameLoader(http.Controller):
         pdfhttpheaders = [('Content-Type', 'application/pdf'), ('Content-Length', len(pdf)),
                           ('Content-Disposition', 'COA; filename="Receipt.pdf"')]
         return request.make_response(pdf, headers=pdfhttpheaders)
+
+    @http.route('/open_game', auth='public', type='http', website=True, methods=['POST'])
+    def open_first_game(self, input_number):
+        partner = request.env.user.partner_id
+        lottery = request.env['lottery.wheel'].sudo().search([('active_lottery', '=', True)], limit=1)
+        game_wheel = request.env['game.wheel.data'].sudo().create({
+            'partner': partner.id,
+            'create_date': datetime.now(),
+            'lottery_wheel': lottery.id,
+            'input': input_number,
+            'rate': lottery.rate,
+        })
+        return http.request.render('game.game_two', {'game': game_wheel})
+
+    @http.route('/get_result_game_two', auth='public', type='http', website=True, methods=['POST'])
+    def save_result_game_two(self, result_number, game_id):
+        game_data = request.env['game.wheel.data'].sudo().search([('id', '=', int(game_id))], limit=1)
+        if int(game_data.input) == int(result_number):
+            amount = int(result_number) * int(game_data.rate)
+            game_data.update({'result': result_number, 'amount_won': amount})
+            return http.request.render('game.game_two_form', {})
+        else:
+            game_data.update({'result': result_number, 'amount_won': 0})
+            return http.request.render('game.game_two_form', {})

@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="view_wheel_game_data_tree" model="ir.ui.view">
+        <field name="name">Wheel Game Data</field>
+        <field name="model">game.wheel.data</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner"/>
+                <field name="company"/>
+                <field name="lottery_wheel"/>
+                <field name="input"/>
+                <field name="result"/>
+                <field name="amount_won"/>
+                <field name="rate"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_wheel_game_data_form" model="ir.ui.view">
+        <field name="name">Wheel Game Data</field>
+        <field name="model">game.wheel.data</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner"/>
+                            <field name="company"/>
+                            <field name="lottery_wheel"/>
+                            <field name="input"/>
+                            <field name="result"/>
+                            <field name="amount_won"/>
+                            <field name="rate"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_wheel_game_data" model="ir.actions.act_window">
+        <field name="name">Wheel Game Data</field>
+        <field name="res_model">game.wheel.data</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+            name="Wheel Game Data"
+            id="menu_wheel_game_data"
+            action="action_wheel_game_data"
+            parent="contacts.menu_contacts"
+    />
+
+</odoo>

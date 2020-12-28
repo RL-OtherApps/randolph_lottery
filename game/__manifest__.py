@@ -13,6 +13,8 @@
         'views/game_data_view.xml',
         'views/lottery_draw_view.xml',
         'views/pdf_receipt_view.xml',
+        'views/wheel_game_data_view.xml',
+        'views/lottery_wheel_view.xml',
     ],
     'installable': True,
 }

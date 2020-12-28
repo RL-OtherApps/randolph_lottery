@@ -5,7 +5,21 @@
                 <div id="wrap" class="oe_structure" style="background:#000000;padding:0px;margin:0px;">
                     <div id="chart"></div>
                     <div id="question">
-                        <h1></h1>
+                        <form action="get_result_game_two" method="post">
+                            <input type="hidden" name="csrf_token"
+                                   t-att-value="request.csrf_token()"/>
+                            <input type="text" name="result_number" id="result_number"/>
+                            <input type="text" class="game_id" name="game_id"
+                                   t-att-value="game.id" style="visibility:hidden;"/>
+                            <div class="col-lg-4" style="left:50%;top:50%;position: fixed;">
+                                <h4><b>Your Input : </b><span t-esc="game.input"/></h4>
+                                <br/>
+                                <br/>
+                            <button type="submit" style="background-color:#101820FF;color:#F2AA4CFF;border-color:#101820FF;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);">
+                                    Click Here to Submit the Result
+                                </button>
+                            </div>
+                        </form>
                     </div>
                     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
                     <script type="text/javascript" src="/game/static/src/js/game2.js"/>
@@ -14,10 +28,48 @@
         </t>
     </template>
 
+    <template id="game_two_form" name="Game Two Form">
+        <t t-name="website.game_two">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure"
+                     style="background-image:url(/game/static/src/images/background.jpg);height:100%;">
+                    <form action="open_game" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div style="left:50%;top:50%;position: fixed;">
+                            <strong style="color:white;">Enter the number from 1-10</strong>
+                            <br/>
+                            <br/>
 
-        <template id="assets_frontend" name="game assets" inherit_id="web.assets_frontend">
-            <xpath expr="." position="inside">
-                <link rel="stylesheet" href="/game/static/src/scss/style2.scss"/>
-            </xpath>
-        </template>
+                            <input type="text" name="input_number" id="input_number"
+                                   onChange="return numberValidation()"/>
+                            <script>
+                                function numberValidation()
+                                {
+                                number = document.getElementById('input_number').value;
+                                if (number>10){
+                                alert("Please enter numbers between 1-10")
+                                return false
+                                } else {
+                                return true;
+                                }
+                                }
+                            </script>
+                            <br/>
+                            <br/>
+                            <button type="submit" style="background-color:#101820FF;color:#F2AA4CFF;border-color:#101820FF;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);">
+                                Click Here to Submit the output
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="assets_frontend" name="game assets" inherit_id="web.assets_frontend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/game/static/src/scss/style2.scss"/>
+        </xpath>
+    </template>
 </odoo>

@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
-                <page name="game" string="Game Data">
+                <page name="game" string="Game 1 Data">
                     <group>
                         <field name="game_data">
                             <tree>
@@ -20,6 +20,21 @@
                                 <field name="sixth"/>
                                 <field name="draw_result"/>
                                 <field name="winning"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+                 <page name="game2" string="Game 2 Data">
+                    <group>
+                        <field name="wheel_game_data">
+                            <tree>
+                            <field name="partner"/>
+                            <field name="company"/>
+                            <field name="lottery_wheel"/>
+                            <field name="input"/>
+                            <field name="result"/>
+                            <field name="amount_won"/>
+                            <field name="rate"/>
                             </tree>
                         </field>
                     </group>
@@ -83,7 +98,7 @@
         <field name="view_mode">tree,form</field>
     </record>
     <menuitem
-            name="Game Data"
+            name="Lottery Draw Game Data"
             id="menu_game_data"
             action="action_game_data"
             parent="contacts.menu_contacts"

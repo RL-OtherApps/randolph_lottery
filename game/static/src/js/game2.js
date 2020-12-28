@@ -95,9 +95,10 @@ var padding = {top:20, right:40, bottom:0, left:0},
 
                     /* Get the result value from object "data" */
                     console.log(data[picked].value)
-
+                    var test=data[picked].value
+                    $('#result_number').val(test);
                     /* Comment the below line for restrict spin to sngle time */
-                    container.on("click", spin);
+//                    container.on("click", spin);
                 });
         }
         //make arrow
