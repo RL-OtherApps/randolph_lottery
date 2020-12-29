@@ -1,3 +1,4 @@
+document.addEventListener("DOMContentLoaded", function(e){
 var padding = {top:20, right:40, bottom:0, left:0},
             w = 500 - padding.left - padding.right,
             h = 500 - padding.top  - padding.bottom,
@@ -97,6 +98,18 @@ var padding = {top:20, right:40, bottom:0, left:0},
                     console.log(data[picked].value)
                     var test=data[picked].value
                     $('#result_number').val(test);
+
+                    var input=document.getElementById("number_input").value;
+                    var won="Congratulations,You have won !!!!!!"
+                    var lost="Sorry,You have lost !!!!!"
+                    if (test==parseInt(input))
+                    {
+                        $('#result').val(won);
+                    }
+                    else
+                    {
+                        $('#result').val(lost);
+                    }
                     /* Comment the below line for restrict spin to sngle time */
 //                    container.on("click", spin);
                 });
@@ -144,3 +157,4 @@ var padding = {top:20, right:40, bottom:0, left:0},
             }
             return array;
         }
+        })

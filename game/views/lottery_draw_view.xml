@@ -49,8 +49,8 @@
                             <field name="sixth_prize" widget="monetary"/>
                         </group>
                         <group name="results" string="Draw Results">
-                            <field name="first" readonly="1"/>
-                            <field name="second" readonly="1"/>
+                            <field name="first" readonly="0"/>
+                            <field name="second" readonly="0"/>
                             <field name="third" readonly="1"/>
                             <field name="fourth" readonly="1"/>
                             <field name="fifth" readonly="1"/>

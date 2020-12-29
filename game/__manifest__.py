@@ -15,6 +15,8 @@
         'views/pdf_receipt_view.xml',
         'views/wheel_game_data_view.xml',
         'views/lottery_wheel_view.xml',
+        'views/claim_buttom_template.xml',
+        'views/moncash_api_view.xml',
     ],
     'installable': True,
 }

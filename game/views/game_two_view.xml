@@ -2,22 +2,54 @@
     <template id="game_two" name="Game Two">
         <t t-name="website.game_two">
             <t t-call="website.layout">
-                <div id="wrap" class="oe_structure" style="background:#000000;padding:0px;margin:0px;">
+                <div id="wrap" class="oe_structure"
+                     style="background:#000000;padding:0px;margin:0px;background-image:url(/game/static/src/images/background.jpg);height:100%;">
                     <div id="chart"></div>
                     <div id="question">
                         <form action="get_result_game_two" method="post">
                             <input type="hidden" name="csrf_token"
                                    t-att-value="request.csrf_token()"/>
-                            <input type="text" name="result_number" id="result_number"/>
+
                             <input type="text" class="game_id" name="game_id"
                                    t-att-value="game.id" style="visibility:hidden;"/>
-                            <div class="col-lg-4" style="left:50%;top:50%;position: fixed;">
-                                <h4><b>Your Input : </b><span t-esc="game.input"/></h4>
+                            <br/>
+
+                            <input type="text" id="number_input" name="number_input"
+                                   t-att-value="game.input" style="visibility:hidden;"/>
+                            <br/>
+                            <div class="col-lg-4"
+                                 style="left:50%;top:30%;position: fixed;background-color: darkseagreen;border: 1px solid;box-shadow: 5px 10px;">
+                                <br/>
+                                <center>
+                                    <h4>
+                                        <b>Your Input :</b>
+                                        <span t-esc="game.input"/>
+                                    </h4>
+                                </center>
+                                <br/>
+                                <center>
+                                    <h4>
+                                        <b>Your Output :</b>
+                                        <input type="text" name="result_number" id="result_number" style="width: 20%;border: aliceblue;color: green;font-size: 25px;background-color:black;" readonly="true"/>
+                                    </h4>
+                                </center>
+                                <br/>
+                                <center>
+                                    <input type="text" name="result" id="result" readonly="true"
+                                           style="width: 100%;border: aliceblue;color: green;font-size: 25px;background-color:black;"/>
+                                </center>
                                 <br/>
                                 <br/>
-                            <button type="submit" style="background-color:#101820FF;color:#F2AA4CFF;border-color:#101820FF;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);">
-                                    Click Here to Submit the Result
-                                </button>
+
+                                <center>
+                                    <button type="submit"
+                                            style="background-color:#101820FF;color:#F2AA4CFF;border-color:#101820FF;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);">
+                                        Submit
+                                    </button>
+                                </center>
+                                <br/>
+                                Click on submit to save your result and claim your amount if you won.
+                                <br/>
                             </div>
                         </form>
                     </div>
@@ -35,13 +67,17 @@
                      style="background-image:url(/game/static/src/images/background.jpg);height:100%;">
                     <form action="open_game" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                        <div style="left:50%;top:50%;position: fixed;">
-                            <strong style="color:white;">Enter the number from 1-10</strong>
+                        <div style="left:50%;top:30%;position: fixed;background-color: darkseagreen;border: 1px solid;box-shadow: 5px 10px;">
                             <br/>
+                            <center>
+                                <strong>Enter the number from 1-10</strong>
+                            </center>
                             <br/>
-
-                            <input type="text" name="input_number" id="input_number"
-                                   onChange="return numberValidation()"/>
+                            <center>
+                                <input type="text" name="input_number" id="input_number"
+                                       onChange="return numberValidation()"
+                                       style="width: 50%;border: aliceblue;color: green;font-size: 25px;background-color:black;"/>
+                            </center>
                             <script>
                                 function numberValidation()
                                 {
@@ -56,9 +92,14 @@
                             </script>
                             <br/>
                             <br/>
-                            <button type="submit" style="background-color:#101820FF;color:#F2AA4CFF;border-color:#101820FF;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);">
-                                Click Here to Submit the output
-                            </button>
+                            <center>
+                                <button type="submit"
+                                        style="background-color:#101820FF;color:#F2AA4CFF;border-color:#101820FF;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);">
+                                    Submit
+                                </button>
+                            </center>
+                            <br/>
+                            <br/>
                         </div>
 
                     </form>

@@ -110,8 +110,10 @@ class LotteryDraw(models.Model):
                 mail_values = {}
 
                 if rec.partner.name and rec.partner.email:
-                    mail_values.update({
-                        'body_html': """
+                    url = self.get_base_url() + '/claim_prize/' + str(rec.id)
+                    if int(rec.winning_amount) > 0:
+                        mail_values.update({
+                            'body_html': """
                             <p>Dear """ + rec.partner.name + """</p>
                             <p>Result of draws has been came out.</p>
                             <br/>
@@ -161,13 +163,78 @@ class LotteryDraw(models.Model):
                             </tr>
                         </table>
                         <br/>
+                        
                         <br/>
                         Matched numbers are : """ + str1.join(list_string) + """<br/>
                         You have won : """ + rec.winning + """<br/>
                         Winning Amount : """ + rec.winning_amount + """
-
+                        <br/>
+                        <button style="background-color:#875A7B;color:white; padding:5px; font-size:16px;">
+                                <a style="color:white; text-decoration:none;" href='""" + url + """'> Claim Prize </a></button>
+                        <br/>
                                                         """
-                    })
+                        })
+                    else:
+                        mail_values.update({
+                            'body_html': """
+                                                    <p>Dear """ + rec.partner.name + """</p>
+                                                    <p>Result of draws has been came out.</p>
+                                                    <br/>
+                                                    <br/>
+                                                    <table class="table table-bordered" style="width:27%;border-collapse: collapse;border-style:double;text-align:center;">
+                                                    <tr style="height: 70px;border-bottom: 1px solid #101820FF;">
+                                                    <td style="height: 70px;border-bottom: 1px solid #ddd;background-color:#101820FF;color:#F2AA4CFF;">Your Inputs</td>
+                                                    <td style="height: 70px;border-bottom: 1px solid #ddd;background-color:#101820FF;color:#F2AA4CFF;">
+                                                        """ + str(rec.first) + """
+                                                    </td>
+                                                    <td style="height: 70px;border-bottom: 1px solid #ddd;background-color:#101820FF;color:#F2AA4CFF;">
+                                                        """ + str(rec.second) + """
+                                                    </td>
+                                                    <td style="height: 70px;border-bottom: 1px solid #ddd;background-color:#101820FF;color:#F2AA4CFF;">
+                                                        """ + str(rec.third) + """
+                                                    </td>
+                                                    <td style="height: 70px;border-bottom: 1px solid #ddd;background-color:#101820FF;color:#F2AA4CFF;">
+                                                        """ + str(rec.fourth) + """
+                                                    </td>
+                                                    <td style="height: 70px;border-bottom: 1px solid #ddd;background-color:#101820FF;color:#F2AA4CFF;">
+                                                        """ + str(rec.fifth) + """
+                                                    </td>
+                                                    <td style="height: 70px;border-bottom: 1px solid #ddd;background-color:#101820FF;color:#F2AA4CFF;">
+                                                        """ + str(rec.sixth) + """
+                                                    </td>
+                                                    </tr>
+                                                    <tr style="height: 70px; border-bottom: 1px solid #ddd;">
+                                                    <td style="background-color:#F2AA4CFF;color:#101820FF;">Draw Results</td>
+                                                    <td style="background-color:#F2AA4CFF;color:#101820FF;">
+                                                        """ + str(item.first) + """
+                                                    </td>
+                                                    <td style="background-color:#F2AA4CFF;color:#101820FF;">
+                                                        """ + str(item.second) + """
+                                                    </td>
+                                                    <td style="background-color:#F2AA4CFF;color:#101820FF;">
+                                                        """ + str(item.third) + """
+                                                    </td>
+                                                    <td style="background-color:#F2AA4CFF;color:#101820FF;border-color:#F2AA4CFF;">
+                                                        """ + str(item.fourth) + """
+                                                    </td>
+                                                    <td style="background-color:#F2AA4CFF;color:#101820FF;border-color:#F2AA4CFF;">
+                                                        """ + str(item.fifth) + """
+                                                    </td>
+                                                    <td style="background-color:#F2AA4CFF;color:#101820FF;border-color:#F2AA4CFF;">
+                                                        """ + str(item.sixth) + """
+                                                    </td>
+                                                    </tr>
+                                                </table>
+                                                <br/>
+
+                                                <br/>
+                                                Matched numbers are : """ + str1.join(list_string) + """<br/>
+                                                You have won : """ + rec.winning + """<br/>
+                                                Winning Amount : """ + rec.winning_amount + """
+                                        
+                                                <br/>
+                                                                                """
+                        })
                     mail_values.update({
                         'subject': rec.partner.name + '- Draw Result',
                         'email_to': rec.partner.email,

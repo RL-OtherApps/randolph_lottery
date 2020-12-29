@@ -24,19 +24,26 @@
                         </field>
                     </group>
                 </page>
-                 <page name="game2" string="Game 2 Data">
+                <page name="game2" string="Game 2 Data">
                     <group>
                         <field name="wheel_game_data">
                             <tree>
-                            <field name="partner"/>
-                            <field name="company"/>
-                            <field name="lottery_wheel"/>
-                            <field name="input"/>
-                            <field name="result"/>
-                            <field name="amount_won"/>
-                            <field name="rate"/>
+                                <field name="partner"/>
+                                <field name="company"/>
+                                <field name="lottery_wheel"/>
+                                <field name="input"/>
+                                <field name="result"/>
+                                <field name="amount_won"/>
+                                <field name="rate"/>
                             </tree>
                         </field>
+                    </group>
+                </page>
+                <page name="bank_details" string="Bank Details">
+                    <group>
+                        <field name="full_name"/>
+                        <field name="acc_number"/>
+                        <field name="ifsc"/>
                     </group>
                 </page>
             </xpath>
