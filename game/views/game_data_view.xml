@@ -33,7 +33,7 @@
                                 <field name="lottery_wheel"/>
                                 <field name="input"/>
                                 <field name="result"/>
-                                <field name="amount_won"/>
+                                <field name="amount_won" widget="monetary"/>
                                 <field name="rate"/>
                             </tree>
                         </field>

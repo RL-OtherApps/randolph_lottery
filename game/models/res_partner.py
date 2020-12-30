@@ -35,9 +35,10 @@ class GameWheelData(models.Model):
     _name = "game.wheel.data"
 
     partner = fields.Many2one('res.partner', 'Customer')
-    company = fields.Many2one('res.company', 'Company')
+    company = fields.Many2one('res.company', 'Company',default=lambda self: self.env.company.id)
     lottery_wheel = fields.Many2one('lottery.wheel', 'Lottery Wheel')
     input = fields.Integer('Input')
     result = fields.Integer('Result')
-    amount_won = fields.Integer('Amount Won')
+    amount_won = fields.Integer('Amount Won',currency_field='currency_id')
     rate = fields.Char('Rate')
+    currency_id = fields.Many2one(string="Currency", related='company.currency_id', readonly=True)

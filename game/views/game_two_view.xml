@@ -3,7 +3,7 @@
         <t t-name="website.game_two">
             <t t-call="website.layout">
                 <div id="wrap" class="oe_structure"
-                     style="background:#000000;padding:0px;margin:0px;background-image:url(/game/static/src/images/background.jpg);height:100%;">
+                     style="background:#000000;padding:0px;margin:0px;background-image:url(/game/static/src/images/Asia-lottery-background.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
                     <div id="chart"></div>
                     <div id="question">
                         <form action="get_result_game_two" method="post">
@@ -18,7 +18,7 @@
                                    t-att-value="game.input" style="visibility:hidden;"/>
                             <br/>
                             <div class="col-lg-4"
-                                 style="left:50%;top:30%;position: fixed;background-color: darkseagreen;border: 1px solid;box-shadow: 5px 10px;">
+                                 style="color:#606060FF;left:50%;top:25%;position: fixed;background-image: radial-gradient(#2A5491, #04285A);border: 1px solid;box-shadow: 5px 10px;">
                                 <br/>
                                 <center>
                                     <h4>
@@ -30,20 +30,22 @@
                                 <center>
                                     <h4>
                                         <b>Your Output :</b>
-                                        <input type="text" name="result_number" id="result_number" style="width: 20%;border: aliceblue;color: green;font-size: 25px;background-color:black;" readonly="true"/>
+                                        <input type="text" name="result_number" id="result_number"
+                                               style="width: 20%;border: aliceblue;color: #D6ED17FF;font-size: 25px;background-color:#606060FF;"
+                                               readonly="true"/>
                                     </h4>
                                 </center>
                                 <br/>
                                 <center>
                                     <input type="text" name="result" id="result" readonly="true"
-                                           style="width: 100%;border: aliceblue;color: green;font-size: 25px;background-color:black;"/>
+                                           style="width: 100%;border: aliceblue;color: #D6ED17FF;font-size: 25px;background-color:#606060FF;"/>
                                 </center>
                                 <br/>
                                 <br/>
 
                                 <center>
                                     <button type="submit"
-                                            style="background-color:#101820FF;color:#F2AA4CFF;border-color:#101820FF;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);">
+                                            style="background-color:#606060FF;color:#D6ED17FF;border-color:#606060FF;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);">
                                         Submit
                                     </button>
                                 </center>
@@ -64,10 +66,19 @@
         <t t-name="website.game_two">
             <t t-call="website.layout">
                 <div id="wrap" class="oe_structure"
-                     style="background-image:url(/game/static/src/images/background.jpg);height:100%;">
+                     style="background-image:url(/game/static/src/images/Asia-lottery-background.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
+
+                    <div style="color:#00203FFF;width: 35%;height: 35%;left:7%;top:30%;position: fixed;border: 1px solid;box-shadow: 5px 10px;background-image:url(/game/static/src/images/div2.jpg);background-repeat: no-repeat;background-position: center;background-size: cover;">
+                        <br/>
+                        <h2 style="color:#00203FFF !important;position: relative !important;left: 270px !important;">Welcome !!</h2>
+                        <b><span t-esc="partner.name" style="position: relative;left: 270px;"/></b>
+                        <br/>
+                        <h3 style="color:#00203FFF !important;position: relative !important;left: 103px !important;">Win <span t-esc="lottery.rate"/>$ for 1$.</h3>
+                        <br/>
+                    </div>
                     <form action="open_game" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                        <div style="left:50%;top:30%;position: fixed;background-color: darkseagreen;border: 1px solid;box-shadow: 5px 10px;">
+                        <div style="color:#00203FFF;height: 38%;left:50%;top:30%;position: fixed;background-color: #FFE66E;border: 1px solid;box-shadow: 5px 10px;background-image:url(/game/static/src/images/div-back.jpg);background-repeat: no-repeat;background-position: center;background-size: cover;">
                             <br/>
                             <center>
                                 <strong>Enter the number from 1-10</strong>
@@ -76,7 +87,7 @@
                             <center>
                                 <input type="text" name="input_number" id="input_number"
                                        onChange="return numberValidation()"
-                                       style="width: 50%;border: aliceblue;color: green;font-size: 25px;background-color:black;"/>
+                                       style="width: 50%;border: aliceblue;color: gold;font-size: 25px;background-color:black;"/>
                             </center>
                             <script>
                                 function numberValidation()
@@ -91,10 +102,9 @@
                                 }
                             </script>
                             <br/>
-                            <br/>
                             <center>
                                 <button type="submit"
-                                        style="background-color:#101820FF;color:#F2AA4CFF;border-color:#101820FF;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);">
+                                        style="background-color:#101820FF;color:gold;border-color:#101820FF;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);">
                                     Submit
                                 </button>
                             </center>

@@ -4,7 +4,7 @@ from odoo import http
 from odoo.http import request
 from odoo.exceptions import UserError
 import logging
-from datetime import datetime,date
+from datetime import datetime, date
 
 _logger = logging.getLogger(__name__)
 
@@ -23,8 +23,9 @@ class GameLoader(http.Controller):
     @http.route('/second-game', type="http", auth="user", website=True)
     def play_second_game(self, **kwargs):
         uid = request.env.user.partner_id
+        lottery = request.env['lottery.wheel'].sudo().search([('active_lottery', '=', True)], limit=1)
         if uid:
-            return http.request.render('game.game_two_form', {})
+            return http.request.render('game.game_two_form', {'lottery': lottery, 'partner': uid})
         else:
             return http.request.render('web.login', {})
 
@@ -73,13 +74,15 @@ class GameLoader(http.Controller):
     @http.route('/get_result_game_two', auth='public', type='http', website=True, methods=['POST'])
     def save_result_game_two(self, result_number, game_id):
         game_data = request.env['game.wheel.data'].sudo().search([('id', '=', int(game_id))], limit=1)
+        company = request.env['res.company'].sudo().search([('name', '=', 'Ydnar Lottery')])
         if int(game_data.input) == int(result_number):
             amount = int(result_number) * int(game_data.rate)
-            game_data.update({'result': result_number, 'amount_won': amount})
-            return http.request.render('game.game_two_form', {})
+            game_data.update({'result': result_number, 'amount_won': amount, 'company': company})
+            values = {'game': game_data}
+            return http.request.render('game.claim_button_page2', values)
         else:
-            game_data.update({'result': result_number, 'amount_won': 0})
-            return http.request.render('game.game_two_form', {})
+            game_data.update({'result': result_number, 'amount_won': 0, 'company': company})
+            return http.request.render('game.thanks_page', {})
 
     @http.route('/claim_prize/<string:id>', type='http', auth="user", methods=['GET'], website=True,
                 csrf=False)
@@ -89,7 +92,7 @@ class GameLoader(http.Controller):
         name = post.get('name')
         acc_number = post.get('acc_number')
         ifsc = post.get('ifsc')
-        values={'game_data':game_data}
+        values = {'game_data': game_data}
         if name and acc_number and ifsc:
             partner.update({
                 'full_name': name,
@@ -97,7 +100,7 @@ class GameLoader(http.Controller):
                 'ifsc': ifsc,
             })
             product_id = request.env['product.product'].sudo().search([('name', '=', 'Lottery Draw Winner')])
-            journal = request.env['account.journal'].sudo().search([('name', '=', 'Vendor Bills')],limit=1)
+            journal = request.env['account.journal'].sudo().search([('name', '=', 'Vendor Bills')], limit=1)
             if product_id:
                 vals = {
                     'partner_id': partner.id,
@@ -140,4 +143,67 @@ class GameLoader(http.Controller):
                     })
                     line_ids.append(line_values)
                     bills.write({'invoice_line_ids': line_ids})
-        return request.render('game.claim_button_page', {})
+                    return request.render('game.thanks_page', {})
+        else:
+            return request.render('game.claim_button_page', {})
+
+    @http.route('/claim_prize_two', type='http', auth="user", methods=['GET'], website=True,
+                csrf=False)
+    def claim_prize_game_two(self, game_id, **post):
+        game_data = request.env['game.wheel.data'].sudo().search([('id', '=', int(game_id))], limit=1)
+        partner = request.env.user.partner_id
+        name = post.get('name')
+        acc_number = post.get('acc_number')
+        ifsc = post.get('ifsc')
+        values = {'game_data': game_data}
+        if name and acc_number and ifsc:
+            partner.update({
+                'full_name': name,
+                'acc_number': acc_number,
+                'ifsc': ifsc,
+            })
+            product_id = request.env['product.product'].sudo().search([('name', '=', 'Lottery Wheel Winner')])
+            journal = request.env['account.journal'].sudo().search([('name', '=', 'Vendor Bills')], limit=1)
+            if product_id:
+                vals = {
+                    'partner_id': partner.id,
+                    'journal_id': journal.id,
+                    'invoice_date': date.today(),
+                    'date': date.today(),
+                    'move_type': "in_invoice",
+                    'state': 'draft'
+                }
+                bills = request.env['account.move'].sudo().create(vals)
+                line_ids = []
+                line_values = (0, 0, {
+                    'product_id': product_id.id,
+                    'name': product_id.name,
+                    'quantity': 1,
+                    'price_unit': float(int(game_data.amount_won))
+                })
+                line_ids.append(line_values)
+                bills.write({'invoice_line_ids': line_ids})
+            else:
+                product_id = request.env['product.product'].sudo().create({
+                    'name': 'Lottery Wheel Winner',
+                })
+                if product_id:
+                    vals = {
+                        'partner_id': partner.id,
+                        'journal_id': journal.id,
+                        'invoice_date': date.today(),
+                        'date': date.today(),
+                        'move_type': "in_invoice",
+                        'state': 'draft'
+                    }
+                    bills = request.env['account.move'].sudo().create(vals)
+                    line_ids = []
+                    line_values = (0, 0, {
+                        'product_id': product_id.id,
+                        'name': product_id.name,
+                        'quantity': 1,
+                        'price_unit': float(int(game_data.amount_won))
+                    })
+                    line_ids.append(line_values)
+                    bills.write({'invoice_line_ids': line_ids})
+        return request.render('game.thanks_page', {})

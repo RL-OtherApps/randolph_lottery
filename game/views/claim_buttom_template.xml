@@ -3,7 +3,69 @@
         <t t-call="portal.portal_layout">
             <form action="" enctype="multipart/form-data" id="enter_details">
                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                <!--                <span t-field="lead_id.id" style="visibility:hidden;"/>-->
+                <div t-attf-class="form-group">
+                    <table class="table table-sm o_main_table table-bordered" style="1px solid;" name="bank_details">
+                        <tr>
+                            <td></td>
+                            <td>Bank Details</td>
+                        </tr>
+                        <tr>
+                            <td>Ticket Number</td>
+                            <td>
+                                <input type="text" name="ticket" id="ticket"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Full Name</td>
+                            <td>
+                                <input type="text" name="name" id="name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Account Number</td>
+                            <td>
+                                <input type="text" name="acc_number" id="acc_number"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>IFSC Code</td>
+                            <td>
+                                <input type="text" name="ifsc" id="ifsc"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <button type="submit"
+                                        style="background-color:#101820FF;color:#F2AA4CFF;border-color:#101820FF;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);">
+                                    Submit
+                                </button>
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+                <br/>
+                <br/>
+            </form>
+        </t>
+    </template>
+    <template id="thanks_page">
+        <t t-call="portal.portal_layout">
+            <div t-attf-class="form-group">
+                <center>
+                    <h1>Thank you!!!!</h1>
+                </center>
+            </div>
+            <br/>
+        </t>
+    </template>
+    <template id="claim_button_page2">
+        <t t-call="portal.portal_layout">
+            <form action="claim_prize_two" enctype="multipart/form-data" id="enter_details">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <input type="text" id="game_id" name="game_id"
+                       t-att-value="game.id" style="visibility:hidden;"/>
                 <div t-attf-class="form-group">
                     <table class="table table-sm o_main_table table-bordered" style="1px solid;" name="bank_details">
                         <tr>
@@ -28,12 +90,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <center>
+                            <td></td>
+                            <td>
                                 <button type="submit"
                                         style="background-color:#101820FF;color:#F2AA4CFF;border-color:#101820FF;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);">
                                     Submit
                                 </button>
-                            </center>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -42,4 +105,5 @@
             </form>
         </t>
     </template>
+
 </odoo>
