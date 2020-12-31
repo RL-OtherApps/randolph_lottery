@@ -2,11 +2,14 @@
     <template id="game_one" name="Game One">
         <t t-name="website.game_one">
             <t t-call="website.layout">
-                <div id="wrap" class="oe_structure">
+                <div id="wrap" class="oe_structure" style="background-image:url(/game/static/src/images/game1_back.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
                     <sections>
-                        <h4 style="color: gold;padding:27px;">Welcome!!<br/>
-                                <span t-esc="partner.name"/>
-                            </h4>
+                        <audio src="game/static/src/bg.mp3" loop="loop" id="my_audio">
+                        </audio>
+                        <h4 style="color: gold;padding:27px;">Welcome!!
+                            <br/>
+                            <span t-esc="partner.name"/>
+                        </h4>
                         <div style="width: 28%;border:solid 1px;border-color:gold;border-top: groove;border-bottom: groove;border-left: groove;border-right: groove;">
                             <h3>
                                 Winnings
@@ -86,6 +89,7 @@
                     </sections>
                     <script type="text/javascript" src="/game/static/src/js/script.js"/>
                     <link href="https://fonts.googleapis.com/css?family=Allerta|Bungee" rel="stylesheet"/>
+                    <script type="text/javascript" src="/game/static/src/js/music.js"/>
                 </div>
             </t>
         </t>
@@ -93,9 +97,11 @@
     <template id="ticket_receipt" name="Ticket Receipt">
         <t t-name="website.ticket_receipt">
             <t t-call="website.layout">
-                <div id="wrap" class="oe_structure">
+                <div id="wrap" class="oe_structure" style="background-image:url(/game/static/src/images/game1_back.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
+                    <audio src="game/static/src/bg.mp3" loop="loop" id="my_audio">
+                    </audio>
                     <div class="receiptDiv">
-                        <div class="pos-receipt-contact">
+                        <div>
                             <br/>
                             <t t-if="receipt.name">
                                 <div>
@@ -146,7 +152,6 @@
 
                         <strong>You have selected following numbers</strong>
                         <br/>
-                        <br/>
                         <table class="table table-bordered">
                             <tr>
                                 <td>
@@ -189,9 +194,7 @@
                             at any time when you have provided any KYC documents that are required.
                         </p>
                         <div>
-
                         </div>
-
                         <form action="report/pdf/receipt_download" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                             <input type="text" class="game_id" name="game_id"
@@ -203,7 +206,7 @@
                             </center>
                         </form>
                     </div>
-                    <br/>
+                    <script type="text/javascript" src="/game/static/src/js/music.js"/>
                 </div>
             </t>
         </t>
