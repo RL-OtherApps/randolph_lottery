@@ -11,6 +11,22 @@ _logger = logging.getLogger(__name__)
 
 class GameLoader(http.Controller):
 
+    @http.route('/choose_users', type="http", auth="user", website=True)
+    def choose_user(self, **kwargs):
+        uid = request.env.user.partner_id
+        if uid:
+            return http.request.render('game.choose_user')
+        else:
+            return http.request.render('web.login', )
+
+    @http.route('/open_as_customer', type="http", auth="user", website=True)
+    def choose_game(self, **kwargs):
+        uid = request.env.user.partner_id
+        if uid:
+            return http.request.render('game.choose_game')
+        else:
+            return http.request.render('web.login', )
+
     @http.route('/first-game', type="http", auth="user", website=True)
     def play_first_game(self, **kwargs):
         uid = request.env.user.partner_id

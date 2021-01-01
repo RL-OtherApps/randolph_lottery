@@ -17,6 +17,7 @@
         'views/lottery_wheel_view.xml',
         'views/claim_buttom_template.xml',
         'views/moncash_api_view.xml',
+        'views/choose_user_template.xml',
     ],
     'installable': True,
 }

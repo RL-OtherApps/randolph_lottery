@@ -1,0 +1,80 @@
+<odoo>
+    <template id="choose_user" name="Choose User">
+        <t t-name="website.choose_user">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure"
+                     style="background-image:url(/game/static/src/images/dashboard.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
+                    <div class="row" style="position:relative;top:20%;">
+                        <h1 style="color:black;">Login as:</h1>
+                        <div class="col-lg-6" style="position:relative;left:20%;">
+                            <form action="open_as_sales_person" method="post">
+                                <input type="hidden" name="csrf_token"
+                                       t-att-value="request.csrf_token()"/>
+                                <div class="col-lg-4">
+                                    <button class="button_two"
+                                            type="submit">
+                                        Sales Person
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-6">
+                            <form action="open_as_customer" method="post">
+                                <input type="hidden" name="csrf_token"
+                                       t-att-value="request.csrf_token()"/>
+                                <div class="col-lg-4">
+                                    <button class="button_two"
+                                            type="submit">
+                                        Customer
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+    <template id="choose_game" name="Choose Game">
+        <t t-name="website.choose_game">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure"
+                     style="background-image:url(/game/static/src/images/dashboard.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
+                    <div class="row" style="position:relative;top:10%;">
+                        <div class="col-lg-6" style="position:relative;left:20%;">
+                            <form action="first-game" method="post">
+                                <input type="hidden" name="csrf_token"
+                                       t-att-value="request.csrf_token()"/>
+                                <div class="col-lg-4">
+                                    <h1>Lottery Draw</h1>
+                                    <button class="button"
+                                            type="submit" style="box-shadow: 5px 10px;background-image:url(/game/static/src/images/lottery_bg.jpeg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-6">
+                            <form action="second-game" method="post">
+                                <input type="hidden" name="csrf_token"
+                                       t-att-value="request.csrf_token()"/>
+                                <div class="col-lg-4">
+                                    <h1>Spin Wheel</h1>
+                                    <button class="button"
+                                            type="submit" style="box-shadow: 5px 10px;background-image:url(/game/static/src/images/spin_bg.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="dashboard_assets" name="dashboard assets" inherit_id="web.assets_frontend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/game/static/src/scss/dashboard.scss"/>
+        </xpath>
+    </template>
+
+</odoo>
