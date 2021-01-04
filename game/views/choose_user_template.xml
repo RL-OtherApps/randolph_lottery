@@ -7,7 +7,7 @@
                     <div class="row" style="position:relative;top:20%;">
                         <h1 style="color:black;">Login as:</h1>
                         <div class="col-lg-6" style="position:relative;left:20%;">
-                            <form action="open_as_sales_person" method="post">
+                            <form action="open_as_agent" method="post">
                                 <input type="hidden" name="csrf_token"
                                        t-att-value="request.csrf_token()"/>
                                 <div class="col-lg-4">
@@ -45,6 +45,10 @@
                             <form action="first-game" method="post">
                                 <input type="hidden" name="csrf_token"
                                        t-att-value="request.csrf_token()"/>
+                                <t t-if="customers">
+                                <input type="text" class="customer" name="customer"
+                                   t-att-value="customers.id" style="visibility:hidden;"/>
+                                </t>
                                 <div class="col-lg-4">
                                     <h1>Lottery Draw</h1>
                                     <button class="button"
@@ -57,6 +61,10 @@
                             <form action="second-game" method="post">
                                 <input type="hidden" name="csrf_token"
                                        t-att-value="request.csrf_token()"/>
+                                <t t-if="customers">
+                                <input type="text" class="customer" name="customer"
+                                   t-att-value="customers.id" style="visibility:hidden;"/>
+                                </t>
                                 <div class="col-lg-4">
                                     <h1>Spin Wheel</h1>
                                     <button class="button"

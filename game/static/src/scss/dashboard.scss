@@ -47,3 +47,9 @@ background-image: radial-gradient(#2A5491, #04285A);
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
+
+table, th, td {
+    width: 70%;
+    text-align: left;
+    font-size:20px;
+}

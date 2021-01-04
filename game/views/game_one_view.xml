@@ -73,6 +73,8 @@
                         <form action="save_numbers" method="post">
                             <input type="hidden" name="csrf_token"
                                    t-att-value="request.csrf_token()"/>
+                            <input type="text" class="customer" name="customer"
+                                   t-att-value="partner.id" style="visibility:hidden;"/>
                             <input class="cyfral" type="hidden" name="l1" id="l11"/>
                             <input class="cyfral" type="hidden" name="l2" id="l12"/>
                             <input class="cyfral" type="hidden" name="l3" id="l13"/>

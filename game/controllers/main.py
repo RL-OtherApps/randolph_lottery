@@ -27,44 +27,102 @@ class GameLoader(http.Controller):
         else:
             return http.request.render('web.login', )
 
+    @http.route('/open_as_agent', type="http", auth="user", website=True)
+    def reg_customer(self, **kwargs):
+        customers = request.env['res.partner'].sudo().search([])
+        agents = request.env['res.users'].sudo().search([])
+        return http.request.render('game.reg_customer', {'customers': customers, 'agents': agents})
+
+    @http.route('/save_info_open_game', type="http", auth="user", website=True, methods=['POST'])
+    def save_info_open_game(self, **post):
+        yes = post.get('yesno')
+        name = post.get('name')
+        email = post.get('email')
+        phone = post.get('phone')
+        agent = post.get('agent')
+        agents = post.get('agents')
+        customers = post.get('customers')
+        if yes == "yes":
+            agents = request.env['res.users'].sudo().search([('name', '=', str(agents))])
+            customer = request.env['res.partner'].sudo().create({
+                'name': name,
+                'email': email,
+                'phone': phone
+            })
+            return http.request.render('game.choose_game', {'customers': customer, 'agents': agents})
+        else:
+            customers = request.env['res.partner'].sudo().search([('name', '=', str(customers))])
+            agents = request.env['res.users'].sudo().search([('name', '=', str(agent))])
+            return http.request.render('game.choose_game', {'customers': customers, 'agents': agents})
+
     @http.route('/first-game', type="http", auth="user", website=True)
-    def play_first_game(self, **kwargs):
+    def play_first_game(self, **post):
         uid = request.env.user.partner_id
-        lottery = request.env['lottery.draw'].sudo().search([('active_draw', '=', True)], limit=1)
         if uid:
-            return http.request.render('game.game_one', {'partner': uid, 'draw': lottery})
+            customer = post.get('customer')
+            lottery = request.env['lottery.draw'].sudo().search([('active_draw', '=', True)], limit=1)
+            if customer:
+                customers = request.env['res.partner'].sudo().search([('id', '=', int(customer))])
+                return http.request.render('game.game_one', {'partner': customers, 'draw': lottery})
+            else:
+                return http.request.render('game.game_one', {'partner':uid, 'draw': lottery})
+
         else:
             return http.request.render('web.login', )
 
     @http.route('/second-game', type="http", auth="user", website=True)
-    def play_second_game(self, **kwargs):
+    def play_second_game(self, **post):
         uid = request.env.user.partner_id
-        lottery = request.env['lottery.wheel'].sudo().search([('active_lottery', '=', True)], limit=1)
         if uid:
-            return http.request.render('game.game_two_form', {'lottery': lottery, 'partner': uid})
+            customer = post.get('customer')
+            lottery = request.env['lottery.wheel'].sudo().search([('active_lottery', '=', True)], limit=1)
+            if customer:
+                customers = request.env['res.partner'].sudo().search([('id', '=', int(customer))])
+                return http.request.render('game.game_two_form', {'partner': customers, 'lottery': lottery})
+            else:
+                return http.request.render('game.game_two_form', {'partner': uid, 'lottery': lottery})
         else:
-            return http.request.render('web.login', {})
+            return http.request.render('web.login', )
 
     @http.route('/save_numbers', auth='public', type='http', website=True, methods=['POST'])
-    def save_numbers(self, l1, l2, l3, l4, l5, l6):
+    def save_numbers(self, l1, l2, l3, l4, l5, l6,**post):
         partner = request.env.user.partner_id
         company = request.env['res.company'].sudo().search([('name', '=', 'Ydnar Lottery')])
         lottery = request.env['lottery.draw'].sudo().search([('active_draw', '=', True)], limit=1)
-        game = request.env['game.data'].sudo().create({
-            'partner': partner.id,
-            'create_date': datetime.now(),
-            'ticket_number': request.env['ir.sequence'].sudo().next_by_code('game.data'),
-            'first': l1,
-            'second': l2,
-            'third': l3,
-            'fourth': l4,
-            'fifth': l5,
-            'sixth': l6,
-            'draw': lottery.id,
-            'company': company.id,
+        customer = post.get('customer')
+        if customer:
+            customers = request.env['res.partner'].sudo().search([('id', '=', int(customer))])
+            game = request.env['game.data'].sudo().create({
+                'partner': customers.id if customers else partner.id,
+                'create_date': datetime.now(),
+                'ticket_number': request.env['ir.sequence'].sudo().next_by_code('game.data'),
+                'first': l1,
+                'second': l2,
+                'third': l3,
+                'fourth': l4,
+                'fifth': l5,
+                'sixth': l6,
+                'draw': lottery.id,
+                'company': company.id,
 
-        })
-        return request.render('game.ticket_receipt', {'tick': game, 'receipt': company, 'draw': lottery})
+            })
+            return request.render('game.ticket_receipt', {'tick': game, 'receipt': company, 'draw': lottery})
+        else:
+            game = request.env['game.data'].sudo().create({
+                'partner': partner.id,
+                'create_date': datetime.now(),
+                'ticket_number': request.env['ir.sequence'].sudo().next_by_code('game.data'),
+                'first': l1,
+                'second': l2,
+                'third': l3,
+                'fourth': l4,
+                'fifth': l5,
+                'sixth': l6,
+                'draw': lottery.id,
+                'company': company.id,
+
+            })
+            return request.render('game.ticket_receipt', {'tick': game, 'receipt': company, 'draw': lottery})
 
     @http.route(['/report/pdf/receipt_download'], type='http', auth='public', methods=['POST'])
     def download_receipt(self, game_id):
@@ -75,17 +133,29 @@ class GameLoader(http.Controller):
         return request.make_response(pdf, headers=pdfhttpheaders)
 
     @http.route('/open_game', auth='public', type='http', website=True, methods=['POST'])
-    def open_first_game(self, input_number):
+    def open_first_game(self, input_number,**post):
         partner = request.env.user.partner_id
         lottery = request.env['lottery.wheel'].sudo().search([('active_lottery', '=', True)], limit=1)
-        game_wheel = request.env['game.wheel.data'].sudo().create({
-            'partner': partner.id,
-            'create_date': datetime.now(),
-            'lottery_wheel': lottery.id,
-            'input': input_number,
-            'rate': lottery.rate,
-        })
-        return http.request.render('game.game_two', {'game': game_wheel})
+        customer = post.get('customer')
+        if customer:
+            customers = request.env['res.partner'].sudo().search([('id', '=', int(customer))])
+            game_wheel = request.env['game.wheel.data'].sudo().create({
+                'partner': customers.id if customers else partner.id,
+                'create_date': datetime.now(),
+                'lottery_wheel': lottery.id,
+                'input': input_number,
+                'rate': lottery.rate,
+            })
+            return http.request.render('game.game_two', {'game': game_wheel})
+        else:
+            game_wheel = request.env['game.wheel.data'].sudo().create({
+                'partner': partner.id,
+                'create_date': datetime.now(),
+                'lottery_wheel': lottery.id,
+                'input': input_number,
+                'rate': lottery.rate,
+            })
+            return http.request.render('game.game_two', {'game': game_wheel})
 
     @http.route('/get_result_game_two', auth='public', type='http', website=True, methods=['POST'])
     def save_result_game_two(self, result_number, game_id):

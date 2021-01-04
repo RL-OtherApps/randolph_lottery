@@ -88,6 +88,8 @@
                     </div>
                     <form action="open_game" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="text" class="customer" name="customer"
+                                   t-att-value="partner.id" style="visibility:hidden;"/>
                         <div style="color:#00203FFF;height: 38%;left:50%;top:30%;position: fixed;background-color: #FFE66E;border: 1px solid;box-shadow: 5px 10px;background-image:url(/game/static/src/images/div-back.jpg);background-repeat: no-repeat;background-position: center;background-size: cover;">
                             <br/>
                             <center>
