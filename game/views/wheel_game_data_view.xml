@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="partner"/>
+                <field name="agent"/>
                 <field name="company"/>
                 <field name="lottery_wheel"/>
                 <field name="input"/>
@@ -26,6 +27,7 @@
                     <group>
                         <group>
                             <field name="partner"/>
+                            <field name="agent"/>
                             <field name="company"/>
                             <field name="lottery_wheel"/>
                             <field name="input"/>

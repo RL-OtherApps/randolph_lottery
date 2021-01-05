@@ -77,9 +77,14 @@
                         <h2 style="color:#00203FFF !important;position: relative !important;left: 270px !important;">
                             Welcome !!
                         </h2>
+                        <t t-if="partners">
+                        <b>
+                            <span t-esc="partners.name" style="position: relative;left: 270px;"/>
+                        </b></t>
+                        <t t-if="partner">
                         <b>
                             <span t-esc="partner.name" style="position: relative;left: 270px;"/>
-                        </b>
+                        </b></t>
                         <br/>
                         <h3 style="color:#00203FFF !important;position: relative !important;left: 103px !important;">Win
                             <span t-esc="lottery.rate"/>$ for 1$.
@@ -88,8 +93,14 @@
                     </div>
                     <form action="open_game" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                        <input type="text" class="customer" name="customer"
+                        <t t-if="partner">
+                            <input type="text" class="customers" name="customers"
                                    t-att-value="partner.id" style="visibility:hidden;"/>
+                        </t>
+                        <t t-if="partners">
+                            <input type="text" class="customer" name="customer"
+                                   t-att-value="partners.id" style="visibility:hidden;"/>
+                        </t>
                         <div style="color:#00203FFF;height: 38%;left:50%;top:30%;position: fixed;background-color: #FFE66E;border: 1px solid;box-shadow: 5px 10px;background-image:url(/game/static/src/images/div-back.jpg);background-repeat: no-repeat;background-position: center;background-size: cover;">
                             <br/>
                             <center>

@@ -60,6 +60,7 @@
                             <field name="player_inputs">
                                 <tree>
                                     <field name="partner" style="background-color:#0F2557;color:white;"/>
+                                    <field name="agent" style="background-color:#0F2557;color:white;"/>
                                     <field name="ticket_number" style="background-color:#0F2557;color:white;"/>
                                     <field name="create_date" style="background-color:#0F2557;color:white;"/>
                                     <field name="first" style="background-color:#32064A;color:white;text-align: center;"/>

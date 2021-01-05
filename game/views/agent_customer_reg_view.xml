@@ -2,9 +2,9 @@
     <template id="reg_customer" name="Customer and Agent">
         <t t-name="website.reg_customer">
             <t t-call="website.layout">
-                <div id="wrap" class="oe_structure" style="background-image:url(/game/static/src/images/dashboard.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
+                <div id="wrap" class="oe_structure" style="background-image:url(/game/static/src/images/login.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
                     <div class="row">
-                        <div class="col-lg-6" style="position:relative;left:25%;margin-top:10%;">
+                        <div class="col-lg-6" style="position:relative;left:25%;margin-top:5%;">
                             <form action="save_info_open_game" method="post">
                                 <input type="hidden" name="csrf_token"
                                        t-att-value="request.csrf_token()"/>
@@ -39,9 +39,21 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Name</td>
+                                            <td>Phone</td>
                                             <td>
                                                 <input type='text' id='phone' name='phone'/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Agent Name</td>
+                                            <td>
+                                                <select id="agents" name="agents">
+                                                <t t-foreach="agents" t-as="agent">
+                                                    <option>
+                                                        <t t-esc="agent.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
                                             </td>
                                         </tr>
                                     </table>
@@ -86,5 +98,4 @@
             </t>
         </t>
     </template>
-
 </odoo>

@@ -1,0 +1,23 @@
+<odoo>
+    <template id="moncash_button" name="Moncash Button">
+        <t t-name="website.moncash_button">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure"
+                     style="background-image:url(/game/static/src/images/dashboard.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
+                    <div class="row" style="position:relative;top:20%;">
+                        <h1 style="color:black;">Amount:</h1>
+                        <div class="col-lg-6" style="position:relative;left:20%;">
+                            <form method="post"
+                                  action="https://sandbox.moncashbutton.digicelgroup.com/Moncash-middleware/Checkout/YXpCR2FVUjNVbXhVVVdzOSBPVXBPZDB4M1p6TlZNbHB0T0dwc1psWXpUVWw2VVQwOQ==">
+                                <input type="hidden" name="amount" value="base64(encrypt(50.00))"/>
+                                <input type="hidden" name="orderId" value="base64(encrypt(1001))"/>
+                                <input type="image" name="ap_image"
+                                       src="https://sandbox.moncashbutton.digicelgroup.com/Moncash-middleware/resources/assets/images/MC_button.png"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

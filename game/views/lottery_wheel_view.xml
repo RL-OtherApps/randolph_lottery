@@ -33,6 +33,7 @@
                     <field name="player_inputs_results">
                         <tree>
                             <field name="partner"/>
+                            <field name="agent"/>
                             <field name="company"/>
                             <field name="lottery_wheel"/>
                             <field name="input"/>

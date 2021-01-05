@@ -53,6 +53,15 @@
                                       class="pos-receipt-right-align"/>
                             </td>
                         </tr>
+                        <tr t-if="o.agent.name">
+                            <td>
+                                <strong>Agent</strong>
+                            </td>
+                            <td>
+                                <span t-esc="o.agent.name"
+                                      class="pos-receipt-right-align"/>
+                            </td>
+                        </tr>
                     </table>
                     <br/>
                     <strong>You have selected following numbers</strong>

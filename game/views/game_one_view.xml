@@ -2,13 +2,19 @@
     <template id="game_one" name="Game One">
         <t t-name="website.game_one">
             <t t-call="website.layout">
-                <div id="wrap" class="oe_structure" style="background-image:url(/game/static/src/images/game1_back.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
+                <div id="wrap" class="oe_structure"
+                     style="background-image:url(/game/static/src/images/game1_back.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
                     <sections>
                         <audio src="game/static/src/bg.mp3" loop="loop" id="my_audio">
                         </audio>
                         <h4 style="color: gold;padding:27px;">Welcome!!
                             <br/>
-                            <span t-esc="partner.name"/>
+                            <t t-if="partners">
+                                <span t-esc="partners.name"/>
+                            </t>
+                            <t t-if="partner">
+                                <span t-esc="partner.name"/>
+                            </t>
                         </h4>
                         <div style="width: 28%;border:solid 1px;border-color:gold;border-top: groove;border-bottom: groove;border-left: groove;border-right: groove;">
                             <h3>
@@ -73,8 +79,14 @@
                         <form action="save_numbers" method="post">
                             <input type="hidden" name="csrf_token"
                                    t-att-value="request.csrf_token()"/>
-                            <input type="text" class="customer" name="customer"
-                                   t-att-value="partner.id" style="visibility:hidden;"/>
+                            <t t-if="partner">
+                                <input type="text" class="customers" name="customers"
+                                       t-att-value="partner.id" style="visibility:hidden;"/>
+                            </t>
+                            <t t-if="partners">
+                                <input type="text" class="customer" name="customer"
+                                       t-att-value="partners.id" style="visibility:hidden;"/>
+                            </t>
                             <input class="cyfral" type="hidden" name="l1" id="l11"/>
                             <input class="cyfral" type="hidden" name="l2" id="l12"/>
                             <input class="cyfral" type="hidden" name="l3" id="l13"/>
@@ -99,7 +111,8 @@
     <template id="ticket_receipt" name="Ticket Receipt">
         <t t-name="website.ticket_receipt">
             <t t-call="website.layout">
-                <div id="wrap" class="oe_structure" style="background-image:url(/game/static/src/images/game1_back.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
+                <div id="wrap" class="oe_structure"
+                     style="background-image:url(/game/static/src/images/game1_back.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
                     <audio src="game/static/src/bg.mp3" loop="loop" id="my_audio">
                     </audio>
                     <div class="receiptDiv">
@@ -147,6 +160,15 @@
                                 </td>
                                 <td>
                                     <span t-esc="tick.ticket_number"
+                                          class="pos-receipt-right-align"/>
+                                </td>
+                            </tr>
+                            <tr t-if="tick.agent.name">
+                                <td>
+                                    <strong>Agent</strong>
+                                </td>
+                                <td>
+                                    <span t-esc="tick.agent.name"
                                           class="pos-receipt-right-align"/>
                                 </td>
                             </tr>

@@ -6,6 +6,7 @@ class GameData(models.Model):
     _name = "game.data"
 
     partner = fields.Many2one('res.partner', 'Customer')
+    agent = fields.Many2one('res.users', 'Agent')
     company = fields.Many2one('res.company', 'Company')
     draw = fields.Many2one('lottery.draw', 'Draw')
     first = fields.Integer('First')
@@ -42,3 +43,4 @@ class GameWheelData(models.Model):
     amount_won = fields.Integer('Amount Won',currency_field='currency_id')
     rate = fields.Char('Rate')
     currency_id = fields.Many2one(string="Currency", related='company.currency_id', readonly=True)
+    agent = fields.Many2one('res.users', 'Agent')

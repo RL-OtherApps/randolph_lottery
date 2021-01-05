@@ -19,11 +19,16 @@ class Moncash(models.Model):
     refresh_token = fields.Char("Refresh Token")
 
     def get_auth_token(self):
-        url = "https://sandbox-fl.voip-int.com/ns-api/oauth2/token/?grant_type=password&" \
-              "client_id=%s&client_secret=%s&username=%s&password=%s" % (self.client_id, \
-                                                                         self.client_secret, self.username,
-                                                                         self.password)
-        response = requests.get(url)
+        url = "https://%s:%s@sandbox.moncashbutton.digicelgroup.com/Api/oauth/token" % (
+        self.client_id, self.client_secret)
+        headers = {
+            'Accept': 'application/json',
+        }
+        data = {
+            'scope': 'read,write',
+            'grant_type': 'client_credentials'
+        }
+        response = requests.post(url, headers=headers, data=data)
         if response.status_code == 200:
             content = json.loads(response.content.decode('utf-8'))
             self.token = content.get('access_token')

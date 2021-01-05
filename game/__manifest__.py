@@ -19,6 +19,7 @@
         'views/moncash_api_view.xml',
         'views/choose_user_template.xml',
         'views/agent_customer_reg_view.xml',
+        'views/moncash_button_view.xml',
     ],
     'installable': True,
 }
