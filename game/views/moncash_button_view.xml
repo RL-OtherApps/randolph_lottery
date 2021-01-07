@@ -13,6 +13,11 @@
                                 <input type="hidden" name="orderId" value="base64(encrypt(1001))"/>
                                 <input type="image" name="ap_image"
                                        src="https://sandbox.moncashbutton.digicelgroup.com/Moncash-middleware/resources/assets/images/MC_button.png"/>
+                                <div>
+                                    <button type="submit">
+                                        Submit
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>

@@ -5,6 +5,8 @@ from odoo.http import request
 from odoo.exceptions import UserError
 import logging
 from datetime import datetime, date
+import requests
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -73,7 +75,7 @@ class GameLoader(http.Controller):
             return http.request.render('web.login', )
 
     @http.route('/save_numbers', auth='public', type='http', website=True, methods=['POST'])
-    def save_numbers(self, l1, l2, l3, l4, l5, l6, **post):
+    def save_numbers(self, l1, l2, l3, l4, l5, l6, amount, **post):
         partner = request.env.user.partner_id
         company = request.env['res.company'].sudo().search([('name', '=', 'Ydnar Lottery')])
         lottery = request.env['lottery.draw'].sudo().search([('active_draw', '=', True)], limit=1)
@@ -94,6 +96,10 @@ class GameLoader(http.Controller):
                 'company': company.id,
                 'agent': request.env.user.id
             })
+            sale_order = self.create_sale_order(customer, amount, game)
+            payment = self.create_payment_in_moncash(sale_order, amount)
+            game.update({'sale_order': sale_order.id})
+            sale_order.update({'transaction_id': payment})
             return request.render('game.moncash_button', {'tick': game, 'receipt': company, 'draw': lottery})
         else:
             game = request.env['game.data'].sudo().create({
@@ -108,8 +114,11 @@ class GameLoader(http.Controller):
                 'sixth': l6,
                 'draw': lottery.id,
                 'company': company.id,
-
             })
+            sale_order = self.create_sale_order(partner, amount, game)
+            payment = self.create_payment_in_moncash(sale_order, amount)
+            game.update({'sale_order': sale_order.id})
+            sale_order.update({'transaction_id': payment})
             return request.render('game.moncash_button', {'tick': game, 'receipt': company, 'draw': lottery})
 
     @http.route('/claim_prize/<string:id>', type='http', auth="user", methods=['GET'], website=True,
@@ -301,9 +310,56 @@ class GameLoader(http.Controller):
                     bills.write({'invoice_line_ids': line_ids})
         return request.render('game.thanks_page', {})
 
-    @http.route('/receive_payment_info', type="http", auth="user", website=True,methods=['GET'])
+    @http.route('/receive_payment_info', type="http", auth="user", website=True, methods=['GET'])
     def receive_payment_info(self, **kwargs):
         abc = len(kwargs)
         print(abc)
         logger.warning("----------------------Request Data ======= %s ====-----------------------", kwargs)
         return str(kwargs)
+
+    def create_sale_order(self, partner, amount, game):
+        order = request.env['sale.order'].sudo().create({
+            'partner_id': partner.id,
+            'lottery_draw': game.id,
+            'date_order': date.today(),
+            'state': 'sale',
+        })
+        product_id = self.get_product_id()
+        line_ids = []
+        line_values = (0, 0, {
+            'product_id': product_id.id,
+            'name': product_id.name,
+            'product_uom_qty': 1.0,
+            'price_unit': float(int(amount))
+        })
+        line_ids.append(line_values)
+        order.write({'order_line': line_ids})
+        return order
+
+    def get_product_id(self):
+        product_id = request.env['product.product'].sudo().search([('name', '=', 'Transaction Amount')])
+        if product_id:
+            return product_id
+        else:
+            new_product_id = request.env['product.product'].sudo().create({
+                'name': 'Transaction Amount',
+            })
+            return new_product_id
+
+    def create_payment_in_moncash(self, order, amount):
+        access_token = request.env['moncash.api'].sudo().search([('id', '=', 1)], limit=1)
+        token = access_token.get_auth_token()
+        if token:
+            url = "https://sandbox.moncashbutton.digicelgroup.com/Api/v1/CreatePayment"
+            headers = {
+                "accept": "application/json",
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json",
+            }
+            data_val = {"amount": str(amount), "orderId": str(order.id)}
+            data = json.dumps(data_val)
+            response = requests.post(url, headers=headers, data=data)
+            if response.status_code == 202:
+                content = json.loads(response.content.decode('utf-8'))
+                redirect_url="https://sandbox.moncashbutton.digicelgroup.com/Moncash-middleware/Payment/Redirect?token="
+                refresh_token = content.get('payment_token').get('token')

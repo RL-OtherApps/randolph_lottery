@@ -20,7 +20,7 @@ class Moncash(models.Model):
 
     def get_auth_token(self):
         url = "https://%s:%s@sandbox.moncashbutton.digicelgroup.com/Api/oauth/token" % (
-        self.client_id, self.client_secret)
+            self.client_id, self.client_secret)
         headers = {
             'Accept': 'application/json',
         }
@@ -34,6 +34,7 @@ class Moncash(models.Model):
             self.token = content.get('access_token')
             self.refresh_token = content.get('refresh_token')
             self.token_exp = datetime.now() + timedelta(seconds=content.get('expires_in'))
+            return self.token
         else:
             raise UserError(_("Please Check the username or password or client ID or client secret"))
 
@@ -52,3 +53,22 @@ class Moncash(models.Model):
                 raise UserError(_("Please Check the client ID or client secret"))
         else:
             raise UserError(_("Please click on Get Token button"))
+
+    # def create_payment_in_moncash(self):
+    #     url = "https://sandbox.moncashbutton.digicelgroup.com/Api/v1/CreatePayment"
+    #     headers = {
+    #         "accept": "application/json",
+    #         "Authorization": "Bearer " + self.token,
+    #         "Content-Type": "application/json",
+    #     }
+    #     data_val = {"amount": "101", "orderId": "S0011"}
+    #     data = json.dumps(data_val)
+    #     response = requests.post(url, headers=headers, data=data)
+    #     if response.status_code == 202:
+    #         content = json.loads(response.content.decode('utf-8'))
+    #         self.refresh_token = content.get('payment_token').get('token')
+    #         if self.refresh_token:
+    #             redirect = "https://sandbox.moncashbutton.digicelgroup.com/Moncash-middleware/Payment/Redirect?token=%s" % self.refresh_token
+    #             response = requests.post(redirect)
+    #             if response.status_code == 202:
+    #                 content = json.loads(response.content.decode('utf-8'))

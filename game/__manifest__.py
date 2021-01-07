@@ -4,7 +4,7 @@
     'category': 'Private',
     'complexity': 'easy',
     'description': "Game in odoo",
-    'depends': ['base', 'website', 'web', 'contacts'],
+    'depends': ['base', 'website', 'web', 'contacts', 'sale'],
     'data': [
         'security/ir.model.access.csv',
         'views/game_template_view.xml',

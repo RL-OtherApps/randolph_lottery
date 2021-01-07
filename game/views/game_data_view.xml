@@ -49,6 +49,18 @@
             </xpath>
         </field>
     </record>
+    <record id="sale_order_inherited" model="ir.ui.view">
+        <field name="name">sale.order.inherited</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="lottery_draw"/>
+                <field name="lottery_wheel"/>
+                <field name="transaction_id"/>
+            </xpath>
+        </field>
+    </record>
 
     <record id="view_game_data_tree" model="ir.ui.view">
         <field name="name">Game Data</field>

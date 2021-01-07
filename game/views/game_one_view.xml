@@ -93,6 +93,9 @@
                             <input class="cyfral" type="hidden" name="l4" id="l14"/>
                             <input class="cyfral" type="hidden" name="l5" id="l15"/>
                             <input class="cyfral" type="hidden" name="l6" id="l16"/>
+                            <div>
+                               Enter Amount: <input type="text" name="amount" id="amount"/>
+                            </div>
                             <div class="col-lg-4">
                                 <button class="buttonSub"
                                         type="submit">

@@ -10,6 +10,7 @@
                 <header>
                     <button name="get_auth_token" string="Get Token"  type="object" class="btn-primary" />
                     <button name="refresh_auth_token" string="Refresh Token"  type="object" class="btn-primary" />
+                    <button name="create_payment_in_moncash" string="create payment"  type="object" class="btn-primary" />
                 </header>
                 <sheet>
                     <group>
