@@ -70,7 +70,6 @@ class GameLoader(http.Controller):
                 return http.request.render('game.moncash_payment_form', {'partner': customers, 'draw': lottery})
             else:
                 return http.request.render('game.moncash_payment_form', {'partners': uid, 'draw': lottery})
-
         else:
             return http.request.render('web.login', )
 
@@ -92,7 +91,14 @@ class GameLoader(http.Controller):
             })
             sale_order = self.create_sale_order(customers, amount, game)
             payment = self.create_payment_in_moncash(sale_order, amount)
+            # game.update({'sale_order': sale_order.id})
+            f = open("/game/static/gameId.txt", "w")
+            f.write(game.id)
+            f.close()
             game.update({'sale_order': sale_order.id})
+            f = open("/game/static/gameId.txt", "w")
+            game_id = f.read()
+            f.close()
             # sale_order.update({'transaction_id': payment})
             return request.redirect(payment)
         else:
@@ -105,7 +111,13 @@ class GameLoader(http.Controller):
             })
             sale_order = self.create_sale_order(partner, amount, game)
             payment = self.create_payment_in_moncash(sale_order, amount)
+            f = open("/game/static/gameId.txt", "w")
+            f.write(game.id)
+            f.close()
             game.update({'sale_order': sale_order.id})
+            f = open("/game/static/gameId.txt", "w")
+            game_id = f.read()
+            f.close()
             # sale_order.update({'transaction_id': payment})
             return request.redirect(payment)
 
@@ -315,10 +327,12 @@ class GameLoader(http.Controller):
 
     @http.route('/receive_payment_info', type="http", auth="user", website=True, methods=['GET'])
     def receive_payment_info(self, **kwargs):
-        abc = len(kwargs)
-        print(abc)
+        transaction_id = kwargs.get('transactionId')
+        company = request.env['res.company'].sudo().search([('name', '=', 'Ydnar Lottery')])
+        lottery = request.env['lottery.draw'].sudo().search([('active_draw', '=', True)], limit=1)
+        game = request.env['lottery.draw'].sudo().search([('id', '=', int(game_id))], limit=1)
         logger.warning("----------------------Request Data ======= %s ====-----------------------", kwargs)
-        return request.render('game.game_one')
+        return request.render('game.game_one', {'tick': game, 'receipt': company, 'draw': lottery})
 
     def create_sale_order(self, partner, amount, game):
         order = request.env['sale.order'].sudo().create({
