@@ -1,0 +1,38 @@
+<odoo>
+    <template id="moncash_payment_form" name="Choose User">
+        <t t-name="website.moncash_payment_form">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure"
+                     style="background-image:url(/game/static/src/images/dashboard.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
+                    <div class="row" style="position:relative;top:20%;">
+                        <h1 style="color:black;">Pay Via Moncash Payment Method</h1>
+                        <div class="col-lg-6" style="position:relative;left:20%;">
+                            <form action="open_game1_pay" method="post">
+                                <input type="hidden" name="csrf_token"
+                                       t-att-value="request.csrf_token()"/>
+                                <t t-if="partner">
+                                    <input type="text" class="customers" name="customers"
+                                           t-att-value="partner.id" style="visibility:hidden;"/>
+                                </t>
+                                <t t-if="partners">
+                                    <input type="text" class="customer" name="customer"
+                                           t-att-value="partners.id" style="visibility:hidden;"/>
+                                </t>
+                                <div>
+                                    Enter Amount:
+                                    <input type="text" name="amount" id="amount"/>
+                                </div>
+                                <div class="col-lg-4">
+                                    <button type="submit">
+                                        Submit
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

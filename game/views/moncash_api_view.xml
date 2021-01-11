@@ -8,35 +8,35 @@
         <field name="arch" type="xml">
             <form string="Moncash API view">
                 <header>
-                    <button name="get_auth_token" string="Get Token"  type="object" class="btn-primary" />
-                    <button name="refresh_auth_token" string="Refresh Token"  type="object" class="btn-primary" />
-                    <button name="create_payment_in_moncash" string="create payment"  type="object" class="btn-primary" />
+                    <button name="get_auth_token" string="Get Token" type="object" class="btn-primary"/>
+                    <button name="refresh_auth_token" string="Refresh Token" type="object" class="btn-primary"/>
+<!--                    <button name="create_payment_in_moncash" string="create payment" type="object" class="btn-primary"/>-->
                 </header>
                 <sheet>
                     <group>
                         <group>
-                            <field name="name" />
+                            <field name="name"/>
                         </group>
                         <group>
                         </group>
                     </group>
                     <group>
                         <group string="Login Details">
-                            <field name="username" required="1" />
-                            <field name="password" required="1" />
+                            <field name="username" required="1"/>
+                            <field name="password" required="1"/>
                         </group>
                         <group string="API Credentials">
-                            <field name="client_id" required="1" />
-                            <field name="client_secret" required="1" />
+                            <field name="client_id" required="1"/>
+                            <field name="client_secret" required="1"/>
                         </group>
                     </group>
                     <group>
                         <group string="Token Info">
-                            <field name="token" />
-                            <field name="token_exp" />
+                            <field name="token"/>
+                            <field name="token_exp"/>
                         </group>
                         <group string="Token Refresh Info">
-                            <field name="refresh_token" />
+                            <field name="refresh_token"/>
                         </group>
                     </group>
                 </sheet>
@@ -50,9 +50,9 @@
         <field name="model">moncash.api</field>
         <field name="arch" type="xml">
             <tree string="Moncash API List View">
-                <field name="name" />
-                <field name="username" />
-                <field name="password" />
+                <field name="name"/>
+                <field name="username"/>
+                <field name="password"/>
             </tree>
         </field>
     </record>
@@ -68,6 +68,6 @@
     <menuitem id="moncash_api_root_menu" name="Moncash API" groups="base.group_erp_manager"/>
 
     <!--   Sub Menu-->
-    <menuitem id="moncash_api_sub_menu" name="Softswitch" parent="moncash_api_root_menu" action="action_moncash_api" />
+    <menuitem id="moncash_api_sub_menu" name="Softswitch" parent="moncash_api_root_menu" action="action_moncash_api"/>
 
 </odoo>
