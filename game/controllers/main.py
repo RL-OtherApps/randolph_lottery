@@ -35,7 +35,7 @@ class GameLoader(http.Controller):
         agents = request.env['res.users'].sudo().search([])
         return http.request.render('game.reg_customer', {'customers': customers, 'agents': agents})
 
-    @http.route('/save_info_open_game', type="http", auth="user", website=True, methods=['POST'])
+    @http.route('/save_info_open_game', type="http", auth="user", website=True, methods=['GET','POST'])
     def save_info_open_game(self, **post):
         yes = post.get('yesno')
         name = post.get('name')
@@ -109,7 +109,7 @@ class GameLoader(http.Controller):
             game.update({'sale_order': sale_order.id})
             return request.redirect(payment)
 
-    @http.route('/save_numbers', auth='public', type='http', website=True, methods=['POST'])
+    @http.route('/save_numbers', auth='public', type='http', website=True, methods=['GET','POST'])
     def save_numbers(self, l1, l2, l3, l4, l5, l6, game, **post):
         company = request.env['res.company'].sudo().search([('name', '=', 'Ydnar Lottery')])
         lottery = request.env['lottery.draw'].sudo().search([('active_draw', '=', True)], limit=1)
@@ -124,7 +124,7 @@ class GameLoader(http.Controller):
         })
         return request.render('game.ticket_receipt', {'tick': game, 'receipt': company, 'draw': lottery})
 
-    @http.route('/claim_prize/<string:id>', type='http', auth="user", methods=['GET'], website=True,
+    @http.route('/claim_prize/<string:id>', type='http', auth="user",methods=['GET','POST'], website=True,
                 csrf=False)
     def contract_details(self, id, **post):
         game_data = request.env['game.data'].sudo().search([('id', '=', int(id))], limit=1)
@@ -247,7 +247,7 @@ class GameLoader(http.Controller):
             # sale_order.update({'transaction_id': payment})
             return request.redirect(payment)
 
-    @http.route('/open_game', auth='public', type='http', website=True, methods=['POST'])
+    @http.route('/open_game', auth='public', type='http', website=True, methods=['GET','POST'])
     def open_second_game(self, input_number, **post):
         partner = request.env.user.partner_id
         lottery = request.env['lottery.wheel'].sudo().search([('active_lottery', '=', True)], limit=1)
@@ -257,7 +257,7 @@ class GameLoader(http.Controller):
         })
         return http.request.render('game.game_two', {'game': game_wheel})
 
-    @http.route('/get_result_game_two', auth='public', type='http', website=True, methods=['POST'])
+    @http.route('/get_result_game_two', auth='public', type='http', website=True, methods=['GET','POST'])
     def save_result_game_two(self, result_number, game_id):
         game_data = request.env['game.wheel.data'].sudo().search([('id', '=', int(game_id))], limit=1)
         company = request.env['res.company'].sudo().search([('name', '=', 'Ydnar Lottery')])
@@ -270,7 +270,7 @@ class GameLoader(http.Controller):
             game_data.update({'result': result_number, 'amount_won': 0, 'company': company})
             return http.request.render('game.thanks_page', {})
 
-    @http.route('/claim_prize_two', type='http', auth="user", methods=['GET'], website=True,
+    @http.route('/claim_prize_two', type='http', auth="user", methods=['GET','POST'], website=True,
                 csrf=False)
     def claim_prize_game_two(self, game_id, **post):
         game_data = request.env['game.wheel.data'].sudo().search([('id', '=', int(game_id))], limit=1)
@@ -331,7 +331,7 @@ class GameLoader(http.Controller):
                     bills.write({'invoice_line_ids': line_ids})
         return request.render('game.thanks_page', {})
 
-    @http.route('/receive_payment_info', type="http", auth="user", website=True, methods=['GET'])
+    @http.route('/receive_payment_info', type="http", auth="user", website=True, methods=['GET','POST'])
     def receive_payment_info(self, **kwargs):
         transaction_id = kwargs.get('transactionId')
         company = request.env['res.company'].sudo().search([('name', '=', 'Ydnar Lottery')])
@@ -341,7 +341,7 @@ class GameLoader(http.Controller):
         logger.warning("----------------------Request Data ======= %s ====-----------------------", kwargs)
         return request.render('game.game_one', {'tick': game, 'receipt': company, 'draw': lottery})
 
-    @http.route('/receive_payment_info_game_two', type="http", auth="user", website=True, methods=['GET'])
+    @http.route('/receive_payment_info_game_two', type="http", auth="user", website=True, methods=['GET','POST'])
     def receive_payment_info_game_two(self, **kwargs):
         transaction_id = kwargs.get('transactionId')
         company = request.env['res.company'].sudo().search([('name', '=', 'Ydnar Lottery')])

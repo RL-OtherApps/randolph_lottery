@@ -6,18 +6,18 @@ text{
     0px -4px 10px rgba(255,255,255,0.3);
     }
     #chart{
-        position:absolute;
-        width:500px;
-        height:500px;
-        top:50px;
+        position:relative;
+        width:100%;
+//         height:500px;
+//         top:50px;
         left:0;
     }
     #question{
-        position: absolute;
-        width:400px;
-        height:500px;
+        position: relative;
+        width:100%;
+//         height:500px;
         top:0;
-        left:520px;
+//         left:520px;
     }
     #question h1{
         font-size: 50px;
