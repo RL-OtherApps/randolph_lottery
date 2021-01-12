@@ -42,6 +42,7 @@
                             <field name="rate" invisible="1"/>
                             <field name="currency_id" invisible="1"/>
                             <field name="sale_order" invisible="1"/>
+                            <field name="transaction_id" invisible="0"/>
                         </tree>
                     </field>
                 </sheet>

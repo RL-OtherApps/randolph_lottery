@@ -14,3 +14,4 @@ class LotteryWheel(models.Model):
     active_lottery = fields.Boolean('Active')
     company_id = fields.Many2one('res.company', 'company', default=lambda self: self.env.company.id)
     currency_id = fields.Many2one(string="Currency", related='company_id.currency_id', readonly=True)
+    game_id = fields.Integer('Game ID')

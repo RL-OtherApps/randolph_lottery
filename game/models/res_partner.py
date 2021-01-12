@@ -21,6 +21,7 @@ class GameData(models.Model):
     winning = fields.Char('Winning')
     winning_amount = fields.Char('Winning Amount')
     sale_order = fields.Many2one('sale.order', 'Sale Order')
+    transaction_id = fields.Char('Transaction ID')
 
 
 class Customers(models.Model):
@@ -46,6 +47,7 @@ class GameWheelData(models.Model):
     currency_id = fields.Many2one(string="Currency", related='company.currency_id', readonly=True)
     agent = fields.Many2one('res.users', 'Agent')
     sale_order = fields.Many2one('sale.order', 'Sale Order')
+    transaction_id = fields.Char('Transaction ID')
 
 
 class SaleOrder(models.Model):

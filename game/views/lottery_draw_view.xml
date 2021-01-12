@@ -37,6 +37,7 @@
                             <field name="active_draw" widget="boolean_toggle"/>
                             <field name="draw_generated" invisible="1"/>
                             <field name="rate"/>
+                            <field name="game_id" invisible="0"/>
                         </group>
                     </group>
                     <group>
@@ -76,6 +77,7 @@
                             <field name="winning_amount"
                                    style="background-color:#292930;color:white;text-align: center;"/>
                             <field name="sale_order" invisible="1"/>
+                            <field name="transaction_id" invisible="0"/>
 
                         </tree>
                     </field>

@@ -90,15 +90,9 @@ class GameLoader(http.Controller):
                 'agent': request.env.user.id
             })
             sale_order = self.create_sale_order(customers, amount, game)
+            lottery.update({'game_id': game.id})
             payment = self.create_payment_in_moncash(sale_order, amount)
-            # game.update({'sale_order': sale_order.id})
-            f = open("/game/static/gameId.txt", "w")
-            f.write(game.id)
-            f.close()
             game.update({'sale_order': sale_order.id})
-            f = open("/game/static/gameId.txt", "w")
-            game_id = f.read()
-            f.close()
             # sale_order.update({'transaction_id': payment})
             return request.redirect(payment)
         else:
@@ -110,15 +104,9 @@ class GameLoader(http.Controller):
                 'company': company.id,
             })
             sale_order = self.create_sale_order(partner, amount, game)
+            lottery.update({'game_id': game.id})
             payment = self.create_payment_in_moncash(sale_order, amount)
-            f = open("/game/static/gameId.txt", "w")
-            f.write(game.id)
-            f.close()
             game.update({'sale_order': sale_order.id})
-            f = open("/game/static/gameId.txt", "w")
-            game_id = f.read()
-            f.close()
-            # sale_order.update({'transaction_id': payment})
             return request.redirect(payment)
 
     @http.route('/save_numbers', auth='public', type='http', website=True, methods=['POST'])
@@ -217,14 +205,14 @@ class GameLoader(http.Controller):
             lottery = request.env['lottery.wheel'].sudo().search([('active_lottery', '=', True)], limit=1)
             if customer:
                 customers = request.env['res.partner'].sudo().search([('id', '=', int(customer))])
-                return http.request.render('game.game_two_form', {'partner': customers, 'lottery': lottery})
+                return http.request.render('game.moncash_payment_form_two', {'partner': customers, 'lottery': lottery})
             else:
-                return http.request.render('game.game_two_form', {'partners': uid, 'lottery': lottery})
+                return http.request.render('game.moncash_payment_form_two', {'partners': uid, 'lottery': lottery})
         else:
             return http.request.render('web.login', )
 
-    @http.route('/open_game', auth='public', type='http', website=True, methods=['POST'])
-    def open_second_game(self, input_number, **post):
+    @http.route('/open_game2_pay', type="http", auth="user", website=True)
+    def open_game2_pay(self, amount, **post):
         partner = request.env.user.partner_id
         lottery = request.env['lottery.wheel'].sudo().search([('active_lottery', '=', True)], limit=1)
         customer = post.get('customers')
@@ -234,22 +222,40 @@ class GameLoader(http.Controller):
                 'partner': customers.id if customers else partner.id,
                 'create_date': datetime.now(),
                 'lottery_wheel': lottery.id,
-                'input': input_number,
                 'rate': lottery.rate,
                 'agent': request.env.user.id,
                 'company': lottery.company_id.id,
             })
-            return http.request.render('game.game_two', {'game': game_wheel})
+            sale_order = self.create_sale_order(customers, amount, game_wheel)
+            lottery.update({'game_id': game_wheel.id})
+            payment = self.create_payment_in_moncash(sale_order, amount)
+            game_wheel.update({'sale_order': sale_order.id})
+            # sale_order.update({'transaction_id': payment})
+            return request.redirect(payment)
         else:
             game_wheel = request.env['game.wheel.data'].sudo().create({
                 'partner': partner.id,
                 'create_date': datetime.now(),
                 'lottery_wheel': lottery.id,
-                'input': input_number,
                 'rate': lottery.rate,
                 'company': lottery.company_id.id,
             })
-            return http.request.render('game.game_two', {'game': game_wheel})
+            sale_order = self.create_sale_order(partner, amount, game_wheel)
+            lottery.update({'game_id': game_wheel.id})
+            payment = self.create_payment_in_moncash(sale_order, amount)
+            game_wheel.update({'sale_order': sale_order.id})
+            # sale_order.update({'transaction_id': payment})
+            return request.redirect(payment)
+
+    @http.route('/open_game', auth='public', type='http', website=True, methods=['POST'])
+    def open_second_game(self, input_number, **post):
+        partner = request.env.user.partner_id
+        lottery = request.env['lottery.wheel'].sudo().search([('active_lottery', '=', True)], limit=1)
+        game_wheel = request.env['game.wheel.data'].sudo().search([('id', '=', int(lottery.game_id))], limit=1)
+        game_wheel.sudo().update({
+            'input': input_number
+        })
+        return http.request.render('game.game_two', {'game': game_wheel})
 
     @http.route('/get_result_game_two', auth='public', type='http', website=True, methods=['POST'])
     def save_result_game_two(self, result_number, game_id):
@@ -330,9 +336,20 @@ class GameLoader(http.Controller):
         transaction_id = kwargs.get('transactionId')
         company = request.env['res.company'].sudo().search([('name', '=', 'Ydnar Lottery')])
         lottery = request.env['lottery.draw'].sudo().search([('active_draw', '=', True)], limit=1)
-        game = request.env['lottery.draw'].sudo().search([('id', '=', int(game_id))], limit=1)
+        game = request.env['game.data'].sudo().search([('id', '=', int(lottery.game_id))], limit=1)
+        game.update({'transaction_id': transaction_id})
         logger.warning("----------------------Request Data ======= %s ====-----------------------", kwargs)
         return request.render('game.game_one', {'tick': game, 'receipt': company, 'draw': lottery})
+
+    @http.route('/receive_payment_info_game_two', type="http", auth="user", website=True, methods=['GET'])
+    def receive_payment_info_game_two(self, **kwargs):
+        transaction_id = kwargs.get('transactionId')
+        company = request.env['res.company'].sudo().search([('name', '=', 'Ydnar Lottery')])
+        lottery = request.env['lottery.wheel'].sudo().search([('active_lottery', '=', True)], limit=1)
+        game = request.env['game.wheel.data'].sudo().search([('id', '=', int(lottery.game_id))], limit=1)
+        game.update({'transaction_id': transaction_id})
+        logger.warning("----------------------Request Data ======= %s ====-----------------------", kwargs)
+        return request.render('game.game_two_form', {'partners': game.partner, 'lottery': game})
 
     def create_sale_order(self, partner, amount, game):
         order = request.env['sale.order'].sudo().create({
@@ -382,3 +399,22 @@ class GameLoader(http.Controller):
                 redirect_url = "https://sandbox.moncashbutton.digicelgroup.com/Moncash-middleware/Payment/Redirect?token=%s" % refresh_token
                 return redirect_url
                 # return request.redirect(redirect_url)
+
+    def create_payment_in_moncash2(self, order, amount):
+        access_token = request.env['moncash.api'].sudo().search([('id', '=', 2)], limit=1)
+        token = access_token.get_auth_token()
+        if token:
+            url = "https://sandbox.moncashbutton.digicelgroup.com/Api/v1/CreatePayment"
+            headers = {
+                "accept": "application/json",
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json",
+            }
+            data_val = {"amount": str(amount), "orderId": str(order.id)}
+            data = json.dumps(data_val)
+            response = requests.post(url, headers=headers, data=data)
+            if response.status_code == 202:
+                content = json.loads(response.content.decode('utf-8'))
+                refresh_token = content.get('payment_token').get('token')
+                redirect_url = "https://sandbox.moncashbutton.digicelgroup.com/Moncash-middleware/Payment/Redirect?token=%s" % refresh_token
+                return redirect_url
