@@ -113,7 +113,7 @@ class GameLoader(http.Controller):
     def save_numbers(self, l1, l2, l3, l4, l5, l6, game, **post):
         company = request.env['res.company'].sudo().search([('name', '=', 'Ydnar Lottery')])
         lottery = request.env['lottery.draw'].sudo().search([('active_draw', '=', True)], limit=1)
-        game = request.env['lottery.draw'].sudo().search([('id', '=', int(game))], limit=1)
+        game = request.env['game.data'].sudo().search([('id', '=', int(game))], limit=1)
         game.update({
             'first': l1,
             'second': l2,
