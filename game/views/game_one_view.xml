@@ -87,6 +87,8 @@
 <!--                                <input type="text" class="customer" name="customer"-->
 <!--                                       t-att-value="partners.id" style="visibility:hidden;"/>-->
 <!--                            </t>-->
+                            <input type="text" class="game_id" name="game" id="game"
+                                   t-att-value="tick.id" style="visibility:hidden;"/>
                             <input class="cyfral" type="hidden" name="l1" id="l11"/>
                             <input class="cyfral" type="hidden" name="l2" id="l12"/>
                             <input class="cyfral" type="hidden" name="l3" id="l13"/>
