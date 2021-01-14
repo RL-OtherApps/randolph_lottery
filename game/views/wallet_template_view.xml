@@ -1,0 +1,80 @@
+<odoo>
+    <record id="menu_wallet" model="website.menu">
+        <field name="name">Payments/Wallet</field>
+        <field name="url">/open_payment_wallet</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">60</field>
+    </record>
+    <template id="wallet_view" name="Wallet View">
+        <t t-name="website.wallet_view">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure">
+                    <div class="row">
+                        <h1 style="color:black;">Moncash Wallet And Payments</h1>
+                        <div class="col-lg-1"/>
+                        <div class="col-lg-5">
+                            <br/>
+                            <strong>Amount in wallet :
+                                <span t-esc="partner.current_wallet_amount"/></strong>
+                            <br/>
+                            <table class="table" style="width:100%;">
+                                <tr>
+                                    <td>Date</td>
+                                    <td>Amount</td>
+                                    <td>Transaction ID</td>
+                                </tr>
+                                <tr t-foreach="transactions" t-as="transaction">
+                                    <td>
+                                        <span t-esc="transaction.create_date"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="transaction.amount"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="transaction.transaction_id"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                        </div>
+                        <div class="col-lg-2"/>
+                        <div class="col-lg-3">
+                            <form action="add_to_wallet" method="post">
+                                <input type="hidden" name="csrf_token"
+                                       t-att-value="request.csrf_token()"/>
+                                <br/>
+                                <label for="customer">
+                                    <i class="fa fa-user"/>
+                                    Select Name :
+                                </label>
+                                <select id="customer" name="customer">
+                                    <t t-foreach="customers" t-as="customer">
+                                        <option>
+                                            <t t-esc="customer.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                                <br/>
+                                <label for="amount">
+                                    <i class="fa fa-money"/>
+                                    Amount :
+                                </label>
+                                <input type="text" id="amount" name="amount" placeholder="00$"/>
+                                <br/>
+                                <br/>
+                                <div>
+                                    <button type="submit">
+                                        Make Payment
+                                    </button>
+                                </div>
+                                <br/>
+                            </form>
+                            <br/>
+                        </div>
+                        <div class="col-lg-1"/>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

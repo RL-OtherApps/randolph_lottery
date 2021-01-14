@@ -7,6 +7,7 @@
     'depends': ['base', 'website', 'web', 'contacts', 'sale'],
     'data': [
         'security/ir.model.access.csv',
+        'views/customer_transaction_view.xml',
         'views/game_template_view.xml',
         'views/game_one_view.xml',
         'views/game_two_view.xml',
@@ -21,6 +22,7 @@
         'views/agent_customer_reg_view.xml',
         'views/moncash_button_view.xml',
         'views/moncash_payment_form_view.xml',
+        'views/wallet_template_view.xml',
     ],
     'installable': True,
 }

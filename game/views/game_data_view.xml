@@ -5,6 +5,9 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="current_wallet_amount"/>
+            </xpath>
             <xpath expr="//notebook" position="inside">
                 <page name="game" string="Game 1 Data">
                     <group>
@@ -24,26 +27,39 @@
                         </field>
                     </group>
                 </page>
-                <page name="game2" string="Game 2 Data">
-                    <group>
-                        <field name="wheel_game_data">
-                            <tree>
-                                <field name="partner"/>
-                                <field name="company"/>
-                                <field name="lottery_wheel"/>
-                                <field name="input"/>
-                                <field name="result"/>
-                                <field name="amount_won" widget="monetary"/>
-                                <field name="rate"/>
-                            </tree>
-                        </field>
-                    </group>
-                </page>
+<!--                <page name="game2" string="Game 2 Data">-->
+<!--                    <group>-->
+<!--                        <field name="wheel_game_data">-->
+<!--                            <tree>-->
+<!--                                <field name="partner"/>-->
+<!--                                <field name="company"/>-->
+<!--                                <field name="lottery_wheel"/>-->
+<!--                                <field name="input"/>-->
+<!--                                <field name="result"/>-->
+<!--                                <field name="amount_won" widget="monetary"/>-->
+<!--                                <field name="rate"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </group>-->
+<!--                </page>-->
                 <page name="bank_details" string="Bank Details">
                     <group>
                         <field name="full_name"/>
                         <field name="acc_number"/>
                         <field name="ifsc"/>
+                        <field name="transactions"/>
+                    </group>
+                </page>
+                <page name="transaction_details" string="Transactions">
+                    <group>
+                        <field name="customer_transactions">
+                            <tree>
+                                <field name="create_date"/>
+                                <field name="partner"/>
+                                <field name="amount"/>
+                                <field name="transaction_id"/>
+                            </tree>
+                        </field>
                     </group>
                 </page>
             </xpath>

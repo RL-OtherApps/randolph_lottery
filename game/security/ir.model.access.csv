@@ -4,4 +4,5 @@ access_lottery_draw,access.lottery.draw,game.model_lottery_draw,,1,1,1,1
 access_lottery_wheel,access.lottery.wheel,game.model_lottery_wheel,,1,1,1,1
 access_game_wheel_data,access.game.wheel.data,game.model_game_wheel_data,,1,1,1,1
 access_moncash_api,access.moncash.api,game.model_moncash_api,,1,1,1,1
+access_customer_transaction,access.customer.transaction,game.model_customer_transaction,,1,1,1,1
 

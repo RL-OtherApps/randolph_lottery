@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import fields, models, api
 from datetime import datetime
 
 
@@ -32,6 +32,20 @@ class Customers(models.Model):
     full_name = fields.Char('Full Name')
     acc_number = fields.Char('Account Number')
     ifsc = fields.Char('IFSC')
+    customer_transactions = fields.One2many('customer.transaction', 'partner', string="Customer Transactions")
+    transactions = fields.Integer('Transaction')
+    current_wallet_amount = fields.Float('Wallet Amount', compute='calculate_wallet_amount', store=True)
+
+    @api.depends('customer_transactions')
+    def calculate_wallet_amount(self):
+        if self.customer_transactions:
+            amount = 0.0
+            for rec in self.customer_transactions:
+                if rec.transaction_id:
+                    amount = amount + rec.amount
+            self.update({'current_wallet_amount': amount})
+        else:
+            self.update({'current_wallet_amount': 0.0})
 
 
 class GameWheelData(models.Model):
@@ -56,3 +70,11 @@ class SaleOrder(models.Model):
     lottery_draw = fields.Many2one('game.data', 'Lottery Draw')
     lottery_wheel = fields.Many2one('game.wheel.data', 'Lottery Wheel')
     transaction_id = fields.Char('Transaction ID')
+
+
+class CustomerTransaction(models.Model):
+    _name = 'customer.transaction'
+    partner = fields.Many2one('res.partner', 'Customer')
+    amount = fields.Float('Amount')
+    transaction_id = fields.Char('Transaction Id')
+    create_date = fields.Datetime('Time')

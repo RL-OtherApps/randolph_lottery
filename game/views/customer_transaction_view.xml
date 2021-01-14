@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="view_customer_transaction_tree" model="ir.ui.view">
+        <field name="name">Customer Transaction</field>
+        <field name="model">customer.transaction</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="create_date"/>
+                <field name="partner"/>
+                <field name="amount"/>
+                <field name="transaction_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_customer_transaction_form" model="ir.ui.view">
+        <field name="name">Customer Transaction</field>
+        <field name="model">customer.transaction</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="create_date"/>
+                            <field name="partner"/>
+                            <field name="amount"/>
+                            <field name="transaction_id"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_customer_transaction" model="ir.actions.act_window">
+        <field name="name">Customer Transaction</field>
+        <field name="res_model">customer.transaction</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+            name="Customer Transaction"
+            id="menu_customer_transaction"
+            action="action_customer_transaction"
+            parent="contacts.menu_contacts"
+    />
+
+</odoo>
