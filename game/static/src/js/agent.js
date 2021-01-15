@@ -10,3 +10,15 @@ document.getElementById('ifYes').style.display = 'none';
  document.getElementById('ifno').style.display = 'block';
 }
 }
+
+function yesnoWallet() {
+if (document.getElementById('yesWallet').checked) {
+document.getElementById('ifYes').style.display = 'block';
+document.getElementById('ifno').style.display = 'none';
+}
+else
+{
+document.getElementById('ifYes').style.display = 'none';
+ document.getElementById('ifno').style.display = 'block';
+}
+}

@@ -86,40 +86,70 @@ class GameLoader(http.Controller):
             return http.request.render('web.login', )
 
     @http.route('/open_game1_pay', type="http", auth="user", website=True)
-    def open_game1_pay(self, amount, **post):
+    def open_game1_pay(self, **post):
         partner = request.env.user.partner_id
         company = request.env['res.company'].sudo().search([('name', '=', 'Ydnar Lottery')])
         lottery = request.env['lottery.draw'].sudo().search([('active_draw', '=', True)], limit=1)
         customer = post.get('customers')
-        if customer:
-            customers = request.env['res.partner'].sudo().search([('id', '=', int(customer))])
-            game = request.env['game.data'].sudo().create({
-                'partner': customers.id if customers else partner.id,
-                'create_date': datetime.now(),
-                'ticket_number': request.env['ir.sequence'].sudo().next_by_code('game.data'),
-                'draw': lottery.id,
-                'company': company.id,
-                'agent': request.env.user.id
-            })
-            sale_order = self.create_sale_order(customers, amount, game)
-            lottery.update({'game_id': game.id})
-            payment = self.create_payment_in_moncash(sale_order, amount)
-            game.update({'sale_order': sale_order.id})
-            # sale_order.update({'transaction_id': payment})
-            return request.redirect(payment)
-        else:
-            game = request.env['game.data'].sudo().create({
-                'partner': partner.id,
-                'create_date': datetime.now(),
-                'ticket_number': request.env['ir.sequence'].sudo().next_by_code('game.data'),
-                'draw': lottery.id,
-                'company': company.id,
-            })
-            sale_order = self.create_sale_order(partner, amount, game)
-            lottery.update({'game_id': game.id})
-            payment = self.create_payment_in_moncash(sale_order, amount)
-            game.update({'sale_order': sale_order.id})
-            return request.redirect(payment)
+        amount = post.get('amount')
+        amounts = post.get('amounts')
+        wallet = post.get('yesno')
+        if wallet == 'wallet' and amount:
+            if customer:
+                customers = request.env['res.partner'].sudo().search([('id', '=', int(customer))])
+                game = request.env['game.data'].sudo().create({
+                    'partner': customers.id if customers else partner.id,
+                    'create_date': datetime.now(),
+                    'ticket_number': request.env['ir.sequence'].sudo().next_by_code('game.data'),
+                    'draw': lottery.id,
+                    'company': company.id,
+                    'agent': request.env.user.id
+                })
+                old_amount = customers.current_wallet_amount
+                new_amount = old_amount - int(amount)
+                customers.update({'current_wallet_amount': new_amount})
+                return request.render('game.game_one', {'tick': game, 'receipt': company, 'draw': lottery})
+            else:
+                game = request.env['game.data'].sudo().create({
+                    'partner': partner.id,
+                    'create_date': datetime.now(),
+                    'ticket_number': request.env['ir.sequence'].sudo().next_by_code('game.data'),
+                    'draw': lottery.id,
+                    'company': company.id,
+                })
+                old_amount = partner.current_wallet_amount
+                new_amount = old_amount - int(amount)
+                partner.update({'current_wallet_amount': new_amount})
+                return request.render('game.game_one', {'tick': game, 'receipt': company, 'draw': lottery})
+        elif wallet == 'no_wallet' and amounts:
+            if customer:
+                customers = request.env['res.partner'].sudo().search([('id', '=', int(customer))])
+                game = request.env['game.data'].sudo().create({
+                    'partner': customers.id if customers else partner.id,
+                    'create_date': datetime.now(),
+                    'ticket_number': request.env['ir.sequence'].sudo().next_by_code('game.data'),
+                    'draw': lottery.id,
+                    'company': company.id,
+                    'agent': request.env.user.id
+                })
+                sale_order = self.create_sale_order(customers, amounts, game)
+                lottery.update({'game_id': game.id})
+                payment = self.create_payment_in_moncash(sale_order, amounts)
+                game.update({'sale_order': sale_order.id})
+                return request.redirect(payment)
+            else:
+                game = request.env['game.data'].sudo().create({
+                    'partner': partner.id,
+                    'create_date': datetime.now(),
+                    'ticket_number': request.env['ir.sequence'].sudo().next_by_code('game.data'),
+                    'draw': lottery.id,
+                    'company': company.id,
+                })
+                sale_order = self.create_sale_order(partner, amounts, game)
+                lottery.update({'game_id': game.id})
+                payment = self.create_payment_in_moncash(sale_order, amounts)
+                game.update({'sale_order': sale_order.id})
+                return request.redirect(payment)
 
     @http.route('/save_numbers', auth='public', type='http', website=True, methods=['GET', 'POST'])
     def save_numbers(self, l1, l2, l3, l4, l5, l6, game, **post):

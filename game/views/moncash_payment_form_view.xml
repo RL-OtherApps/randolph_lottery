@@ -4,31 +4,71 @@
             <t t-call="website.layout">
                 <div id="wrap" class="oe_structure"
                      style="background-image:url(/game/static/src/images/dashboard.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
-                    <div class="row" style="position:relative;top:20%;">
+                    <div class="row" style="position:relative;top:10%;">
                         <h1 style="color:black;">Pay Via Moncash Payment Method</h1>
-                        <div class="col-lg-6" style="position:relative;left:20%;">
+                        <div class="col-lg-4"/>
+                        <div class="col-lg-4" style="background-color:white;">
+                            <br/>
                             <form action="open_game1_pay" method="post">
                                 <input type="hidden" name="csrf_token"
                                        t-att-value="request.csrf_token()"/>
                                 <t t-if="partner">
                                     <input type="text" class="customers" name="customers"
                                            t-att-value="partner.id" style="visibility:hidden;"/>
+                                    <strong>Amount in wallet :
+                                        <span t-esc="partner.current_wallet_amount"/>
+                                    </strong>
                                 </t>
                                 <t t-if="partners">
                                     <input type="text" class="customer" name="customer"
                                            t-att-value="partners.id" style="visibility:hidden;"/>
+                                    <strong>Amount in wallet :
+                                        <span t-esc="partners.current_wallet_amount"/>
+                                    </strong>
                                 </t>
+                                <br/>
                                 <div>
-                                    Enter Amount:
-                                    <input type="text" name="amount" id="amount"/>
+                                    <table>
+                                        <tr>
+                                            <td>Use Wallet Amount</td>
+                                            <td>
+                                                <input type="radio" onclick="yesnoWallet()" name="yesno"
+                                                       id="yesWallet" value="wallet"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Add new money</td>
+                                            <td>
+                                                <input type="radio" onclick="yesnoWallet()" name="yesno"
+                                                       id="noWallet" value="no_wallet"/>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
-                                <div class="col-lg-4">
-                                    <button type="submit">
+                                <table class="table">
+                                    <tr id="ifYes" style="display:none;">
+                                        <td>Enter Amount:</td>
+                                        <td>
+                                            <input type="text" name="amount" id="amount" placeholder="Use from the wallet..."/>
+                                        </td>
+                                    </tr>
+                                    <tr id="ifno" style="display:none;">
+                                        <td>Enter Amount:</td>
+                                        <td>
+                                            <input type="text" name="amounts" id="amounts" placeholder="New Money..."/>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div>
+                                    <button type="submit" class="float-center">
                                         Submit
                                     </button>
                                 </div>
+                                <script type="text/javascript" src="/game/static/src/js/agent.js"/>
                             </form>
+                            <br/>
                         </div>
+                        <div class="col-lg-4"/>
                     </div>
                 </div>
             </t>
