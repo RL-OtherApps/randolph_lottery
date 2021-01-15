@@ -15,6 +15,8 @@
                                 <t t-if="partner">
                                     <input type="text" class="customers" name="customers"
                                            t-att-value="partner.id" style="visibility:hidden;"/>
+                                    <input type="text" name="amt" id="amt"
+                                           t-att-value="partner.current_wallet_amount" style="visibility:hidden;"/>
                                     <strong>Amount in wallet :
                                         <span t-esc="partner.current_wallet_amount"/>
                                     </strong>
@@ -22,6 +24,8 @@
                                 <t t-if="partners">
                                     <input type="text" class="customer" name="customer"
                                            t-att-value="partners.id" style="visibility:hidden;"/>
+                                    <input type="text" name="amt2" id="amt2"
+                                           t-att-value="partners.current_wallet_amount" style="visibility:hidden;"/>
                                     <strong>Amount in wallet :
                                         <span t-esc="partners.current_wallet_amount"/>
                                     </strong>
@@ -49,7 +53,9 @@
                                     <tr id="ifYes" style="display:none;">
                                         <td>Enter Amount:</td>
                                         <td>
-                                            <input type="text" name="amount" id="amount" placeholder="Use from the wallet..."/>
+                                            <input type="text" name="amount" id="amount"
+                                                   onChange="return walletValidation()"
+                                                   placeholder="Use from the wallet..."/>
                                         </td>
                                     </tr>
                                     <tr id="ifno" style="display:none;">
