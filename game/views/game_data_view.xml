@@ -27,21 +27,17 @@
                         </field>
                     </group>
                 </page>
-<!--                <page name="game2" string="Game 2 Data">-->
-<!--                    <group>-->
-<!--                        <field name="wheel_game_data">-->
-<!--                            <tree>-->
-<!--                                <field name="partner"/>-->
-<!--                                <field name="company"/>-->
-<!--                                <field name="lottery_wheel"/>-->
-<!--                                <field name="input"/>-->
-<!--                                <field name="result"/>-->
-<!--                                <field name="amount_won" widget="monetary"/>-->
-<!--                                <field name="rate"/>-->
-<!--                            </tree>-->
-<!--                        </field>-->
-<!--                    </group>-->
-<!--                </page>-->
+                <page name="withdraw" string="Withdraw Requests">
+                    <group>
+                        <field name="withdraw_requests">
+                            <tree>
+                                <field name="create_date"/>
+                                <field name="amount"/>
+                                <field name="status"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
                 <page name="bank_details" string="Bank Details">
                     <group>
                         <field name="full_name"/>

@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="view_withdraw_request_tree" model="ir.ui.view">
+        <field name="name">Withdraw Request</field>
+        <field name="model">withdraw.request</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="create_date"/>
+                <field name="partner"/>
+                <field name="amount"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_withdraw_request_form" model="ir.ui.view">
+        <field name="name">Withdraw Request</field>
+        <field name="model">withdraw.request</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="%(game.process_request_wizard_action)d" string="Process Request" type="action" class="btn-primary"
+                            attrs="{'invisible':[('status','!=','draft')]}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="create_date"/>
+                            <field name="partner"/>
+                            <field name="amount"/>
+                            <field name="status"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_withdraw_request" model="ir.actions.act_window">
+        <field name="name">Withdraw Request</field>
+        <field name="res_model">withdraw.request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+            name="Withdraw Requests"
+            id="menu_withdraw_request"
+            action="action_withdraw_request"
+            parent="contacts.menu_contacts"
+    />
+
+</odoo>

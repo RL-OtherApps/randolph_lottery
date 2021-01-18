@@ -35,6 +35,7 @@ class Customers(models.Model):
     customer_transactions = fields.One2many('customer.transaction', 'partner', string="Customer Transactions")
     transactions = fields.Integer('Transaction')
     current_wallet_amount = fields.Float('Wallet Amount', compute='calculate_wallet_amount', store=True)
+    withdraw_requests = fields.One2many('withdraw.request', 'partner', string="Withdraw Requests")
 
     @api.depends('customer_transactions')
     def calculate_wallet_amount(self):
@@ -78,3 +79,12 @@ class CustomerTransaction(models.Model):
     amount = fields.Float('Amount')
     transaction_id = fields.Char('Transaction Id')
     create_date = fields.Datetime('Time')
+
+
+class WithdrawRequest(models.Model):
+    _name = 'withdraw.request'
+    partner = fields.Many2one('res.partner', 'Customer')
+    amount = fields.Float('Amount')
+    create_date = fields.Datetime('Time')
+    status = fields.Selection([('draft', 'Draft'), ('pass', 'Passed'), ('fail', 'failed')], string='Status')
+    transaction_id = fields.Char('Transaction ID')

@@ -352,3 +352,17 @@ class GameLoader(http.Controller):
         line_ids.append(line_values)
         order.write({'order_line': line_ids})
         return order
+
+    @http.route('/withdraw_from_wallet', type="http", auth="user", website=True, methods=['GET', 'POST'])
+    def withdraw_from_wallet(self, **post):
+        customer = post.get('customer')
+        amount = post.get('amount')
+        if customer and amount:
+            partner = request.env['res.partner'].sudo().search([('name', '=', str(customer))], limit=1)
+            withdraw = request.env['withdraw.request'].sudo().create({
+                'partner': partner.id,
+                'amount': float(int(amount)),
+                'create_date': datetime.now(),
+                'status': 'draft',
+            })
+            return request.render('game.wallet_thanks_page', {})

@@ -1,0 +1,28 @@
+<odoo>
+    <record id="withdraw_money" model="ir.ui.view">
+        <field name="name">Process Request</field>
+        <field name="model">process.request</field>
+        <field name="arch" type="xml">
+            <form string="Re-Sequence">
+                <group>
+                    <group>
+                        <field name="partner"/>
+                        <field name="amount"/>
+                        <field name="transaction_id"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="make_payment" string="Process Request" type="object"
+                            class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="process_request_wizard_action" model="ir.actions.act_window">
+        <field name="name">Process Request</field>
+        <field name="res_model">process.request</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
