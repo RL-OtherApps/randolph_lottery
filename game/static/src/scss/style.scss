@@ -20,6 +20,21 @@ sections {
   background-color: #333366;
   font-family: 'Allerta', sans-serif;
 }
+sects {
+  margin: 0 auto;
+  top: 10%;
+  position:relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+//   align-items: center;
+  width: auto;
+  height: auto;
+  border: 4px solid gold;
+  padding-bottom: 15px;
+  background-color: #333366;
+  font-family: 'Allerta', sans-serif;
+}
 
 @media (min-width: 1024px) {
   sections {
@@ -82,6 +97,18 @@ article {
   position: relative;
   background-color: #ccac00;
   width: 210px;
+  height: 210px;
+  border: 1px solid #ccac00;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.boards {
+  position: relative;
+  background-color: #ccac00;
+  width: 300px;
   height: 210px;
   border: 1px solid #ccac00;
   display: flex;

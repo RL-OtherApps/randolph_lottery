@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(e){
     var body = document.querySelector("body");
-    var section = document.querySelector("sections");
+    var section = document.querySelector("sec");
     var articleLotto = document.querySelector(".lotto");
     var articleBalls = document.querySelector(".balls");
     var numbers = [];
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     function createNumberBoard(number){
     	console.log("I work");
         var board = document.createElement("div");
-        board.classList.add("board");
+        board.classList.add("boards");
         articleLotto.appendChild(board);
         for( var i = 0; i<number; i ++){
             var boardEl = document.createElement("button");
@@ -26,9 +26,9 @@ document.addEventListener("DOMContentLoaded", function(e){
             boardEls[i].textContent = number;
         }
     }
-    createNumberBoard(49);
+    createNumberBoard(100);
 
-    var board = document.querySelector(".board");
+    var board = document.querySelector(".boards");
     var boardEls = document.querySelectorAll(".boardEl");
     var counter=0
     function drawNumbers(){
@@ -47,34 +47,9 @@ document.addEventListener("DOMContentLoaded", function(e){
             if(counter==1){
              document.getElementById("l1").innerHTML = number;
             }
-            if(counter==2){
-             document.getElementById("l2").innerHTML = number;
-            }
-            if(counter==3){
-             document.getElementById("l3").innerHTML = number;
-            }
-            if(counter==4){
-             document.getElementById("l4").innerHTML = number;
-            }
-            if(counter==5){
-             document.getElementById("l5").innerHTML = number;
-            }
-            if(counter==6){
-             document.getElementById("l6").innerHTML = number;
-            }
             var first = document.getElementById("l1").innerHTML
-            var second = document.getElementById("l2").innerHTML
-            var third = document.getElementById("l3").innerHTML
-            var fourth = document.getElementById("l4").innerHTML
-            var fifth = document.getElementById("l5").innerHTML
-            var sixth = document.getElementById("l6").innerHTML
             $('#l11').val(first);
-            $('#l12').val(second);
-            $('#l13').val(third);
-            $('#l14').val(fourth);
-            $('#l15').val(fifth);
-            $('#l16').val(sixth);
-            if(drawnNums.length=== 6){
+            if(drawnNums.length=== 1){
                 //boardEls.forEach( boardEl => boardEl.removeAttribute("data-number"));
 
                 //boardEls.forEach(boardEl => boardEl.addEventListener("click", makeAlert));
@@ -163,19 +138,6 @@ document.addEventListener("DOMContentLoaded", function(e){
             }
             console.log(arr1, arr2, common); /* you can monitor your arrays in console*/
             function generateResult(){
-//                var first = document.getElementById("l1").innerHTML
-//                var second = document.getElementById("l2").innerHTML
-//                var third = document.getElementById("l3").innerHTML
-//                var fourth = document.getElementById("l4").innerHTML
-//                var fifth = document.getElementById("l5").innerHTML
-//                var sixth = document.getElementById("l6").innerHTML
-//                $('#l11').val(first);
-//                     $.ajax({
-//                        type: 'POST',
-//                        url: '/save_numbers',
-//                        dataType: 'json',
-//                        data : {'l1': first,'l2': second,'l3': third,'l4': fourth,'l5': fifth,'l6': sixth,},
-//                        });
                 var resultsBoard = document.createElement("article");
                 section.appendChild(resultsBoard);
                 var paragraph = document.createElement("p");

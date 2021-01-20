@@ -1,0 +1,78 @@
+<odoo>
+        <record id="menu_bolet" model="website.menu">
+        <field name="name">Bolet Game</field>
+        <field name="url">/bolet_game</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">59</field>
+    </record>
+        <template id="bolet_game_template" name="Bolet Game Template">
+        <t t-name="website.bolet_game_template">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure"
+                     style="background-image:url(/game/static/src/images/game1_back.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
+                    <sects>
+<!--                        <audio src="game/static/src/bg.mp3" loop="loop" id="my_audio">-->
+<!--                        </audio>-->
+                        <h4 style="color: gold;padding:27px;">Welcome!!
+                            <br/>
+<!--                            <t t-if="partners">-->
+<!--                                <span t-esc="partners.name"/>-->
+<!--                            </t>-->
+<!--                            <t t-if="partner">-->
+<!--                                <span t-esc="partner.name"/>-->
+<!--                            </t>-->
+                        </h4>
+                        <div style="width: 28%;border:solid 1px;border-color:gold;border-top: groove;border-bottom: groove;border-left: groove;border-right: groove;">
+                            <h3>
+                                Winnings
+                            </h3>
+                            <center>
+                                <table style="width: 100%;color: gold;text-shadow: 1px 1px #806c00;font-size: 20px;">
+                                    <tr>
+                                        <td style="text-align:center">Straight-Take It All</td>
+                                        <td>
+<!--                                            <span t-esc="draw.sixth_prize"/>-->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">First Three</td>
+                                        <td>
+<!--                                            <span t-esc="draw.fourth_prize"/>-->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">Back Three</td>
+                                        <td>
+<!--                                            <span t-esc="draw.fifth_prize"/>-->
+                                        </td>
+                                    </tr>
+                                </table>
+                            </center>
+                        </div>
+                        <article class="lotto">
+                            <h3>Select Number:</h3>
+                        </article>
+                        <div>
+                            <div class="cyfral" id="l1"></div>
+                        </div>
+                        <form action="save_numbers" method="post">
+                            <input type="hidden" name="csrf_token"
+                                   t-att-value="request.csrf_token()"/>
+                            <input class="cyfral" type="hidden" name="l1" id="l11"/>
+                            <div class="col-lg-4">
+                                <button class="buttonSub"
+                                        type="submit">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    </sects>
+                    <script type="text/javascript" src="/game/static/src/js/bolet.js"/>
+                    <link href="https://fonts.googleapis.com/css?family=Allerta|Bungee" rel="stylesheet"/>
+                    <script type="text/javascript" src="/game/static/src/js/music.js"/>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>
