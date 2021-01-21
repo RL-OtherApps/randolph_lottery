@@ -27,6 +27,19 @@
                         </field>
                     </group>
                 </page>
+                <page name="game" string="Game 1 Data">
+                    <group>
+                        <field name="bolet_game_data">
+                            <tree>
+                                <field name="ticket_number"/>
+                                <field name="create_date"/>
+                                <field name="first"/>
+                                <field name="draw_result"/>
+                                <field name="winning"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
                 <page name="withdraw" string="Withdraw Requests">
                     <group>
                         <field name="withdraw_requests">

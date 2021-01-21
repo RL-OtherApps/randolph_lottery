@@ -26,6 +26,8 @@
         'views/wallet_template_view.xml',
         'views/withdraw_request_view.xml',
         'views/bolet_game_template_view.xml',
+        'views/bolet_draw_view.xml',
+        'views/bolet_game_data_view.xml',
     ],
     'installable': True,
 }

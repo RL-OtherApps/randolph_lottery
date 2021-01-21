@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="view_bolet_game_data_tree" model="ir.ui.view">
+        <field name="name">Bolet Game Data</field>
+        <field name="model">bolet.game.data</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ticket_number"/>
+                <field name="agent"/>
+                <field name="create_date"/>
+                <field name="company"/>
+                <field name="draw"/>
+                <field name="first"/>
+                <field name="draw_result"/>
+                <field name="winning"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_bolet_game_data_form" model="ir.ui.view">
+        <field name="name">Bolet Game Data</field>
+        <field name="model">bolet.game.data</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="ticket_number"/>
+                            <field name="agent"/>
+                            <field name="create_date"/>
+                            <field name="company"/>
+                            <field name="draw"/>
+                            <field name="first"/>
+                            <field name="draw_result"/>
+                            <field name="winning"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_bolet_game_data" model="ir.actions.act_window">
+        <field name="name">Bolet Game Data</field>
+        <field name="res_model">bolet.game.data</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+            name="Lottery Draw Bolet Game Data"
+            id="menu_bolet_game_data"
+            action="action_bolet_game_data"
+            parent="contacts.menu_contacts"
+    />
+
+    <record id="seq_bolet_game_data" model="ir.sequence">
+        <field name="name">Bolet Game Data Sequence</field>
+        <field name="code">bolet.game.data</field>
+        <field name="prefix">Tick-</field>
+        <field name="padding">3</field>
+        <field name="number_increment">1</field>
+    </record>
+
+</odoo>

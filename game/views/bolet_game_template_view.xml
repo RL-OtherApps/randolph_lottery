@@ -55,7 +55,7 @@
                         <div>
                             <div class="cyfral" id="l1"></div>
                         </div>
-                        <form action="save_numbers" method="post">
+                        <form action="save_bolet_input" method="post">
                             <input type="hidden" name="csrf_token"
                                    t-att-value="request.csrf_token()"/>
                             <input class="cyfral" type="hidden" name="l1" id="l11"/>

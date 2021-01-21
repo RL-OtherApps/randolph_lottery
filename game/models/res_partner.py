@@ -28,6 +28,7 @@ class Customers(models.Model):
     _inherit = "res.partner"
 
     game_data = fields.One2many('game.data', 'partner', string="Game data")
+    bolet_game_data = fields.One2many('bolet.game.data', 'partner', string="Bolet Game data")
     wheel_game_data = fields.One2many('game.wheel.data', 'partner', string="Wheel Game Data")
     full_name = fields.Char('Full Name')
     acc_number = fields.Char('Account Number')

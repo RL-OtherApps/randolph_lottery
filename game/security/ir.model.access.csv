@@ -7,4 +7,6 @@ access_moncash_api,access.moncash.api,game.model_moncash_api,,1,1,1,1
 access_customer_transaction,access.customer.transaction,game.model_customer_transaction,,1,1,1,1
 access_withdraw_request,access.withdraw.request,game.model_withdraw_request,,1,1,1,1
 access_process_request,access.process.request,game.model_process_request,,1,1,1,1
+access_bolet_lottery_draw,access.bolet.lottery.draw,game.model_bolet_lottery_draw,,1,1,1,1
+access_bolet_game_data,access.bolet.game.data,game.model_bolet_game_data,,1,1,1,1
 
