@@ -5,9 +5,9 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='vat']" position="after">
-                <field name="current_wallet_amount"/>
-            </xpath>
+<!--            <xpath expr="//field[@name='vat']" position="after">-->
+<!--                <field name="current_wallet_amount"/>-->
+<!--            </xpath>-->
             <xpath expr="//notebook" position="inside">
                 <page name="game" string="Game 1 Data">
                     <group>
@@ -40,23 +40,23 @@
                         </field>
                     </group>
                 </page>
-                <page name="withdraw" string="Withdraw Requests">
-                    <group>
-                        <field name="withdraw_requests">
-                            <tree>
-                                <field name="create_date"/>
-                                <field name="amount"/>
-                                <field name="status"/>
-                            </tree>
-                        </field>
-                    </group>
-                </page>
+<!--                <page name="withdraw" string="Withdraw Requests">-->
+<!--                    <group>-->
+<!--                        <field name="withdraw_requests">-->
+<!--                            <tree>-->
+<!--                                <field name="create_date"/>-->
+<!--                                <field name="amount"/>-->
+<!--                                <field name="status"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </group>-->
+<!--                </page>-->
                 <page name="bank_details" string="Bank Details">
                     <group>
                         <field name="full_name"/>
                         <field name="acc_number"/>
                         <field name="ifsc"/>
-                        <field name="transactions"/>
+<!--                        <field name="transactions"/>-->
                     </group>
                 </page>
                 <page name="transaction_details" string="Transactions">
