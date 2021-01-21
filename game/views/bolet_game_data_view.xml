@@ -32,11 +32,11 @@
                             <field name="company"/>
                             <field name="draw"/>
                             <field name="first"/>
+                            <field name="betting_amount"/>
                             <field name="draw_result"/>
                             <field name="winning"/>
                         </group>
                     </group>
-
                 </sheet>
             </form>
         </field>

@@ -16,8 +16,9 @@ class Bolet(http.Controller):
     @http.route('/bolet_game', type="http", auth="user", website=True)
     def choose_user(self, **kwargs):
         uid = request.env.user.partner_id
+        lottery = request.env['bolet.lottery.draw'].sudo().search([('active_draw', '=', True)], limit=1)
         if uid:
-            return http.request.render('game.bolet_game_template')
+            return http.request.render('game.bolet_game_template', {'draw': lottery,'partner':uid})
         else:
             return http.request.render('web.login', )
 

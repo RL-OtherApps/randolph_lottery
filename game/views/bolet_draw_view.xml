@@ -23,6 +23,8 @@
                     <button name="generate_numbers" string="Generate Numbers" type="object" class="btn-primary"
                             attrs="{'invisible':[('draw_generated','=',True)]}"
                             style="background-color:#101820FF;color:#F2AA4CFF;border-color:#101820FF;"/>
+                    <button name="draw_results" string="Draw Results" type="object" class="btn-primary"
+                            style="background-color:#101820FF;color:#F2AA4CFF;border-color:#101820FF;"/>
                 </header>
                 <sheet>
                     <group>
@@ -39,10 +41,10 @@
                         </group>
                     </group>
                     <group>
-                        <group name="winning_amounts" string="Wining Amounts">
-                            <field name="first_prize" widget="monetary"/>
-                            <field name="second_prize" widget="monetary"/>
-                            <field name="third_prize" widget="monetary"/>
+                        <group name="winning_amounts" string="Wining Rates(Rate X bet)">
+                            <field name="first_prize"/>
+                            <field name="second_prize"/>
+                            <field name="third_prize"/>
                         </group>
                         <group name="results" string="Draw Results">
                             <field name="first" readonly="0"/>
@@ -57,6 +59,7 @@
                             <field name="ticket_number" style="background-color:#0F2557;color:white;"/>
                             <field name="create_date" style="background-color:#0F2557;color:white;"/>
                             <field name="first" style="background-color:#32064A;color:white;text-align: center;"/>
+                            <field name="betting_amount" style="background-color:#32064A;color:white;text-align: center;"/>
                             <field name="draw_result"
                                    style="background-color:#292930;color:white;text-align: center;"/>
                             <field name="winning"
