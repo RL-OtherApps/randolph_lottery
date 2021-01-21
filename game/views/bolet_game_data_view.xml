@@ -47,7 +47,7 @@
         <field name="view_mode">tree,form</field>
     </record>
     <menuitem
-            name="Lottery Draw Bolet Game Data"
+            name="Bolet Game Data"
             id="menu_bolet_game_data"
             action="action_bolet_game_data"
             parent="contacts.menu_contacts"
