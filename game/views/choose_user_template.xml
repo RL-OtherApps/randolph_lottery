@@ -58,7 +58,7 @@
                             </form>
                         </div>
                         <div class="col-lg-6">
-                            <form action="second-game" method="post">
+                            <form action="bolet-game" method="post">
                                 <input type="hidden" name="csrf_token"
                                        t-att-value="request.csrf_token()"/>
                                 <t t-if="customers">
@@ -66,13 +66,29 @@
                                    t-att-value="customers.id" style="visibility:hidden;"/>
                                 </t>
                                 <div>
-                                    <h1>Spin Wheel</h1>
+                                    <h1>Bolet Draw</h1>
                                     <button class="button"
-                                            type="submit" style="box-shadow: 5px 10px;background-image:url(/game/static/src/images/spin_bg.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
+                                            type="submit" style="box-shadow: 5px 10px;background-image:url(/game/static/src/images/lottery_bg.jpeg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
                                     </button>
                                 </div>
                             </form>
                         </div>
+<!--                        <div class="col-lg-6">-->
+<!--                            <form action="second-game" method="post">-->
+<!--                                <input type="hidden" name="csrf_token"-->
+<!--                                       t-att-value="request.csrf_token()"/>-->
+<!--                                <t t-if="customers">-->
+<!--                                <input type="text" class="customer" name="customer"-->
+<!--                                   t-att-value="customers.id" style="visibility:hidden;"/>-->
+<!--                                </t>-->
+<!--                                <div>-->
+<!--                                    <h1>Spin Wheel</h1>-->
+<!--                                    <button class="button"-->
+<!--                                            type="submit" style="box-shadow: 5px 10px;background-image:url(/game/static/src/images/spin_bg.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </form>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </t>

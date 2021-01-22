@@ -71,6 +71,7 @@ class SaleOrder(models.Model):
 
     lottery_draw = fields.Many2one('game.data', 'Lottery Draw')
     lottery_wheel = fields.Many2one('game.wheel.data', 'Lottery Wheel')
+    bolet_draw = fields.Many2one('bolet.game.data', 'Bolet Draw')
     transaction_id = fields.Char('Transaction ID')
 
 

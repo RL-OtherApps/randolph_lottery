@@ -203,10 +203,18 @@
         <report
         id="action_ticket_receipt"
         model="game.data"
-        string="LOA"
+        string="Receipt"
         report_type="qweb-pdf"
         name="game.pdf_ticket_receipt"
         file="game.pdf_ticket_receipt"
+    />
+    <report
+        id="action_ticket_receipts"
+        model="bolet.game.data"
+        string="Receipt"
+        report_type="qweb-pdf"
+        name="game.pdf_ticket_receipts"
+        file="game.pdf_ticket_receipts"
     />
 
 </odoo>

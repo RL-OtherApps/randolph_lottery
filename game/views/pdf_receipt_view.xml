@@ -125,5 +125,111 @@
         </t>
 
     </template>
+    <template id="pdf_ticket_receipts" name="Ticket Receipt">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div>
+                    <center>
+                        <div>
+                            <t t-if="o.company.name">
+                                <div>
+                                    <strong>
+                                        <t t-esc="o.company.name"/>
+                                    </strong>
+                                </div>
+                            </t>
+                            <t t-if="o.company.phone">
+                                <div>Tel:
+                                    <t t-esc="o.company.phone"/>
+                                </div>
+                            </t>
+                            <t t-if="o.company.email">
+                                <div>
+                                    <t t-esc="o.company.email"/>
+                                </div>
+                            </t>
+                            <t t-if="o.company.website">
+                                <div>
+                                    <t t-esc="o.company.website"/>
+                                </div>
+                            </t>
+                        </div>
+                    </center>
+                    <p style="position:center;">
+                        -----------------------------------------------------------
+                    </p>
+                    <table class="table table-bordered" style="width:100%;">
+
+                        <tr>
+                            <td>
+                                <strong>Player</strong>
+                            </td>
+                            <td>
+                                <span t-esc="o.partner.name"
+                                      class="pos-receipt-right-align"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <strong>Ticket Number</strong>
+                            </td>
+                            <td>
+                                <span t-esc="o.ticket_number"
+                                      class="pos-receipt-right-align"/>
+                            </td>
+                        </tr>
+                        <tr t-if="o.agent.name">
+                            <td>
+                                <strong>Agent</strong>
+                            </td>
+                            <td>
+                                <span t-esc="o.agent.name"
+                                      class="pos-receipt-right-align"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <strong>You have selected following numbers</strong>
+                    <br/>
+                    <br/>
+                    <table class="table table-bordered" style="width:100%;">
+                        <tr>
+                            <td>
+                                <span t-esc="o.first"
+                                      class="pos-receipt-right-align"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <br/>
+                    <strong>Draw Will be held at</strong>
+                    :
+                    <span t-esc="o.draw.draw_time"/>
+                    <br/>
+                    <br/>
+                    <center>
+                        <strong>Thank You!!</strong>
+                    </center>
+                    <p style="position:center;">
+                        -----------------------------------------------------------
+                    </p>
+                    <strong>Terms and Conditions:</strong>
+                    <p style="text-align:left">i. We also set out the documents that we will ask you for
+                        when we are
+                        paying out winnings
+                        in advance which helps us to pay you more quickly.
+                        <br/>
+                        ii. We have made it clear that if you are a UK customer you can withdraw all of your
+                        funds
+                        at any time when you have provided any KYC documents that are required.
+                    </p>
+                    <div>
+                    </div>
+                </div>
+            </t>
+        </t>
+
+    </template>
 
 </odoo>

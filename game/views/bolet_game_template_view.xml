@@ -18,7 +18,13 @@
                         <div class="row">
                             <div class="col-lg-1" style="top:15px;">
                                 <h4 style="color: gold;padding:15px;">Welcome!!
-                                    <span t-esc="partner.name"/>
+                                    <br/>
+                                    <t t-if="partners">
+                                        <span t-esc="partners.name"/>
+                                    </t>
+                                    <t t-if="partner">
+                                        <span t-esc="partner.name"/>
+                                    </t>
                                 </h4>
                             </div>
                             <div class="col-lg-4" style="top:15px;">
@@ -68,6 +74,8 @@
                                     <form action="save_bolet_input" method="post">
                                         <input type="hidden" name="csrf_token"
                                                t-att-value="request.csrf_token()"/>
+                                        <input type="text" class="game_id" name="game" id="game"
+                                               t-att-value="tick.id" style="visibility:hidden;"/>
                                         <input class="cyfral" type="hidden" name="l1" id="l11"/>
                                         <button class="buttonSub"
                                                 type="submit">
@@ -87,5 +95,113 @@
             </t>
         </t>
     </template>
+        <template id="bolet_ticket_receipt" name="Ticket Receipt">
+        <t t-name="website.bolet_ticket_receipt">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure"
+                     style="background-image:url(/game/static/src/images/game1_back.jpg);height:100%;background-repeat: no-repeat;background-position: center;background-size: cover;">
+                    <audio src="game/static/src/bg.mp3" loop="loop" id="my_audio">
+                    </audio>
+                    <div class="receiptDiv">
+                        <div>
+                            <br/>
+                            <t t-if="receipt.name">
+                                <div>
+                                    <strong>
+                                        <t t-esc="receipt.name"/>
+                                    </strong>
+                                </div>
+                            </t>
+                            <t t-if="receipt.phone">
+                                <div>Tel:
+                                    <t t-esc="receipt.phone"/>
+                                </div>
+                            </t>
+                            <t t-if="receipt.email">
+                                <div>
+                                    <t t-esc="receipt.email"/>
+                                </div>
+                            </t>
+                            <t t-if="receipt.website">
+                                <div>
+                                    <t t-esc="receipt.website"/>
+                                </div>
+                            </t>
+                        </div>
+                        <p style="position:center;">-----------------------------------------------------------</p>
+                        <table class="table table-bordered">
+
+                            <tr>
+                                <td>
+                                    <strong>Player</strong>
+                                </td>
+                                <td>
+                                    <span t-esc="tick.partner.name"
+                                          class="pos-receipt-right-align"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <strong>Ticket Number</strong>
+                                </td>
+                                <td>
+                                    <span t-esc="tick.ticket_number"
+                                          class="pos-receipt-right-align"/>
+                                </td>
+                            </tr>
+                            <tr t-if="tick.agent.name">
+                                <td>
+                                    <strong>Agent</strong>
+                                </td>
+                                <td>
+                                    <span t-esc="tick.agent.name"
+                                          class="pos-receipt-right-align"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <strong>You have selected following numbers</strong>
+                        <br/>
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>
+                                    <span t-esc="tick.first"
+                                          class="pos-receipt-right-align"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <strong>Draw Will be held at</strong>
+                        :
+                        <span t-esc="draw.draw_time"/>
+                        <br/>
+                        <strong>Thank You!!</strong>
+                        <p style="position:center;">-----------------------------------------------------------</p>
+                        <strong>Terms and Conditions:</strong>
+                        <p style="text-align:left">i. We also set out the documents that we will ask you for when we are
+                            paying out winnings
+                            in advance which helps us to pay you more quickly.
+                            ii. We have made it clear that if you are a UK customer you can withdraw all of your funds
+                            at any time when you have provided any KYC documents that are required.
+                        </p>
+                        <div>
+                        </div>
+                        <form action="report/pdf/bolet_receipt_download" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="text" class="game_id" name="game_id"
+                                   t-att-value="tick.id" style="visibility:hidden;"/>
+                            <center>
+                                <button type="submit" class="btn btn-primary float-center mb32 ">
+                                    Download Ticket
+                                </button>
+                            </center>
+                        </form>
+                    </div>
+                    <script type="text/javascript" src="/game/static/src/js/music.js"/>
+                </div>
+            </t>
+        </t>
+    </template>
+
 
 </odoo>

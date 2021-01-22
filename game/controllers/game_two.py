@@ -147,7 +147,7 @@ class GameLoaderTwo(http.Controller):
                     bills.write({'invoice_line_ids': line_ids})
         return request.render('game.thanks_page', {})
 
-    @http.route('/receive_payment_info', type="http", auth="user", website=True, methods=['GET', 'POST'])
+    @http.route('/create_payment_in_moncash2', type="http", auth="user", website=True, methods=['GET', 'POST'])
     def create_payment_in_moncash2(self, order, amount):
         access_token = request.env['moncash.api'].sudo().search([('id', '=', 2)], limit=1)
         token = access_token.get_auth_token()

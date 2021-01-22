@@ -237,6 +237,7 @@ class GameLoader(http.Controller):
                           ('Content-Disposition', 'COA; filename="Receipt.pdf"')]
         return request.make_response(pdf, headers=pdfhttpheaders)
 
+    @http.route('/receive_payment_info', type="http", auth="user", website=True, methods=['GET', 'POST'])
     def receive_payment_info(self, **kwargs):
         transaction_id = kwargs.get('transactionId')
         company = request.env['res.company'].sudo().search([('name', '=', 'Ydnar Lottery')])

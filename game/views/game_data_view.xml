@@ -82,6 +82,7 @@
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="lottery_draw"/>
                 <field name="lottery_wheel"/>
+                <field name="bolet_draw"/>
                 <field name="transaction_id"/>
             </xpath>
         </field>
