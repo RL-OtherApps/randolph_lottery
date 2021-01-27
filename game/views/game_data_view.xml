@@ -34,7 +34,7 @@
                                 <field name="ticket_number"/>
                                 <field name="create_date"/>
                                 <field name="first"/>
-                                <field name="draw_result"/>
+                                <field name="draw_result" invisible="1"/>
                                 <field name="winning"/>
                             </tree>
                         </field>

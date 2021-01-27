@@ -61,7 +61,7 @@
                             <field name="first" style="background-color:#32064A;color:white;text-align: center;"/>
                             <field name="betting_amount" style="background-color:#32064A;color:white;text-align: center;"/>
                             <field name="draw_result"
-                                   style="background-color:#292930;color:white;text-align: center;"/>
+                                   style="background-color:#292930;color:white;text-align: center;" invisible="1"/>
                             <field name="winning"
                                    style="background-color:#292930;color:white;text-align: center;"/>
                             <field name="winning_amount"
