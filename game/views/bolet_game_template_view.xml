@@ -19,12 +19,12 @@
                             <div class="col-lg-1" style="top:15px;">
                                 <h4 style="color: gold;padding:15px;">Welcome!!
                                     <br/>
-                                    <t t-if="partners">
-                                        <span t-esc="partners.name"/>
+                                    <t t-if="tick">
+                                        <span t-esc="tick.partner.name"/>
                                     </t>
-                                    <t t-if="partner">
-                                        <span t-esc="partner.name"/>
-                                    </t>
+<!--                                    <t t-if="partner">-->
+<!--                                        <span t-esc="partner.name"/>-->
+<!--                                    </t>-->
                                 </h4>
                             </div>
                             <div class="col-lg-4" style="top:15px;">
@@ -165,10 +165,12 @@
                         <br/>
                         <table class="table table-bordered">
                             <tr>
+                                <td></td>
                                 <td>
                                     <span t-esc="tick.first"
                                           class="pos-receipt-right-align"/>
                                 </td>
+                                <td></td>
                             </tr>
                         </table>
                         <strong>Draw Will be held at</strong>

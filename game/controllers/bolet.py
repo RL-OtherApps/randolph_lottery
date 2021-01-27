@@ -26,7 +26,7 @@ class Bolet(http.Controller):
     def save_bolet_input(self, **post):
         partner = request.env.user.partner_id
         company = request.env['res.company'].sudo().search([('name', '=', 'Ydnar Lottery')])
-        lottery = request.env['lottery.draw'].sudo().search([('active_draw', '=', True)], limit=1)
+        lottery = request.env['bolet.lottery.draw'].sudo().search([('active_draw', '=', True)], limit=1)
         l1 = post.get('l1')
         game = post.get('game')
         game = request.env['bolet.game.data'].sudo().search([('id', '=', int(game))], limit=1)
@@ -75,7 +75,8 @@ class Bolet(http.Controller):
                     'ticket_number': request.env['ir.sequence'].sudo().next_by_code('bolet.game.data'),
                     'draw': lottery.id,
                     'company': company.id,
-                    'agent': request.env.user.id
+                    'agent': request.env.user.id,
+                    'betting_amount': amount
                 })
                 old_amount = customers.current_wallet_amount
                 new_amount = old_amount - int(amount)
@@ -88,6 +89,7 @@ class Bolet(http.Controller):
                     'ticket_number': request.env['ir.sequence'].sudo().next_by_code('bolet.game.data'),
                     'draw': lottery.id,
                     'company': company.id,
+                    'betting_amount': amount
                 })
                 old_amount = partner.current_wallet_amount
                 new_amount = old_amount - int(amount)
@@ -102,7 +104,8 @@ class Bolet(http.Controller):
                     'ticket_number': request.env['ir.sequence'].sudo().next_by_code('bolet.game.data'),
                     'draw': lottery.id,
                     'company': company.id,
-                    'agent': request.env.user.id
+                    'agent': request.env.user.id,
+                    'betting_amount': amounts
                 })
                 sale_order = self.create_sale_order(customers, amounts, game)
                 lottery.update({'game_id': game.id})
@@ -116,6 +119,7 @@ class Bolet(http.Controller):
                     'ticket_number': request.env['ir.sequence'].sudo().next_by_code('bolet.game.data'),
                     'draw': lottery.id,
                     'company': company.id,
+                    'betting_amount': amounts
                 })
                 sale_order = self.create_sale_order(partner, amounts, game)
                 lottery.update({'game_id': game.id})
