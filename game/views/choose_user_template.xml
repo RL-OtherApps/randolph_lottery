@@ -62,7 +62,7 @@
                                 <input type="hidden" name="csrf_token"
                                        t-att-value="request.csrf_token()"/>
                                 <t t-if="customers">
-                                <input type="text" class="customer" name="customer"
+                                <input type="text" class="customer" name="customer" id="customers"
                                    t-att-value="customers.id" style="visibility:hidden;"/>
                                 </t>
                                 <div>

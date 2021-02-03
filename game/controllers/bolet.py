@@ -22,18 +22,59 @@ class Bolet(http.Controller):
         else:
             return http.request.render('web.login', )
 
+    @http.route('/save_info_open_game', type="http", auth="user", website=True, methods=['GET', 'POST'])
+    def save_info_open_game(self, **post):
+        yes = post.get('yesno')
+        name = post.get('name')
+        email = post.get('email')
+        phone = post.get('phone')
+        agent = post.get('agent')
+        agents = post.get('agents')
+        customers = post.get('customers')
+        if yes == "yes":
+            agents = request.env['res.users'].sudo().search([('name', '=', str(agents))])
+            customer = request.env['res.partner'].sudo().create({
+                'name': name,
+                'email': email,
+                'phone': phone
+            })
+            return http.request.render('game.choose_game', {'customers': customer, 'agents': agents})
+        else:
+            customers = request.env['res.partner'].sudo().search([('name', '=', str(customers))])
+            agents = request.env['res.users'].sudo().search([('name', '=', str(agent))])
+            return http.request.render('game.choose_game', {'customers': customers, 'agents': agents})
+
     @http.route('/save_bolet_input', type="http", auth="user", website=True, methods=['GET', 'POST'])
     def save_bolet_input(self, **post):
         partner = request.env.user.partner_id
         company = request.env['res.company'].sudo().search([('name', '=', 'Ydnar Lottery')])
         lottery = request.env['bolet.lottery.draw'].sudo().search([('active_draw', '=', True)], limit=1)
         l1 = post.get('l1')
-        game = post.get('game')
-        game = request.env['bolet.game.data'].sudo().search([('id', '=', int(game))], limit=1)
-        game.update({
-            'first': l1,
-        })
-        return request.render('game.bolet_ticket_receipt', {'tick': game, 'receipt': company, 'draw': lottery})
+        customer = post.get('partners')
+        if customer:
+            customers = request.env['res.partner'].sudo().search([('id', '=', int(customer))])
+            game = request.env['bolet.game.data'].sudo().create({
+                'partner': customers.id if customers else partner.id,
+                'create_date': datetime.now(),
+                'ticket_number': request.env['ir.sequence'].sudo().next_by_code('bolet.game.data'),
+                'draw': lottery.id,
+                'company': company.id,
+                'agent': request.env.user.id,
+                'first': l1,
+            })
+            return request.render('game.bolet_moncash_payment_form',
+                                  {'tick': game, 'receipt': company, 'draw': lottery})
+        else:
+            game = request.env['bolet.game.data'].sudo().create({
+                'partner': partner.id,
+                'create_date': datetime.now(),
+                'ticket_number': request.env['ir.sequence'].sudo().next_by_code('bolet.game.data'),
+                'draw': lottery.id,
+                'company': company.id,
+                'first': l1,
+            })
+            return request.render('game.bolet_moncash_payment_form',
+                                  {'tick': game, 'receipt': company, 'draw': lottery})
 
     @http.route(['/report/pdf/bolet_receipt_download'], type='http', auth='public', methods=['POST'])
     def download_receipts(self, game_id):
@@ -51,9 +92,9 @@ class Bolet(http.Controller):
             lottery = request.env['bolet.lottery.draw'].sudo().search([('active_draw', '=', True)], limit=1)
             if customer:
                 customers = request.env['res.partner'].sudo().search([('id', '=', int(customer))])
-                return http.request.render('game.bolet_moncash_payment_form', {'partner': customers, 'draw': lottery})
+                return http.request.render('game.bolet_game_template', {'partners': customers, 'draw': lottery})
             else:
-                return http.request.render('game.bolet_moncash_payment_form', {'partners': uid, 'draw': lottery})
+                return http.request.render('game.bolet_game_template', {'partner': uid, 'draw': lottery})
         else:
             return http.request.render('web.login', )
 
@@ -185,3 +226,27 @@ class Bolet(http.Controller):
             })
             return new_product_id
 
+    @http.route('/open_bolet_payment', type="http", auth="user", website=True)
+    def open_bolet_payment(self, **post):
+        company = request.env['res.company'].sudo().search([('name', '=', 'Ydnar Lottery')])
+        lottery = request.env['bolet.lottery.draw'].sudo().search([('active_draw', '=', True)], limit=1)
+        amount = post.get('amount')
+        amounts = post.get('amounts')
+        tick = post.get('tick')
+        wallet = post.get('yesno')
+        if wallet == 'wallet' and amount:
+            bolet_game = request.env['bolet.game.data'].sudo().search([('id', '=', int(tick))])
+            bolet_game.update({'betting_amount': amount})
+            old_amount = bolet_game.partner.current_wallet_amount
+            new_amount = old_amount - int(amount)
+            bolet_game.partner.update({'current_wallet_amount': new_amount})
+            return request.render('game.bolet_ticket_receipt',
+                                  {'tick': bolet_game, 'receipt': company, 'draw': lottery})
+        elif wallet == 'no_wallet' and amounts:
+            bolet_game = request.env['bolet.game.data'].sudo().search([('id', '=', int(tick))])
+            bolet_game.update({'betting_amount': amount})
+            sale_order = self.create_sale_order(bolet_game.partner, amounts, bolet_game)
+            lottery.update({'game_id': bolet_game.id})
+            payment = self.create_payment_for_bolet_in_moncash(sale_order, amounts)
+            bolet_game.update({'sale_order': sale_order.id})
+            return request.redirect(payment)

@@ -1,10 +1,10 @@
 <odoo>
-<!--    <record id="menu_bolet" model="website.menu">-->
-<!--        <field name="name">Bolet Game</field>-->
-<!--        <field name="url">/bolet_game</field>-->
-<!--        <field name="parent_id" ref="website.main_menu"/>-->
-<!--        <field name="sequence">59</field>-->
-<!--    </record>-->
+    <!--    <record id="menu_bolet" model="website.menu">-->
+    <!--        <field name="name">Bolet Game</field>-->
+    <!--        <field name="url">/bolet_game</field>-->
+    <!--        <field name="parent_id" ref="website.main_menu"/>-->
+    <!--        <field name="sequence">59</field>-->
+    <!--    </record>-->
     <template id="bolet_game_template" name="Bolet Game Template">
         <t t-name="website.bolet_game_template">
             <t t-call="website.layout">
@@ -19,12 +19,9 @@
                             <div class="col-lg-1" style="top:15px;">
                                 <h4 style="color: gold;padding:15px;">Welcome!!
                                     <br/>
-                                    <t t-if="tick">
-                                        <span t-esc="tick.partner.name"/>
+                                    <t t-if="partners">
+                                        <span t-esc="partners.name"/>
                                     </t>
-<!--                                    <t t-if="partner">-->
-<!--                                        <span t-esc="partner.name"/>-->
-<!--                                    </t>-->
                                 </h4>
                             </div>
                             <div class="col-lg-4" style="top:15px;">
@@ -74,8 +71,10 @@
                                     <form action="save_bolet_input" method="post">
                                         <input type="hidden" name="csrf_token"
                                                t-att-value="request.csrf_token()"/>
-                                        <input type="text" class="game_id" name="game" id="game"
-                                               t-att-value="tick.id" style="visibility:hidden;"/>
+                                        <t t-if="partners">
+                                            <input type="text" class="partners" name="partners" id="partners"
+                                                   t-att-value="partners.id" style="visibility:hidden;"/>
+                                        </t>
                                         <input class="cyfral" type="hidden" name="l1" id="l11"/>
                                         <button class="buttonSub"
                                                 type="submit">
@@ -95,7 +94,7 @@
             </t>
         </t>
     </template>
-        <template id="bolet_ticket_receipt" name="Ticket Receipt">
+    <template id="bolet_ticket_receipt" name="Ticket Receipt">
         <t t-name="website.bolet_ticket_receipt">
             <t t-call="website.layout">
                 <div id="wrap" class="oe_structure"
@@ -161,16 +160,26 @@
                             </tr>
                         </table>
 
-                        <strong>You have selected following numbers</strong>
+                        <strong>Your Input and Betting Amount</strong>
                         <br/>
                         <table class="table table-bordered">
                             <tr>
-                                <td></td>
+                                <td>
+                                    <strong>Input Number</strong>
+                                </td>
+                                <td>
+                                    <strong>Betting Amount</strong>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>
                                     <span t-esc="tick.first"
                                           class="pos-receipt-right-align"/>
                                 </td>
-                                <td></td>
+                                <td>
+                                    <span t-esc="tick.betting_amount"
+                                          class="pos-receipt-right-align"/>
+                                </td>
                             </tr>
                         </table>
                         <strong>Draw Will be held at</strong>

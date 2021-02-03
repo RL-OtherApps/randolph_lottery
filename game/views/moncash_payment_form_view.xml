@@ -125,27 +125,15 @@
                         <div class="col-lg-4"/>
                         <div class="col-lg-4" style="background-color:white;">
                             <br/>
-                            <form action="open_bolet_pay" method="post">
+                            <form action="open_bolet_payment" method="post">
                                 <input type="hidden" name="csrf_token"
                                        t-att-value="request.csrf_token()"/>
-                                <t t-if="partner">
-                                    <input type="text" class="customers" name="customers"
-                                           t-att-value="partner.id" style="visibility:hidden;"/>
-                                    <input type="text" name="amt" id="amt"
-                                           t-att-value="partner.current_wallet_amount" style="visibility:hidden;"/>
-                                    <strong>Amount in wallet :
-                                        <span t-esc="partner.current_wallet_amount"/>
-                                    </strong>
-                                </t>
-                                <t t-if="partners">
-                                    <input type="text" class="customer" name="customer"
-                                           t-att-value="partners.id" style="visibility:hidden;"/>
                                     <input type="text" name="amt2" id="amt2"
-                                           t-att-value="partners.current_wallet_amount" style="visibility:hidden;"/>
+                                           t-att-value="tick.partner.current_wallet_amount" style="visibility:hidden;"/>
                                     <strong>Amount in wallet :
-                                        <span t-esc="partners.current_wallet_amount"/>
+                                        <span t-esc="tick.partner.current_wallet_amount"/>
                                     </strong>
-                                </t>
+                                <input type="text" name="tick" id="tick" t-att-value="tick.id" style="visibility:hidden;"/>
                                 <br/>
                                 <div>
                                     <table>
