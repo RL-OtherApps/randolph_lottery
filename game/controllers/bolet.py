@@ -94,7 +94,7 @@ class Bolet(http.Controller):
                 customers = request.env['res.partner'].sudo().search([('id', '=', int(customer))])
                 return http.request.render('game.bolet_game_template', {'partners': customers, 'draw': lottery})
             else:
-                return http.request.render('game.bolet_game_template', {'partner': uid, 'draw': lottery})
+                return http.request.render('game.bolet_game_template', {'partners': uid, 'draw': lottery})
         else:
             return http.request.render('web.login', )
 
