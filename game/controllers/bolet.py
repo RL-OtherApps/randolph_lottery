@@ -244,7 +244,7 @@ class Bolet(http.Controller):
                                   {'tick': bolet_game, 'receipt': company, 'draw': lottery})
         elif wallet == 'no_wallet' and amounts:
             bolet_game = request.env['bolet.game.data'].sudo().search([('id', '=', int(tick))])
-            bolet_game.update({'betting_amount': amount})
+            bolet_game.update({'betting_amount': amounts})
             sale_order = self.create_sale_order(bolet_game.partner, amounts, bolet_game)
             lottery.update({'game_id': bolet_game.id})
             payment = self.create_payment_for_bolet_in_moncash(sale_order, amounts)
