@@ -176,7 +176,7 @@ class Bolet(http.Controller):
         game = request.env['bolet.game.data'].sudo().search([('id', '=', int(lottery.game_id))], limit=1)
         game.update({'transaction_id': transaction_id})
         logger.warning("----------------------Request Data ======= %s ====-----------------------", kwargs)
-        return request.render('game.bolet_game_template', {'tick': game, 'receipt': company, 'draw': lottery})
+        return request.render('game.bolet_ticket_receipt', {'tick': game, 'receipt': company, 'draw': lottery})
 
     def create_payment_for_bolet_in_moncash(self, order, amount):
         access_token = request.env['moncash.api'].sudo().search([('id', '=', 3)], limit=1)
