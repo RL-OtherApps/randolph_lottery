@@ -190,17 +190,39 @@
                         </tr>
                     </table>
                     <br/>
-                    <strong>You have selected following numbers</strong>
-                    <br/>
-                    <br/>
-                    <table class="table table-bordered" style="width:100%;">
-                        <tr>
-                            <td>
-                                <span t-esc="o.first"
-                                      class="pos-receipt-right-align"/>
-                            </td>
-                        </tr>
-                    </table>
+                    <strong>Your Input and Betting Amount</strong>
+                        <br/>
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>
+                                    <strong>Input Number</strong>
+                                </td>
+                                <td>
+                                    <strong>Betting Amount</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span t-esc="o.first"
+                                          class="pos-receipt-right-align"/>
+                                </td>
+                                <td>
+                                    <span t-esc="o.betting_amount"
+                                          class="pos-receipt-right-align"/>
+                                </td>
+                            </tr>
+                        </table>
+<!--                    <strong>You have selected following numbers</strong>-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+<!--                    <table class="table table-bordered" style="width:100%;">-->
+<!--                        <tr>-->
+<!--                            <td>-->
+<!--                                <span t-esc="o.first"-->
+<!--                                      class="pos-receipt-right-align"/>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </table>-->
                     <br/>
                     <br/>
                     <strong>Draw Will be held at</strong>
