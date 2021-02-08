@@ -60,6 +60,20 @@
             <br/>
         </t>
     </template>
+
+    <template id="wallet_sorry_page">
+        <t t-call="portal.portal_layout">
+            <div t-attf-class="form-group">
+                <center>
+                    <h1>Sorry!!!!</h1>
+                    <h2>Your wallet don't have that much amount.You cannot proceed.</h2>
+                    <h3><a href="/open_payment_wallet">Click here</a> to add amount into your wallet.</h3>
+                </center>
+            </div>
+            <br/>
+        </t>
+    </template>
+
     <template id="claim_button_page2">
         <t t-call="portal.portal_layout">
             <form action="claim_prize_two" enctype="multipart/form-data" id="enter_details">

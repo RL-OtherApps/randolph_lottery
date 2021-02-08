@@ -236,12 +236,15 @@ class Bolet(http.Controller):
         wallet = post.get('yesno')
         if wallet == 'wallet' and amount:
             bolet_game = request.env['bolet.game.data'].sudo().search([('id', '=', int(tick))])
-            bolet_game.update({'betting_amount': amount})
-            old_amount = bolet_game.partner.current_wallet_amount
-            new_amount = old_amount - int(amount)
-            bolet_game.partner.update({'current_wallet_amount': new_amount})
-            return request.render('game.bolet_ticket_receipt',
-                                  {'tick': bolet_game, 'receipt': company, 'draw': lottery})
+            if float(int(amount)) <= bolet_game.partner.current_wallet_amount:
+                bolet_game.update({'betting_amount': amount})
+                old_amount = bolet_game.partner.current_wallet_amount
+                new_amount = old_amount - int(amount)
+                bolet_game.partner.update({'current_wallet_amount': new_amount})
+                return request.render('game.bolet_ticket_receipt',
+                                      {'tick': bolet_game, 'receipt': company, 'draw': lottery})
+            else:
+                return request.render('game.wallet_sorry_page')
         elif wallet == 'no_wallet' and amounts:
             bolet_game = request.env['bolet.game.data'].sudo().search([('id', '=', int(tick))])
             bolet_game.update({'betting_amount': amounts})
