@@ -2,12 +2,9 @@
 <templates id="template" xml:space="preserve">
     <t t-name="PaymentScreen" t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('payment-controls')]" position="inside">
-            <div t-if="env.pos.config.module_account" class="button js_invoice"
-                 t-att-class="{ highlight: currentOrder.is_to_invoice() }"
-                 t-on-click="toggleIsToInvoice">
-                                        <i class="fa fa-money"/>
-                Moncash Payment
-                                    </div>
+            <div class="button js_invoice" onclick="myFunction(this)">
+                <i class="fa fa-money"/> Moncash Payment</div>
+            <p id="demo"></p>
         </xpath>
     </t>
 </templates>

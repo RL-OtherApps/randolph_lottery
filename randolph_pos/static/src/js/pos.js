@@ -1,22 +1,20 @@
-odoo.define('randolph_pos.ActionButton', function (require) {
-"use strict";
+function myFunction(data) {
+  document.getElementById("demo").innerHTML = "Hello World";
+  var x = document.getElementsByClassName("total")[0];
+  var num= x.innerHTML
+  $.ajax({
+    type: 'POST',
+    url: '/pay_amount_via_moncash',
+    dataType: 'json',
+    data : {},
+    }).done(function(data){
+        load_year=$('#age_year').empty();
+        load_year_data='<option value="" selected="selected">YEAR</option>';
 
-// require pos screens
-var pos_screens = require('point_of_sale.screens');
+        load_month=$('#age_month').empty();
+        load_month_data='<option value="" selected="selected">MONTH</option>';
 
-// create a new button by extending the base ActionButtonWidget
-var DashboardButton = pos_screens.ActionButtonWidget.extend({
-    template: 'DashBoardButton',
-    button_click: function(){
-        alert("Dashboard button clicked");
-    },
-});
-
-// define the dashboard button
-pos_screens.define_action_button({
-    'name': 'Dashboard',
-    'widget': DashboardButton,
-    'condition': function(){return this.pos;},
-});
-
-});
+        load_days=$('#age_day').empty();
+        load_days_data='<option value="" selected="selected">DAYS</option>';
+})
+}

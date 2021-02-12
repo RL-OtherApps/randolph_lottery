@@ -4,6 +4,7 @@
      <template id="pos_action_button" inherit_id="point_of_sale.assets">
         <xpath expr="." position="inside">
             <script type="text/javascript" src="/randolph_pos/static/src/js/pos.js"/>
+            <script type="text/javascript" src="/randolph_pos/static/src/js/payment_screen.js"/>
         </xpath>
     </template>
   </data>
