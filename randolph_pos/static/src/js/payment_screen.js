@@ -146,6 +146,7 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
                     if (this.paymentLines[0].name=="Moncash"){
                         var order_id=this.currentOrder.name;
                         var total=this.currentOrder.selected_paymentline.amount;
+                        var transaction=''
                           $.ajax({
                             type: 'POST',
                             url: '/pay_amount_via_moncash',
@@ -154,7 +155,18 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
                             }).done(function(data){
                                 window.location.href = data.payment_url;
                         })
-                        if (!line.is_done()) this.currentOrder.remove_paymentline(line);
+                        $.ajax({
+                            type: 'POST',
+                            url: '/pay_amount_via_moncash',
+                            dataType: 'json',
+                            }).done(function(data){
+                                transaction = data.transaction_id;
+                        })
+                        if (transaction){
+                            if (!line.is_done()) this.currentOrder.remove_paymentline(line);
+                                    this.showScreen(this.nextScreen);
+                        }
+
                     }else{
                         if (!line.is_done()) this.currentOrder.remove_paymentline(line);
                         }
@@ -199,9 +211,9 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
                     });
                 }
             }
-
-            this.showScreen(this.nextScreen);
-
+            if (this.paymentLines[0].name!="Moncash"){
+                this.showScreen(this.nextScreen);
+            }
             // If we succeeded in syncing the current order, and
             // there are still other orders that are left unsynced,
             // we ask the user if he is willing to wait and sync them.

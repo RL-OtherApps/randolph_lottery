@@ -7,8 +7,8 @@
     'data': [
         'views/pos_template.xml',
     ],
-    'qweb': [
-        'static/src/xml/pos_view.xml',
-    ],
+    # 'qweb': [
+    #     'static/src/xml/pos_view.xml',
+    # ],
     'installable': True,
 }
