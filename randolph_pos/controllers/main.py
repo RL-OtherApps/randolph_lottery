@@ -26,7 +26,7 @@ class MoncashPos(http.Controller):
         return json.dumps(values)
 
     def create_payment_for_bolet_in_moncash(self, order, amount):
-        access_token = request.env['moncash.api'].sudo().search([('id', '=', 3)], limit=1)
+        access_token = request.env['moncash.api'].sudo().search([('id', '=', 4)], limit=1)
         token = access_token.get_auth_token()
         if token:
             url = "https://sandbox.moncashbutton.digicelgroup.com/Api/v1/CreatePayment"
