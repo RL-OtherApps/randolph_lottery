@@ -44,7 +44,8 @@ class MoncashPos(http.Controller):
                 redirect_url = "https://sandbox.moncashbutton.digicelgroup.com/Moncash-middleware/Payment/Redirect?token=%s" % refresh_token
                 return redirect_url
 
-    @http.route('/pos_receive_payment_info', type="http", auth="user", website=True, methods=['GET', 'POST'])
+    @http.route('/pos_receive_payment_info', type="http", auth="public", website=True, methods=['GET', 'POST'],
+                csrf=False)
     def pos_receive_payment_info(self, **kwargs):
         if kwargs.get('transactionId'):
             transaction_id = kwargs.get('transactionId')
