@@ -17,18 +17,19 @@
                                            t-att-value="partner.id" style="visibility:hidden;"/>
                                     <input type="text" name="amt" id="amt"
                                            t-att-value="partner.current_wallet_amount" style="visibility:hidden;"/>
-                                    <strong>Amount in wallet :
+                                    <br/>
+                                    <p><strong>
+                                        Amount in wallet :
                                         <span t-esc="partner.current_wallet_amount"/>
-                                    </strong>
+                                    </strong></p>
                                 </t>
                                 <t t-if="partners">
                                     <input type="text" class="customer" name="customer"
                                            t-att-value="partners.id" style="visibility:hidden;"/>
                                     <input type="text" name="amt2" id="amt2"
                                            t-att-value="partners.current_wallet_amount" style="visibility:hidden;"/>
-                                    <strong>Amount in wallet :
-                                        <span t-esc="partners.current_wallet_amount"/>
-                                    </strong>
+                                    <br/>
+                                    <p><strong>Amount in wallet :<span t-esc="partners.current_wallet_amount"/></strong></p>
                                 </t>
                                 <br/>
                                 <div>
@@ -130,9 +131,10 @@
                                        t-att-value="request.csrf_token()"/>
                                     <input type="text" name="amt2" id="amt2"
                                            t-att-value="tick.partner.current_wallet_amount" style="visibility:hidden;"/>
-                                    <strong>Amount in wallet :
+                                    <br/>
+                                    <p><strong>Amount in wallet :
                                         <span t-esc="tick.partner.current_wallet_amount"/>
-                                    </strong>
+                                    </strong></p>
                                 <input type="text" name="tick" id="tick" t-att-value="tick.id" style="visibility:hidden;"/>
                                 <br/>
                                 <div>
