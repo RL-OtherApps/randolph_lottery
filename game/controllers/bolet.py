@@ -236,20 +236,26 @@ class Bolet(http.Controller):
         wallet = post.get('yesno')
         if wallet == 'wallet' and amount:
             bolet_game = request.env['bolet.game.data'].sudo().search([('id', '=', int(tick))])
-            if float(int(amount)) <= bolet_game.partner.current_wallet_amount:
-                bolet_game.update({'betting_amount': amount})
-                old_amount = bolet_game.partner.current_wallet_amount
-                new_amount = old_amount - int(amount)
-                bolet_game.partner.update({'current_wallet_amount': new_amount})
-                return request.render('game.bolet_ticket_receipt',
-                                      {'tick': bolet_game, 'receipt': company, 'draw': lottery})
+            if float(int(amount)) > 0:
+                if float(int(amount)) <= bolet_game.partner.current_wallet_amount:
+                    bolet_game.update({'betting_amount': amount})
+                    old_amount = bolet_game.partner.current_wallet_amount
+                    new_amount = old_amount - int(amount)
+                    bolet_game.partner.update({'current_wallet_amount': new_amount})
+                    return request.render('game.bolet_ticket_receipt',
+                                          {'tick': bolet_game, 'receipt': company, 'draw': lottery})
+                else:
+                    return request.render('game.wallet_sorry_page')
             else:
-                return request.render('game.wallet_sorry_page')
+                return request.render('game.wallet_negative_sorry_page')
         elif wallet == 'no_wallet' and amounts:
-            bolet_game = request.env['bolet.game.data'].sudo().search([('id', '=', int(tick))])
-            bolet_game.update({'betting_amount': amounts})
-            sale_order = self.create_sale_order(bolet_game.partner, amounts, bolet_game)
-            lottery.update({'game_id': bolet_game.id})
-            payment = self.create_payment_for_bolet_in_moncash(sale_order, amounts)
-            bolet_game.update({'sale_order': sale_order.id})
-            return request.redirect(payment)
+            if float(int(amounts)) > 0:
+                bolet_game = request.env['bolet.game.data'].sudo().search([('id', '=', int(tick))])
+                bolet_game.update({'betting_amount': amounts})
+                sale_order = self.create_sale_order(bolet_game.partner, amounts, bolet_game)
+                lottery.update({'game_id': bolet_game.id})
+                payment = self.create_payment_for_bolet_in_moncash(sale_order, amounts)
+                bolet_game.update({'sale_order': sale_order.id})
+                return request.redirect(payment)
+            else:
+                return request.render('game.wallet_negative_sorry_page')

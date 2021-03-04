@@ -175,7 +175,9 @@
                                     <button type="submit" class="float-center">
                                         Submit
                                     </button>
+<!--                                    <span id="error"></span>-->
                                 </div>
+
                                 <script type="text/javascript" src="/game/static/src/js/agent.js"/>
                             </form>
                             <br/>

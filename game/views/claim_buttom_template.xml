@@ -74,6 +74,19 @@
         </t>
     </template>
 
+    <template id="wallet_negative_sorry_page">
+        <t t-call="portal.portal_layout">
+            <div t-attf-class="form-group">
+                <center>
+                    <h1>Sorry!!!!</h1>
+                    <h2>You have entered a negative value.</h2>
+                    <h3><a href="/choose_users">Click here</a> to Go to main menu.</h3>
+                </center>
+            </div>
+            <br/>
+        </t>
+    </template>
+
     <template id="claim_button_page2">
         <t t-call="portal.portal_layout">
             <form action="claim_prize_two" enctype="multipart/form-data" id="enter_details">
