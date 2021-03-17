@@ -140,6 +140,7 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
             this.render();
         }
         async validateOrder(isForceValidate) {
+            alert("Ketan Masaye")
             if (await this._isOrderValid(isForceValidate)) {
                 // remove pending payments before finalizing the validation
                 for (let line of this.paymentLines) {
@@ -153,15 +154,13 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
                             dataType: 'json',
                             data : {'total_amount':total,'order':order_id},
                             }).done(function(data){
-                                window.location.href = data.payment_url;
+//                                window.location.href = data.payment_url;
+                                window.open(data.payment_url);
                         })
-                        $.ajax({
-                            type: 'POST',
-                            url: '/pay_amount_via_moncash',
-                            dataType: 'json',
-                            }).done(function(data){
-                                transaction = data.transaction_id;
-                        })
+                        var source = new EventSource("http://172.104.202.6:5454/pos_receive_payment_info");
+                        source.onmessage = function(event) {
+                        transaction=document.getElementById("transactionId")
+                         };
                         if (transaction){
                             if (!line.is_done()) this.currentOrder.remove_paymentline(line);
                                     this.showScreen(this.nextScreen);
