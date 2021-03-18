@@ -140,7 +140,6 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
             this.render();
         }
         async validateOrder(isForceValidate) {
-            alert("Ketan Masaye")
             if (await this._isOrderValid(isForceValidate)) {
                 // remove pending payments before finalizing the validation
                 for (let line of this.paymentLines) {
