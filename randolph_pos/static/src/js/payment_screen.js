@@ -159,9 +159,9 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
                         })
                         var source = new EventSource("http://172.104.202.6:5454/pos_receive_payment_info");
                         source.onmessage = function(event) {
-                        transaction=document.getElementById("transactionId")
+                        console.log(event.data)
                          };
-                        if (transaction){
+                        if (event.data){
                             if (!line.is_done()) this.currentOrder.remove_paymentline(line);
                                     this.showScreen(this.nextScreen);
                         }
