@@ -1,13 +1,21 @@
-odoo.define('randolph_pos.PaymentScreen', function (require) {
+odoo.define('randolph_pos.PaymentScreen', function(require) {
     'use strict';
 
-    const { parse } = require('web.field_utils');
+    const {
+        parse
+    } = require('web.field_utils');
     const PosComponent = require('point_of_sale.PosComponent');
-    const { useErrorHandlers } = require('point_of_sale.custom_hooks');
+    const {
+        useErrorHandlers
+    } = require('point_of_sale.custom_hooks');
     const NumberBuffer = require('point_of_sale.NumberBuffer');
-    const { useListener } = require('web.custom_hooks');
+    const {
+        useListener
+    } = require('web.custom_hooks');
     const Registries = require('point_of_sale.Registries');
-    const { onChangeOrder } = require('point_of_sale.custom_hooks');
+    const {
+        onChangeOrder
+    } = require('point_of_sale.custom_hooks');
 
     class PaymentScreen extends PosComponent {
         constructor() {
@@ -45,16 +53,22 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
             // IMPROVEMENT: This code snippet is repeated multiple times.
             // Maybe it's better to create a function for it.
             const currentClient = this.currentOrder.get_client();
-            const { confirmed, payload: newClient } = await this.showTempScreen(
-                'ClientListScreen',
-                { client: currentClient }
+            const {
+                confirmed,
+                payload: newClient
+            } = await this.showTempScreen(
+                'ClientListScreen', {
+                    client: currentClient
+                }
             );
             if (confirmed) {
                 this.currentOrder.set_client(newClient);
                 this.currentOrder.updatePricelist(newClient);
             }
         }
-        addNewPaymentLine({ detail: paymentMethod }) {
+        addNewPaymentLine({
+            detail: paymentMethod
+        }) {
             // original function: click_paymentmethods
             if (this.currentOrder.electronic_payment_in_progress()) {
                 this.showPopup('ErrorPopup', {
@@ -85,7 +99,11 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
                 return;
             }
             if (NumberBuffer.get() === null) {
-                this.deletePaymentLine({ detail: { cid: this.selectedPaymentLine.cid } });
+                this.deletePaymentLine({
+                    detail: {
+                        cid: this.selectedPaymentLine.cid
+                    }
+                });
             } else {
                 this.selectedPaymentLine.set_amount(NumberBuffer.getFloat());
             }
@@ -108,7 +126,10 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
                 value = change;
             }
 
-            const { confirmed, payload } = await this.showPopup('NumberPopup', {
+            const {
+                confirmed,
+                payload
+            } = await this.showPopup('NumberPopup', {
                 title: tip ? this.env._t('Change Tip') : this.env._t('Add Tip'),
                 startingValue: value,
             });
@@ -118,7 +139,9 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
             }
         }
         deletePaymentLine(event) {
-            const { cid } = event.detail;
+            const {
+                cid
+            } = event.detail;
             const line = this.paymentLines.find((line) => line.cid === cid);
 
             // If a paymentline with a payment terminal linked to
@@ -133,41 +156,59 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
             this.render();
         }
         selectPaymentLine(event) {
-            const { cid } = event.detail;
+            const {
+                cid
+            } = event.detail;
             const line = this.paymentLines.find((line) => line.cid === cid);
             this.currentOrder.select_paymentline(line);
             NumberBuffer.reset();
             this.render();
         }
+        async moncashpay() {
+            for (let line of this.paymentLines) {
+                if (this.paymentLines[0].name == "Moncash") {
+                    var order_id = this.currentOrder.name;
+                    var total = this.currentOrder.selected_paymentline.amount;
+                    $.ajax({
+                        type: 'POST',
+                        url: '/pay_amount_via_moncash',
+                        dataType: 'json',
+                        data: {
+                            'total_amount': total,
+                            'order': order_id
+                        },
+                    }).done(function(data) {
+                        window.open(data.payment_url);
+                    })
+                }
+            }
+        }
         async validateOrder(isForceValidate) {
             if (await this._isOrderValid(isForceValidate)) {
                 // remove pending payments before finalizing the validation
                 for (let line of this.paymentLines) {
-                    if (this.paymentLines[0].name=="Moncash"){
-                        var order_id=this.currentOrder.name;
-                        var total=this.currentOrder.selected_paymentline.amount;
-                        var transaction=''
-                          $.ajax({
+                    var transaction = "";
+                    var letters = /^[0-9a-zA-Z]+$/;
+                    if (this.paymentLines[0].name == "Moncash") {
+                        $.ajax({
                             type: 'POST',
-                            url: '/pay_amount_via_moncash',
+                            url: '/get_transaction_id',
                             dataType: 'json',
-                            data : {'total_amount':total,'order':order_id},
-                            }).done(function(data){
-//                                window.location.href = data.payment_url;
-                                window.open(data.payment_url);
+                            data: {},
+                        }).done(function(data) {
+                            transaction = data.transaction_id;
                         })
-                        var source = new EventSource("http://172.104.202.6:5454/pos_receive_payment_info");
-                        source.onmessage = function(event) {
-                        console.log(event.data)
-                         };
-                        if (event.data){
-                            if (!line.is_done()) this.currentOrder.remove_paymentline(line);
-                                    this.showScreen(this.nextScreen);
-                        }
+                        await new Promise(resolve => setTimeout(resolve, 2000));
+                        if (transaction == "" || transaction == "false") {
+                            alert("Transaction is Pending Or Unsuccessful");
 
-                    }else{
-                        if (!line.is_done()) this.currentOrder.remove_paymentline(line);
+                        } else {
+                            if (!line.is_done()) this.currentOrder.remove_paymentline(line);
+                            this.showScreen(this.nextScreen);
                         }
+                    } else {
+                        if (!line.is_done()) this.currentOrder.remove_paymentline(line);
+                    }
                 }
                 await this._finalizeValidation();
             }
@@ -209,14 +250,16 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
                     });
                 }
             }
-            if (this.paymentLines[0].name!="Moncash"){
+            if (this.paymentLines[0].name != "Moncash") {
                 this.showScreen(this.nextScreen);
             }
             // If we succeeded in syncing the current order, and
             // there are still other orders that are left unsynced,
             // we ask the user if he is willing to wait and sync them.
             if (syncedOrderBackendIds.length && this.env.pos.db.get_orders().length) {
-                const { confirmed } = await this.showPopup('ConfirmPopup', {
+                const {
+                    confirmed
+                } = await this.showPopup('ConfirmPopup', {
                     title: this.env._t('Remaining unsynced orders'),
                     body: this.env._t(
                         'There are unsynced orders. Do you want to sync these orders?'
@@ -245,7 +288,9 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
             }
 
             if (this.currentOrder.is_to_invoice() && !this.currentOrder.get_client()) {
-                const { confirmed } = await this.showPopup('ConfirmPopup', {
+                const {
+                    confirmed
+                } = await this.showPopup('ConfirmPopup', {
                     title: this.env._t('Please select the Customer'),
                     body: this.env._t(
                         'You need to select the customer before you can invoice an order.'
@@ -275,7 +320,7 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
             // The exact amount must be paid if there is no cash payment method defined.
             if (
                 Math.abs(
-                    this.currentOrder.get_total_with_tax() - this.currentOrder.get_total_paid()  + this.currentOrder.get_rounding_applied()
+                    this.currentOrder.get_total_with_tax() - this.currentOrder.get_total_paid() + this.currentOrder.get_rounding_applied()
                 ) > 0.00001
             ) {
                 var cash = false;
@@ -301,8 +346,7 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
             ) {
                 this.showPopup('ConfirmPopup', {
                     title: this.env._t('Please Confirm Large Amount'),
-                    body:
-                        this.env._t('Are you sure that the customer wants to  pay') +
+                    body: this.env._t('Are you sure that the customer wants to  pay') +
                         ' ' +
                         this.env.pos.format_currency(this.currentOrder.get_total_paid()) +
                         ' ' +
@@ -311,7 +355,9 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
                         this.env.pos.format_currency(this.currentOrder.get_total_with_tax()) +
                         ' ' +
                         this.env._t('? Clicking "Confirm" will validate the payment.'),
-                }).then(({ confirmed }) => {
+                }).then(({
+                    confirmed
+                }) => {
                     if (confirmed) this.validateOrder(true);
                 });
                 return false;
@@ -322,9 +368,11 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
         async _postPushOrderResolve(order, order_server_ids) {
             return true;
         }
-        async _sendPaymentRequest({ detail: line }) {
+        async _sendPaymentRequest({
+            detail: line
+        }) {
             // Other payment lines can not be reversed anymore
-            this.paymentLines.forEach(function (line) {
+            this.paymentLines.forEach(function(line) {
                 line.can_be_reversed = false;
             });
 
@@ -339,7 +387,9 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
                 line.set_payment_status('retry');
             }
         }
-        async _sendPaymentCancel({ detail: line }) {
+        async _sendPaymentCancel({
+            detail: line
+        }) {
             const payment_terminal = line.payment_method.payment_terminal;
             line.set_payment_status('waitingCancel');
             try {
@@ -348,7 +398,9 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
                 line.set_payment_status('retry');
             }
         }
-        async _sendPaymentReverse({ detail: line }) {
+        async _sendPaymentReverse({
+            detail: line
+        }) {
             const payment_terminal = line.payment_method.payment_terminal;
             line.set_payment_status('reversing');
 
@@ -361,7 +413,9 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
                 line.set_payment_status('done');
             }
         }
-        async _sendForceDone({ detail: line }) {
+        async _sendForceDone({
+            detail: line
+        }) {
             line.set_payment_status('done');
         }
         _onPrevOrder(prevOrder) {

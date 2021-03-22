@@ -47,10 +47,15 @@ class MoncashPos(http.Controller):
     @http.route('/pos_receive_payment_info', type="http", auth="public", website=True, methods=['GET', 'POST'],
                 csrf=False)
     def pos_receive_payment_info(self, **kwargs):
+        uid = request.env.user.partner_id
         if kwargs.get('transactionId'):
             transaction_id = kwargs.get('transactionId')
-            values = {}
-            values.update({'transaction_id': transaction_id})
-            return json.dumps(values)
-        else:
-            pass
+            uid.update({'transaction_id': transaction_id})
+
+    @http.route('/get_transaction_id', auth='public', type='http', website=True, methods=['POST'], csrf=False)
+    def get_transaction_id(self, **post):
+        uid = request.env.user.partner_id
+        transaction_id = uid.transaction_id
+        values = {}
+        values.update({'transaction_id': transaction_id})
+        return json.dumps(values)
