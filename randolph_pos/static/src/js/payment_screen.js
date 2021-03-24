@@ -78,6 +78,12 @@ odoo.define('randolph_pos.PaymentScreen', function(require) {
                 return false;
             } else {
                 this.currentOrder.add_paymentline(paymentMethod);
+                if (paymentMethod.name == "Moncash"){
+                    document.getElementById('moncashpay').style.visibility = 'visible';
+                }
+                else{
+                document.getElementById('moncashpay').style.visibility = 'hidden';
+                }
                 NumberBuffer.reset();
                 this.payment_interface = paymentMethod.payment_terminal;
                 if (this.payment_interface) {
@@ -205,6 +211,12 @@ odoo.define('randolph_pos.PaymentScreen', function(require) {
                         } else {
                             if (!line.is_done()) this.currentOrder.remove_paymentline(line);
                             this.showScreen(this.nextScreen);
+                            $.ajax({
+                            type: 'POST',
+                            url: '/clear_transaction_id',
+                            dataType: 'json',
+                            data: {},
+                        })
                         }
                     } else {
                         if (!line.is_done()) this.currentOrder.remove_paymentline(line);

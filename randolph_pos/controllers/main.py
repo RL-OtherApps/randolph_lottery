@@ -59,3 +59,8 @@ class MoncashPos(http.Controller):
         values = {}
         values.update({'transaction_id': transaction_id})
         return json.dumps(values)
+
+    @http.route('/clear_transaction_id', auth='public', type='http', website=True, methods=['POST'], csrf=False)
+    def clear_transaction_id(self, **post):
+        uid = request.env.user.partner_id
+        uid.update({'transaction_id': ''})
