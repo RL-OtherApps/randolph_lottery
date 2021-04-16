@@ -5,3 +5,11 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     transaction_id = fields.Char('Transaction ID')
+
+
+class PosConfig(models.Model):
+    _inherit = 'pos.config'
+    _description = 'Point of Sale Configuration'
+
+    display_use_wallet = fields.Boolean(string='Use Moncash Wallet',
+                                        help="User can user moncash wallet method for payment")

@@ -2,9 +2,18 @@
 <templates id="template" xml:space="preserve">
     <t t-name="PaymentScreen" t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('top-content')]" position="inside">
+             <t t-if="env.pos.config.display_use_wallet">
+            <div style="margin-top: 12px;font-size: 30px;">
+            <input type="checkbox" id="walletcheck" name="walletcheck" style="zoom:2.0;"/>
+                <label for="walletcheck">Use Wallet</label>
+            </div>
+             </t>
             <div class="button next" t-on-click="moncashpay()" id="moncashpay"
                  style="visibility:hidden;background:linear-gradient(to bottom, #e5704e, #E51600);color:white;">
                 <span class="next_text">Moncash Pay</span>
+            </div>
+            <div class="button next" t-on-click="lottoGames()" id="lottoGames">
+                <span class="next_text">Lotto Games</span>
             </div>
         </xpath>
     </t>
@@ -14,6 +23,11 @@
             <div class="message">
             Note:For MonCash kindly click on Moncash Pay button.If transaction is successful then click on Validate.
         </div>
+            <div class="walletamount" id="walletamount">
+            <h3>Wallet Amount: <span class="curr" id="curr"/>
+                <span class="walletamounts" id="walletamounts"/></h3>
+        </div>
         </xpath>
     </t>
 </templates>
+

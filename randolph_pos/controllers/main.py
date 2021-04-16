@@ -64,3 +64,42 @@ class MoncashPos(http.Controller):
     def clear_transaction_id(self, **post):
         uid = request.env.user.partner_id
         uid.update({'transaction_id': ''})
+
+    @http.route('/get_wallet_amount', auth='public', type='http', website=True, methods=['POST'], csrf=False)
+    def get_wallet_amount(self, **post):
+        customer = post.get('customer')
+        comp = request.env.company
+        if customer:
+            customer_id = request.env['res.partner'].sudo().search([('name', '=', str(customer))], limit=1)
+            values = {}
+            values.update({'customer': customer_id.current_wallet_amount, 'curr': comp.currency_id.symbol})
+            return json.dumps(values)
+
+    @http.route('/pay_with_wallet', auth='public', type='http', website=True, methods=['POST'], csrf=False)
+    def pay_with_wallet(self, **post):
+        customer = post.get('customer')
+        amount = post.get('amount')
+        new_amounts = 0.0
+        if amount:
+            new_amounts = float(amount)
+        status = ''
+        if customer:
+            customer_id = request.env['res.partner'].sudo().search([('name', '=', str(customer))], limit=1)
+            if customer_id:
+                if new_amounts <= customer_id.current_wallet_amount:
+                    new_amount = customer_id.current_wallet_amount - new_amounts
+                    customer_id.update({'current_wallet_amount': new_amount})
+                    status = "All OK"
+                else:
+                    status = "Not OK"
+        values = {}
+        values.update({'status': status})
+        return json.dumps(values)
+
+    @http.route('/get_lotto_games', auth='public', type='http', website=True, methods=['POST'], csrf=False)
+    def get_lotto_games(self, **post):
+        base_url = request.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        url = base_url + '/choose_users'
+        values = {}
+        values.update({'url': url})
+        return json.dumps(values)
