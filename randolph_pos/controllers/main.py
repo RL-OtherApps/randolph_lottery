@@ -103,3 +103,11 @@ class MoncashPos(http.Controller):
         values = {}
         values.update({'url': url})
         return json.dumps(values)
+
+    @http.route('/get_wallet_recharge', auth='public', type='http', website=True, methods=['POST'], csrf=False)
+    def get_wallet_recharge(self, **post):
+        base_url = request.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        url = base_url + '/open_payment_wallet'
+        values = {}
+        values.update({'url': url})
+        return json.dumps(values)

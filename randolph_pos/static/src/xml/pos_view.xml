@@ -15,19 +15,39 @@
             <div class="button next" t-on-click="lottoGames()" id="lottoGames">
                 <span class="next_text">Lotto Games</span>
             </div>
+            <div class="button next" t-on-click="AddAmountWallet()" id="AddAmountWallet">
+                <span class="next_text">Add Amount In Wallet</span>
+            </div>
         </xpath>
     </t>
 
-    <t t-name="PaymentScreenStatus" t-inherit="point_of_sale.PaymentScreenStatus" t-inherit-mode="extension" owl="1">
-        <xpath expr="//div[hasclass('payment-status-container')]" position="after">
-            <div class="message">
-            Note:For MonCash kindly click on Moncash Pay button.If transaction is successful then click on Validate.
+    <!--    <t t-name="PaymentScreen" t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension" owl="1">-->
+    <!--        <xpath expr="//section[hasclass('paymentlines-container')]" position="after">-->
+    <t t-name="PaymentScreen" t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('payment-buttons')]" position="after">
+            <div class="message" style="float:left;color:#FF5722;">
+            <b>Note</b>:For MonCash kindly click on Moncash Pay button.If transaction is successful then click on
+                Validate.
         </div>
-            <div class="walletamount" id="walletamount">
+            <div class="walletamount" id="walletamount" style="float:left;" t-if="env.pos.config.display_use_wallet">
             <h3>Wallet Amount: <span class="curr" id="curr"/>
                 <span class="walletamounts" id="walletamounts"/></h3>
         </div>
         </xpath>
     </t>
+
+    <!--    <t t-name="CashierName"  t-inherit="point_of_sale.CashierName" t-inherit-mode="extension" owl="1">-->
+    <!--                <xpath expr="//div[hasclass('oe_status')]" position="after">-->
+
+    <!--        <div class="ticket-button" t-on-click="onClick">-->
+    <!--            <div style="background-color:black;">-->
+    <!--                <i class="fa fa-ticket" aria-hidden="true"></i>-->
+    <!--            </div>-->
+    <!--            <div>Lotto Games</div>-->
+    <!--        </div>-->
+    <!--                </xpath>-->
+    <!--    </t>-->
+
 </templates>
+
 

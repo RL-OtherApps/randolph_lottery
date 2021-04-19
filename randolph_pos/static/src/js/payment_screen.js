@@ -210,6 +210,16 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
                 location.href=data.url;
             })
 		}
+		async AddAmountWallet() {
+            $.ajax({
+                type: 'POST',
+                url: '/get_wallet_recharge',
+                dataType: 'json',
+                data: {},
+            }).done(function (data) {
+                location.href=data.url;
+            })
+		}
 		async validateOrder(isForceValidate) {
 			if (await this._isOrderValid(isForceValidate)) {
 				// remove pending payments before finalizing the validation

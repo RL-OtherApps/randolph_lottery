@@ -10,6 +10,7 @@
     ],
     'qweb': [
         'static/src/xml/pos_view.xml',
+        'static/src/xml/games_template.xml',
     ],
     'installable': True,
 }
