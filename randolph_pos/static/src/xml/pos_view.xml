@@ -29,7 +29,7 @@
             <b>Note</b>:For MonCash kindly click on Moncash Pay button.If transaction is successful then click on
                 Validate.
         </div>
-            <div class="walletamount" id="walletamount" style="float:left;" t-if="env.pos.config.display_use_wallet">
+            <div class="walletamount" id="walletamount" style="float:left;">
             <h3>Wallet Amount: <span class="curr" id="curr"/>
                 <span class="walletamounts" id="walletamounts"/></h3>
         </div>

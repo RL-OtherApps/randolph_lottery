@@ -80,7 +80,15 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
 				this.currentOrder.add_paymentline(paymentMethod);
 				if (paymentMethod.name == "Moncash") {
 					document.getElementById('moncashpay').style.visibility = 'visible';
-					var customer = this.currentOrder.attributes.client.name;
+					var customer = "";
+					if (this.currentOrder.attributes.client==null)
+					{
+					alert("Select Customer First");
+					}
+					else
+					{
+					  	var customer = this.currentOrder.attributes.client.name;
+
 					$.ajax({
 						type: 'POST',
 						url: '/get_wallet_amount',
@@ -92,6 +100,7 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
 						document.getElementById('walletamounts').innerHTML = data.customer;
 						document.getElementById('curr').innerHTML = data.curr;
 					})
+					}
 				} else {
 					document.getElementById('moncashpay').style.visibility = 'hidden';
 				}
