@@ -321,6 +321,28 @@ odoo.define('pos_retail.ListFeaturesButtons', function (require) {
             }
         }
 
+         async getGames() {
+               $.ajax({
+                type: 'POST',
+                url: '/get_lotto_games',
+                dataType: 'json',
+                data: {},
+            }).done(function (data) {
+                location.href=data.url;
+            })
+            }
+
+         	async AddAmountWallet() {
+            $.ajax({
+                type: 'POST',
+                url: '/get_wallet_recharge',
+                dataType: 'json',
+                data: {},
+            }).done(function (data) {
+                location.href=data.url;
+            })
+		}
+
         async setOrderToInvoice() {
             const selectedOrder = this.env.pos.get_order();
             selectedOrder.set_to_invoice(!selectedOrder.is_to_invoice());

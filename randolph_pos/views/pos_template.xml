@@ -5,7 +5,7 @@
             <xpath expr="." position="inside">
                 <script type="text/javascript" src="/randolph_pos/static/src/js/pos.js"/>
                 <script type="text/javascript" src="/randolph_pos/static/src/js/payment_screen.js"/>
-                <script type="text/javascript" src="/randolph_pos/static/src/js/lotto_games.js"/>
+<!--                <script type="text/javascript" src="/randolph_pos/static/src/js/lotto_games.js"/>-->
 <!--                <link rel="stylesheet" href="/randolph_lottery/pos_retail/static/src/css/Custom.css"/>-->
 
             </xpath>

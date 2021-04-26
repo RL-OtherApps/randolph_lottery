@@ -12,12 +12,12 @@
                  style="visibility:hidden;background:linear-gradient(to bottom, #e5704e, #E51600);color:white;">
                 <span class="next_text">Moncash Pay</span>
             </div>
-            <div class="button next" t-on-click="lottoGames()" id="lottoGames">
-                <span class="next_text">Lotto Games</span>
-            </div>
-            <div class="button next" t-on-click="AddAmountWallet()" id="AddAmountWallet">
-                <span class="next_text">Add Amount In Wallet</span>
-            </div>
+<!--            <div class="button next" t-on-click="lottoGames()" id="lottoGames">-->
+<!--                <span class="next_text">Lotto Games</span>-->
+<!--            </div>-->
+<!--            <div class="button next" t-on-click="AddAmountWallet()" id="AddAmountWallet">-->
+<!--                <span class="next_text">Add Amount In Wallet</span>-->
+<!--            </div>-->
         </xpath>
     </t>
 

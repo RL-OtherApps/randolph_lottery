@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="ListFeaturesButtons" t-inherit="pos_retail.ListFeaturesButtons" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('button-extend')]" position="inside">
+        <span class="control-button" t-on-click="getGames()" style="background: #FF5722;" id="getGames">
+            <i class="fa fa-chess-board"></i>
+            <span>Lottery</span>
+        </span>
+            <span class="control-button"  t-on-click="AddAmountWallet()" t-att-class="addedClasses" style="background: #1c7ed6;">
+            <i class="fa fa-chess-board"></i>
+                <span>Phone TopUp</span>
+        </span>
+            <span class="control-button" t-att-class="addedClasses" style="background: #FF5722;">
+            <i class="fa fa-chess-board"></i>
+                <span>E-Ticket</span>
+        </span>
+            <span class="control-button" t-att-class="addedClasses" style="background: #1c7ed6;">
+            <i class="fa fa-chess-board"></i>
+                <span>Fintech</span>
+        </span>
+        </xpath>
+    </t>
+
+</templates>

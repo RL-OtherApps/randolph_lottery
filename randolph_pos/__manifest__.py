@@ -3,7 +3,7 @@
     'version': '1.0',
     'category': 'POS',
     'description': "Pos in odoo",
-    'depends': ['base', 'point_of_sale'],
+    'depends': ['base', 'point_of_sale', 'pos_retail'],
     'data': [
         'views/pos_template.xml',
         'views/partner_view.xml',
