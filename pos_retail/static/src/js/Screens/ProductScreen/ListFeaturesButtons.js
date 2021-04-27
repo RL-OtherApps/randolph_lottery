@@ -343,6 +343,14 @@ odoo.define('pos_retail.ListFeaturesButtons', function (require) {
             })
 		}
 
+		async openETicket() {
+            alert('This module is not available');
+		}
+
+		async openFintech() {
+            alert('This module is not available');
+		}
+
         async setOrderToInvoice() {
             const selectedOrder = this.env.pos.get_order();
             selectedOrder.set_to_invoice(!selectedOrder.is_to_invoice());

@@ -5,19 +5,19 @@
         <xpath expr="//div[hasclass('button-extend')]" position="inside">
         <span class="control-button" t-on-click="getGames()" style="background: #FF5722;" id="getGames">
             <i class="fa fa-chess-board"></i>
-            <span>Lottery</span>
+            <span style="color:white;font-size: large;"><b>Lottery</b></span>
         </span>
             <span class="control-button"  t-on-click="AddAmountWallet()" t-att-class="addedClasses" style="background: #1c7ed6;">
             <i class="fa fa-chess-board"></i>
-                <span>Phone TopUp</span>
+                <span style="color:white;font-size: large;"><b>Phone TopUp</b></span>
         </span>
-            <span class="control-button" t-att-class="addedClasses" style="background: #FF5722;">
+            <span class="control-button" t-on-click="openETicket()" t-att-class="addedClasses" style="background: #FF5722;">
             <i class="fa fa-chess-board"></i>
-                <span>E-Ticket</span>
+                <span style="color:white;font-size: large;"><b>E-Ticket</b></span>
         </span>
-            <span class="control-button" t-att-class="addedClasses" style="background: #1c7ed6;">
+            <span class="control-button" t-on-click="openFintech()" t-att-class="addedClasses" style="background: #1c7ed6;">
             <i class="fa fa-chess-board"></i>
-                <span>Fintech</span>
+                <span style="color:white;font-size: large;"><b>Fintech</b></span>
         </span>
         </xpath>
     </t>
