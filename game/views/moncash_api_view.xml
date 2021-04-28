@@ -68,6 +68,6 @@
     <menuitem id="moncash_api_root_menu" name="Moncash API" groups="base.group_erp_manager"/>
 
     <!--   Sub Menu-->
-    <menuitem id="moncash_api_sub_menu" name="Softswitch" parent="moncash_api_root_menu" action="action_moncash_api"/>
+    <menuitem id="moncash_api_sub_menu" name="Moncash" parent="moncash_api_root_menu" action="action_moncash_api"/>
 
 </odoo>

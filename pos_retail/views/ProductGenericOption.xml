@@ -68,11 +68,11 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="menu_action_product_generic_option"
-                  action="action_product_generic_option"
-                  parent="menu_product_operation"
-                  sequence="2"
-        />
+<!--        <menuitem id="menu_action_product_generic_option"-->
+<!--                  action="action_product_generic_option"-->
+<!--                  parent="menu_product_operation"-->
+<!--                  sequence="2" -->
+<!--        />-->
 
     </data>
 </odoo>

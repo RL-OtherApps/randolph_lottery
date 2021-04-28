@@ -49,11 +49,11 @@
             <field name="context">{'default_send_from_session_id': True}</field>
         </record>
 
-        <menuitem id="menu_action_pos_sync_session_log"
-                  parent="menu_master_data"
-                  sequence="101"
-                  action="action_pos_sync_session_log"
-        />
+<!--        <menuitem id="menu_action_pos_sync_session_log"-->
+<!--                  parent="menu_master_data"-->
+<!--                  sequence="101"-->
+<!--                  action="action_pos_sync_session_log"-->
+<!--        />-->
 
     </data>
 </odoo>

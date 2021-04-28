@@ -34,15 +34,15 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem
-        id="menu_pax_terminal_root"
-        parent="pos_retail.menu_master_data"
-        name="Pax Terminal"/>
+<!--    <menuitem-->
+<!--        id="menu_pax_terminal_root"-->
+<!--        parent="pos_retail.menu_master_data"-->
+<!--        name="Pax Terminal"/>-->
 
-    <menuitem id="menu_pax_terminal_child"
-        name="Configure"
-        parent="menu_pax_terminal_root"
-        action="action_pax_terminal"/>
+<!--    <menuitem id="menu_pax_terminal_child"-->
+<!--        name="Configure"-->
+<!--        parent="menu_pax_terminal_root"-->
+<!--        action="action_pax_terminal"/>-->
 
     <record id="pax_payment_form" model="ir.ui.view">
         <field name="name">pax.payment.form</field>
@@ -67,9 +67,9 @@
         <field name="view_mode">form</field>
     </record>
 
-    <menuitem id="menu_pax_payment_child"
-        name="Payment"
-        parent="menu_pax_terminal_root"
-        action="action_pax_payment"/>
+<!--    <menuitem id="menu_pax_payment_child"-->
+<!--        name="Payment"-->
+<!--        parent="menu_pax_terminal_root"-->
+<!--        action="action_pax_payment"/>-->
 
 </odoo>

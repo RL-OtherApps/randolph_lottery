@@ -13,3 +13,6 @@ class PosConfig(models.Model):
 
     display_use_wallet = fields.Boolean(string='Use Moncash Wallet',
                                         help="User can user moncash wallet method for payment")
+
+    display_natcash = fields.Boolean(string='Use Natcash Pay')
+    display_moncash = fields.Boolean(string='Use Moncash Pay')

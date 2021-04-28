@@ -51,11 +51,11 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="menu_product_sex"
-                  action="product_sex_action"
-                  parent="menu_product_operation"
-                  sequence="11"
-        />
+<!--        <menuitem id="menu_product_sex"-->
+<!--                  action="product_sex_action"-->
+<!--                  parent="menu_product_operation"-->
+<!--                  sequence="11"-->
+<!--        />-->
 
     </data>
 </odoo>

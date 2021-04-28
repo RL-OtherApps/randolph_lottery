@@ -209,16 +209,9 @@ odoo.define('randolph_pos.PaymentScreen', function (require) {
 				}
 			}
 		}
-//		async lottoGames() {
-//            $.ajax({
-//                type: 'POST',
-//                url: '/get_lotto_games',
-//                dataType: 'json',
-//                data: {},
-//            }).done(function (data) {
-//                location.href=data.url;
-//            })
-//		}
+		async natcashPay() {
+            alert("Module is not available");
+		}
 //		async AddAmountWallet() {
 //            $.ajax({
 //                type: 'POST',
