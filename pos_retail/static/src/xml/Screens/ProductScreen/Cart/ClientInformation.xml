@@ -13,7 +13,7 @@
                     <th style="text-align: center; padding: 10px">Name</th>
                     <th style="text-align: center; padding: 10px">Points</th>
                     <th style="text-align: center; padding: 10px">Credits</th>
-                    <th style="text-align: center; padding: 10px">Wallets</th>
+                    <th style="text-align: center; padding: 10px">Moncash Wallet</th>
                     <th style="text-align: center; padding: 10px">Purchased Orders</th>
                     <th style="text-align: center; padding: 10px">Purchased Amount</th>
                 </tr>
@@ -34,10 +34,10 @@
                            t-if="props.partner.balance &gt; 0"/>
                     </td>
                     <td style="text-align: center">
-                        <t t-esc="env.pos.format_currency_no_symbol(props.partner.wallet)"/>
+                        <t t-esc="env.pos.format_currency_no_symbol(props.partner.current_wallet_amount)"/>
                         <i class="fa fa-cart-plus" t-on-click="useWalletsDoPayment"
                            style="font-size: 16px; color: blue;padding: 5px;background: #fff;border-radius: 5px;cursor: pointer"
-                           t-if="props.partner.wallet &gt; 0"/>
+                           t-if="props.partner.current_wallet_amount &gt; 0"/>
                     </td>
                     <td style="text-align: center">
                         <t t-esc="env.pos.format_currency_no_symbol(props.partner.pos_order_count)"/>

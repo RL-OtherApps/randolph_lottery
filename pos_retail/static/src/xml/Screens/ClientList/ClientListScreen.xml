@@ -44,7 +44,7 @@
             <th t-if="!env.isMobile">Company Type</th>
             <th t-if="!env.isMobile">Loyalty Points</th>
             <th t-if="!env.isMobile">Credit Balance</th>
-            <th t-if="!env.isMobile">Wallet Points</th>
+            <th t-if="!env.isMobile">Moncash Wallet</th>
             <th t-if="!env.isMobile">Orders Count</th>
             <th t-if="!env.isMobile">Purchased</th>
         </xpath>

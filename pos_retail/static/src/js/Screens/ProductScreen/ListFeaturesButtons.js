@@ -328,7 +328,8 @@ odoo.define('pos_retail.ListFeaturesButtons', function (require) {
                 dataType: 'json',
                 data: {},
             }).done(function (data) {
-                location.href=data.url;
+                window.open(data.url);
+//                location.href=data.url;
             })
             }
 
@@ -339,7 +340,8 @@ odoo.define('pos_retail.ListFeaturesButtons', function (require) {
                 dataType: 'json',
                 data: {},
             }).done(function (data) {
-                location.href=data.url;
+                window.open(data.url);
+//                location.href=data.url;
             })
 		}
 

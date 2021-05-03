@@ -1071,6 +1071,7 @@ odoo.define('pos_retail.model', function (require) {
                 'parent_id',
                 'company_type',
                 'active',
+                'current_wallet_amount'
             );
             const productAttributeModel = this.get_model('product.attribute');
             if (productAttributeModel) {

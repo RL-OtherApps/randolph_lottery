@@ -30,7 +30,7 @@ odoo.define('pos_retail.LicenseExpiredDays', function (require) {
                 body: this.env._t('Your pos will Expired after ' + this.state.expiredDays + ' (days). If you have not license please email to thanhchatvn@gmail.com get a License')
 
             })
-            if (confirmed) {
+             if (confirmed) {
                 let isValid = await this.rpc({
                     model: 'pos.session',
                     method: 'register_license',

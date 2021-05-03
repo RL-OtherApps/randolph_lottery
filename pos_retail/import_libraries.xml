@@ -24,7 +24,7 @@
             <script type="text/javascript" src="/pos_retail/static/src/libs/indexed_db.js"/>
             <link rel="stylesheet" href="/pos_retail/static/src/libs/css/material-dashboard.css"/>
             <script type="text/javascript" src="/pos_retail/static/src/libs/js/jquery-barcode-last.min.js"/>
-            <!--            <script type="text/javascript" src="/pos_retail/static/src/libs/auto_complete/jquery-ui.min.js"/>-->
+<!--            <script type="text/javascript" src="/pos_retail/static/src/libs/auto_complete/jquery-ui.min.js"/>-->
             <script type="text/javascript" src="/pos_retail/static/src/libs/js/jquery.validate.min.js"/>
             <script type="text/javascript" src="/pos_retail/static/src/libs/js/bootstrap-notify.min.js"/>
             <script type="text/javascript" src="/pos_retail/static/src/libs/js/bootstrap-datetimepicker.js"/>

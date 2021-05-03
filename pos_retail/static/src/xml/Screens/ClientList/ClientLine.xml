@@ -84,7 +84,7 @@
                 <t t-esc="env.pos.format_currency(props.partner.balance)"/>
             </td>
             <td t-if="!env.isMobile">
-                <t t-esc="env.pos.format_currency(props.partner.wallet)"/>
+                <t t-esc="env.pos.format_currency(props.partner.current_wallet_amount)"/>
             </td>
             <td t-if="!env.isMobile">
                 <t t-esc="env.pos.format_currency_no_symbol(props.partner.pos_order_count)"/>
