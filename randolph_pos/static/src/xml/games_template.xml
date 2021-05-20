@@ -4,22 +4,31 @@
     <t t-name="ListFeaturesButtons" t-inherit="pos_retail.ListFeaturesButtons" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('button-extend')]" position="inside">
         <span class="control-button" t-on-click="getGames()" style="background: #FF5722;" id="getGames">
-            <i class="fa fa-chess-board"></i>
-            <span style="color:white;font-size: large;"><b>Lottery</b></span>
+            <i class="fa fa-trophy"></i>
+            <span style="color:white;font-size:13px;display: inline-block;line-height: 15px;"><b>Lottery</b></span>
         </span>
             <span class="control-button"  t-on-click="AddAmountWallet()" t-att-class="addedClasses" style="background: #1c7ed6;">
-            <i class="fa fa-chess-board"></i>
-                <span style="color:white;font-size: large;"><b>Phone TopUp</b></span>
+            <i class="fa fa-mobile "></i>
+                <span style="color:white;font-size:13px;display: inline-block;line-height: 15px;"><b>Phone TopUp</b></span>
         </span>
             <span class="control-button" t-on-click="openETicket()" t-att-class="addedClasses" style="background: #FF5722;">
-            <i class="fa fa-chess-board"></i>
-                <span style="color:white;font-size: large;"><b>E-Ticket</b></span>
+            <i class="fa fa-ticket "></i>
+                <span style="color:white;font-size:13px;display: inline-block;line-height: 15px;"><b>E-Ticket</b></span>
         </span>
             <span class="control-button" t-on-click="openFintech()" t-att-class="addedClasses" style="background: #1c7ed6;">
-            <i class="fa fa-chess-board"></i>
-                <span style="color:white;font-size: large;"><b>Fintech</b></span>
+            <i class="fa fa-money"></i>
+                <span style="color:white;font-size:13px;display: inline-block;line-height: 15px;"><b>Fintech</b></span>
         </span>
         </xpath>
     </t>
+
+    <t t-name="OrderWidget" t-inherit="point_of_sale.OrderWidget" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('order')]" position="after">
+            <div class="order-image">
+                <img src="/pos_retail/static/src/icons/img.png"/>
+            </div>
+        </xpath>
+    </t>
+
 
 </templates>

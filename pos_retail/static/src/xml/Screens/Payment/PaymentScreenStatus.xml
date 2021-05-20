@@ -16,12 +16,12 @@
                         <t t-esc="env.pos.format_currency(Client.balance)"/>
                     </span>
                 </div>
-                <div class="payment-status-total-due">
-                    <span class="label">Wallet</span>
-                    <span class="amount">
-                        <t t-esc="env.pos.format_currency(Client.wallet)"/>
-                    </span>
-                </div>
+<!--                <div class="payment-status-total-due">-->
+<!--                    <span class="label">Wallet</span>-->
+<!--                    <span class="amount">-->
+<!--                        <t t-esc="env.pos.format_currency(Client.wallet)"/>-->
+<!--                    </span>-->
+<!--                </div>-->
             </div>
         </xpath>
         <xpath expr="//div[hasclass('payment-status-change')]" position="after">
@@ -38,12 +38,12 @@
                         <t t-esc="env.pos.format_currency(Client.balance)"/>
                     </span>
                 </div>
-                <div class="payment-status-total-due">
-                    <span class="label">Wallet</span>
-                    <span class="amount">
-                        <t t-esc="env.pos.format_currency(Client.wallet)"/>
-                    </span>
-                </div>
+<!--                <div class="payment-status-total-due">-->
+<!--                    <span class="label">Wallet</span>-->
+<!--                    <span class="amount">-->
+<!--                        <t t-esc="env.pos.format_currency(Client.wallet)"/>-->
+<!--                    </span>-->
+<!--                </div>-->
             </t>
         </xpath>
     </t>

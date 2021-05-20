@@ -14,7 +14,7 @@
             </div>
             <t t-if="env.pos.config.display_natcash">
             <div class="button next" t-on-click="natcashPay()" id="natcashPay">
-                <span class="next_text">Natcash Pay</span>
+                <span class="next_text">NatCash Pay</span>
             </div>
             </t>
         </xpath>

@@ -37,7 +37,7 @@
                     <div class="o_setting_right_pane">
                         <label for="display_natcash" string="Use Natcash Pay"/>
                         <div class="text-muted">
-                            User can use Natcash
+                            User can use NatCash
                         </div>
                     </div>
                 </div>
