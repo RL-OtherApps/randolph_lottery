@@ -50,7 +50,7 @@
             <CustomerFacingScreenWiget
                     t-if="!env.isMobile and env.pos and env.pos.config and env.pos.config.customer_facing_screen"/>
             <MobileMode/>
-            <CopyRight/>
+<!--            <CopyRight/>-->
             <OrderManagementButton t-if="env.pos.config.manage_orders and !env.session.restaurant_order"/>
         </xpath>
         <xpath expr="//SaleDetailsButton" position="replace">

@@ -7,8 +7,8 @@
                 <div class="card">
                     <div class="card-content">
                         <h4 class="card-title">
-                            <tr style="font-size: 13px; font-weight: 400"><i class="fa fa-copyright"/>
-                                TL Technology</tr>
+<!--                            <tr style="font-size: 13px; font-weight: 400"><i class="fa fa-copyright"/>-->
+<!--                                TL Technology</tr>-->
                             <t t-esc="shopName" style="text-transform: uppercase"/>
                             <div class="successfully_order highlight" t-if="props.selectedOrder">
                                 <div>Successfully Ordered</div>
